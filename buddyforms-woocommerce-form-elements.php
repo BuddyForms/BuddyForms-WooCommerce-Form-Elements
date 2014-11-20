@@ -50,9 +50,10 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox($form, $selected_
                         $form->addElement(new Element_HTML('<p><a href="Sale-Price-Dates/'.$selected_form_slug.'" class="action">Sale Price Dates</a></p>'));
 
                     $form->addElement(new Element_HTML('<p><b>Inventory</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Manage-stock/'.$selected_form_slug.'" class="action">Manage stock?</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Manage-stock/'.$selected_form_slug.'" class="action">Manage stock</a></p>'));
                         $form->addElement(new Element_HTML('<p><a href="Stock-status/'.$selected_form_slug.'" class="action">Stock status</a></p>'));
                         $form->addElement(new Element_HTML('<p><a href="Sold-Individually/'.$selected_form_slug.'" class="action">Sold Individually</a></p>'));
+
                     $form->addElement(new Element_HTML('<p><b>Shipping</b></p>'));
                         $form->addElement(new Element_HTML('<p><a href="Shipping/'.$selected_form_slug.'" class="action">Shipping</a></p>'));
                     $form->addElement(new Element_HTML('<p><b>Linked Products</b></p>'));
@@ -137,6 +138,75 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
 
 
             break;
+        case 'Virtual':
+
+            unset($form_fields);
+            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_virtual');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_virtual');
+
+            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+
+            break;
+        case 'Downloadable':
+
+            unset($form_fields);
+            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_downloadable');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_downloadable');
+
+            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+
+            break;
+        case 'SKU':
+            unset($form_fields);
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'SKU');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_sku');
+
+            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+            break;
+        case 'Regular-Price':
+            unset($form_fields);
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Regular Price');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_regular_price');
+
+            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+            break;
+        case 'Sale-Price':
+            unset($form_fields);
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Sale Price');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_sale_price');
+
+            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+            break;
+        case 'Manage-stock':
+
+            unset($form_fields);
+            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_manage_stock');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_manage_stock');
+
+            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+
+            break;
+        case 'Stock-status':
+
+            unset($form_fields);
+            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Stock Status');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_stock_status');
+
+            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+
+            break;
+
     }
 
 
@@ -208,6 +278,41 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
             }
 
             break;
+        case 'Virtual':
+            $form->addElement( new Element_Hidden($customfield['slug'], 'yes'));
+            break;
+        case 'Downloadable':
+            $form->addElement( new Element_Hidden($customfield['slug'], 'yes'));
+            break;
+        case 'SKU':
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $form->addElement( new Element_Textbox($customfield['name'], $customfield['slug'], $element_attr));
+            break;
+        case 'Regular-Price':
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $form->addElement( new Element_Number($customfield['name'], $customfield['slug'], $element_attr));
+            break;
+        case 'Sale-Price':
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $form->addElement( new Element_Number($customfield['name'], $customfield['slug'], $element_attr));
+            break;
+        case 'Manage-stock':
+            $form->addElement( new Element_Hidden($customfield['slug'], 'yes'));
+
+            $customfield_val = get_post_meta($post_id, '_stock', true);
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $form->addElement( new Element_Number('Stock Qty', '_stock', $element_attr));
+
+            $customfield_val = get_post_meta($post_id, '_backorders', true);
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $form->addElement( new Element_Select('Allow Backorders?', '_backorders', array('no' => 'Do not allow', 'notify' => 'Allow, but notify customer', 'yes' => 'Allow'), $element_attr));
+
+            break;
+        case 'Stock-status':
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $form->addElement( new Element_Select($customfield['name'], $customfield['slug'], array('instock' => 'In stock', 'outofstock' => 'Out of stock'), $element_attr));
+            break;
+
     }
 
     return $form;
@@ -256,6 +361,11 @@ function buddyforms_woocommerce__updtae_post_meta($customfield, $post_id){
             }
         }
     }
+    if( $customfield['type'] == 'Manage-stock' ){
+        update_post_meta($post_id, '_stock', $_POST['_stock'] );
+        update_post_meta($post_id, '_backorders', $_POST['_backorders'] );
+    }
+
 
 }
 
