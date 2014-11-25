@@ -146,8 +146,7 @@ global $field_position;
         case 'Virtual':
 
             unset($form_fields);
-            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
-            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_virtual');
+             $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_virtual');
             $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_virtual');
 
             $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
@@ -157,8 +156,7 @@ global $field_position;
         case 'Downloadable':
 
             unset($form_fields);
-            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
-            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_downloadable');
+             $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_downloadable');
             $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_downloadable');
 
             $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
@@ -202,7 +200,6 @@ global $field_position;
         case 'Manage-stock':
 
             unset($form_fields);
-            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
             $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_manage_stock');
             $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_manage_stock');
 
@@ -213,7 +210,6 @@ global $field_position;
         case 'Stock-status':
 
             unset($form_fields);
-            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
             $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Stock Status');
             $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_stock_status');
 
@@ -224,7 +220,6 @@ global $field_position;
         case 'Sold-Individually':
 
             unset($form_fields);
-            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
             $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_sold_individually');
             $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_sold_individually');
 
@@ -235,7 +230,6 @@ global $field_position;
         case 'Up-Sells':
 
             unset($form_fields);
-            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
             $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_upsell_ids');
             $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_upsell_ids');
 
@@ -246,8 +240,7 @@ global $field_position;
         case 'Attributes':
 
             unset($form_fields);
-            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
-            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Attributes');
+             $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Attributes');
             $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_bf_wc_attributes');
 
             $form_fields['right']['type']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
