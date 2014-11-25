@@ -54,29 +54,29 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox($form, $selected_
                         $form->addElement(new Element_HTML('<p><a href="Stock-status/'.$selected_form_slug.'/unique" class="action">Stock status</a></p>'));
                         $form->addElement(new Element_HTML('<p><a href="Sold-Individually/'.$selected_form_slug.'/unique" class="action">Sold Individually</a></p>'));
 
-                   // $form->addElement(new Element_HTML('<p><b>Shipping</b></p>'));
-                   //     $form->addElement(new Element_HTML('<p><a href="Shipping/'.$selected_form_slug.'" class="action">Shipping</a></p>'));
-
-                    $form->addElement(new Element_HTML('<p><b>Linked Products</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Up-Sells/'.$selected_form_slug.'/unique" class="action">Up-Sells</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Cross-Sells/'.$selected_form_slug.'/unique" class="action">Cross-Sells</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Grouping/'.$selected_form_slug.'/unique" class="action">Grouping</a></p>'));
+//                    $form->addElement(new Element_HTML('<p><b>Shipping</b></p>'));
+//                    $form->addElement(new Element_HTML('<p><a href="Shipping/'.$selected_form_slug.'" class="action">Shipping</a></p>'));
+//
+//                    $form->addElement(new Element_HTML('<p><b>Linked Products</b></p>'));
+//                        $form->addElement(new Element_HTML('<p><a href="Up-Sells/'.$selected_form_slug.'/unique" class="action">Up-Sells</a></p>'));
+//                        $form->addElement(new Element_HTML('<p><a href="Cross-Sells/'.$selected_form_slug.'/unique" class="action">Cross-Sells</a></p>'));
+//                        $form->addElement(new Element_HTML('<p><a href="Grouping/'.$selected_form_slug.'/unique" class="action">Grouping</a></p>'));
 
                     $form->addElement(new Element_HTML('<p><b>Attributes</b></p>'));
-                    $form->addElement(new Element_HTML('<p><a href="Attribute-Custom/'.$selected_form_slug.'" class="action">Attribute Custom Field</a></p>'));
-                    $form->addElement(new Element_HTML('<p><a href="Attribute-Taxonomy/'.$selected_form_slug.'" class="action">Attribute Taxonomy</a></p>'));
+                    $form->addElement(new Element_HTML('<p><a href="Attributes/'.$selected_form_slug.'/unique" class="action">Attributes</a></p>'));
 
 
 
-                    $form->addElement(new Element_HTML('<p><b>Advanced</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Purchase-Note/'.$selected_form_slug.'/unique" class="action">Purchase Note</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Menu-order/'.$selected_form_slug.'/unique" class="action">Menu order</a></p>'));
 
-                    $form->addElement(new Element_HTML('<p><b>Product Content</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Product-Short-Description/'.$selected_form_slug.'/unique" class="action">Product Short Description</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Product-Gallery/'.$selected_form_slug.'/unique" class="action">Product Gallery</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Product Categories/'.$selected_form_slug.'/unique" class="action">Product Categories</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Product Tags/'.$selected_form_slug.'/unique" class="action">Product Tags</a></p>'));
+//                    $form->addElement(new Element_HTML('<p><b>Advanced</b></p>'));
+//                        $form->addElement(new Element_HTML('<p><a href="Purchase-Note/'.$selected_form_slug.'/unique" class="action">Purchase Note</a></p>'));
+//                        $form->addElement(new Element_HTML('<p><a href="Menu-order/'.$selected_form_slug.'/unique" class="action">Menu order</a></p>'));
+//
+//                    $form->addElement(new Element_HTML('<p><b>Product Content</b></p>'));
+//                        $form->addElement(new Element_HTML('<p><a href="Product-Short-Description/'.$selected_form_slug.'/unique" class="action">Product Short Description</a></p>'));
+//                        $form->addElement(new Element_HTML('<p><a href="Product-Gallery/'.$selected_form_slug.'/unique" class="action">Product Gallery</a></p>'));
+//                        $form->addElement(new Element_HTML('<p><a href="Product Categories/'.$selected_form_slug.'/unique" class="action">Product Categories</a></p>'));
+//                        $form->addElement(new Element_HTML('<p><a href="Product Tags/'.$selected_form_slug.'/unique" class="action">Product Tags</a></p>'));
 
                     $form->addElement(new Element_HTML('
 				</div>
@@ -243,9 +243,16 @@ global $field_position;
             $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
 
             break;
-        case 'Attribute-Custom':
+        case 'Attributes':
 
-            //unset($form_fields);
+            unset($form_fields);
+            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Attributes');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_bf_wc_attributes');
+
+            $form_fields['right']['type']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+
 
             $attr_visible = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_visible']))
@@ -262,19 +269,8 @@ global $field_position;
                 $attr_new = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_new'];
             $form_fields['left']['attr_new']	= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_new]",array('attr_new' => '<b>' .__('User can create new', 'buddyforms') . '</b>'),array('value' => $attr_new));
 
-            $form_fields['right']['type']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
-            $form_fields['right']['order']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
             break;
-        case 'Attribute-Taxonomy':
 
-            unset($form_fields);
-            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
-            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_product_attributes');
-            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_product_attributes');
-
-            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
-            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
-            break;
 
     }
 
@@ -422,17 +418,14 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
             $form->addElement(  new Element_HTML('</select>'));
 
             break;
-        case 'Attribute-Custom':
+        case 'Attributes':
 
             ob_start();
-            bf_wc_attrebutes_custom($post_id);
+                bf_wc_attrebutes_custom($post_id);
                 $attr_test = ob_get_contents();
             ob_clean();
 
             $form->addElement(  new Element_HTML($attr_test));
-
-            break;
-        case 'Attribute-Taxonomy':
 
             break;
 
@@ -496,11 +489,8 @@ function buddyforms_woocommerce__updtae_post_meta($customfield, $post_id){
         update_post_meta($post_id, '_sale_price_dates_from' , strtotime( $sale_price_dates_from ) );
         update_post_meta($post_id, '_sale_price_dates_to'   , strtotime( $sale_price_dates_to ) );
     }
-    if( $customfield['type'] == 'Attribute-Custom'){
+    if( $customfield['type'] == 'Attributes'){
         bf_wc_attrebutes_save($post_id);
-    }
-    if( $customfield['type'] == 'Attribute-Taxonomy'){
-
     }
 }
 
@@ -520,11 +510,12 @@ function pluginname_ajaxurl() {
 add_action('init', 'bf_wc_includes');
 function bf_wc_includes(){
     include_once(dirname(__FILE__) . '/includes/bf-wc-product-attribute.php');
+    include_once(dirname(__FILE__) . '/includes/admin/class-wc-admin-assets-frontend.php');
 }
 
 add_action('wp_enqueue_scripts', 'bf_wc_enqueue_script');
 function bf_wc_enqueue_script(){
 
-   wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/includes/js/buddyforms-woocommerce.js' , __FILE__ ), array( 'jquery' ) );
+  // wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/includes/js/buddyforms-woocommerce.js' , __FILE__ ), array( 'jquery' ) );
 
  }
