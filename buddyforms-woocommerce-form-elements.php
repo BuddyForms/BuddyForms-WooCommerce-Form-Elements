@@ -40,41 +40,43 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox($form, $selected_
 
                     $form->addElement(new Element_HTML('<p><b>Product Data</b></p>'));
                         $form->addElement(new Element_HTML('<p><a href="Product-Type/'.$selected_form_slug.'/unique" class="action">Product Type</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Virtual/'.$selected_form_slug.'" class="action">Virtual</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Downloadable/'.$selected_form_slug.'" class="action">Downloadable</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Virtual/'.$selected_form_slug.'/unique" class="action">Virtual</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Downloadable/'.$selected_form_slug.'/unique" class="action">Downloadable</a></p>'));
 
                     $form->addElement(new Element_HTML('<p><b>General</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="SKU/'.$selected_form_slug.'" class="action">SKU</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Regular-Price/'.$selected_form_slug.'" class="action">Regular Price</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Sale-Price/'.$selected_form_slug.'" class="action">Sale Price</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Sale-Price-Dates/'.$selected_form_slug.'" class="action">Sale Price Dates</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="SKU/'.$selected_form_slug.'/unique" class="action">SKU</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Regular-Price/'.$selected_form_slug.'/unique" class="action">Regular Price</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Sale-Price/'.$selected_form_slug.'/unique" class="action">Sale Price</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Sale-Price-Dates/'.$selected_form_slug.'/unique" class="action">Sale Price Dates</a></p>'));
 
                     $form->addElement(new Element_HTML('<p><b>Inventory</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Manage-stock/'.$selected_form_slug.'" class="action">Manage stock</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Stock-status/'.$selected_form_slug.'" class="action">Stock status</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Sold-Individually/'.$selected_form_slug.'" class="action">Sold Individually</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Manage-stock/'.$selected_form_slug.'/unique" class="action">Manage stock</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Stock-status/'.$selected_form_slug.'/unique" class="action">Stock status</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Sold-Individually/'.$selected_form_slug.'/unique" class="action">Sold Individually</a></p>'));
 
-                    $form->addElement(new Element_HTML('<p><b>Shipping</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Shipping/'.$selected_form_slug.'" class="action">Shipping</a></p>'));
+                   // $form->addElement(new Element_HTML('<p><b>Shipping</b></p>'));
+                   //     $form->addElement(new Element_HTML('<p><a href="Shipping/'.$selected_form_slug.'" class="action">Shipping</a></p>'));
 
                     $form->addElement(new Element_HTML('<p><b>Linked Products</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Up-Sells/'.$selected_form_slug.'" class="action">Up-Sells</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Cross-Sells/'.$selected_form_slug.'" class="action">Cross-Sells</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Grouping/'.$selected_form_slug.'" class="action">Grouping</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Up-Sells/'.$selected_form_slug.'/unique" class="action">Up-Sells</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Cross-Sells/'.$selected_form_slug.'/unique" class="action">Cross-Sells</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Grouping/'.$selected_form_slug.'/unique" class="action">Grouping</a></p>'));
 
                     $form->addElement(new Element_HTML('<p><b>Attributes</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Taxonomy/'.$selected_form_slug.'" class="action">Attributes Taxonomy</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Attribute/'.$selected_form_slug.'" class="action">Attribute</a></p>'));
+                    $form->addElement(new Element_HTML('<p><a href="Attribute-Custom/'.$selected_form_slug.'" class="action">Attribute Custom Field</a></p>'));
+                    $form->addElement(new Element_HTML('<p><a href="Attribute-Taxonomy/'.$selected_form_slug.'" class="action">Attribute Taxonomy</a></p>'));
+
+
 
                     $form->addElement(new Element_HTML('<p><b>Advanced</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Purchase-Note/'.$selected_form_slug.'" class="action">Purchase Note</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Menu-order/'.$selected_form_slug.'" class="action">Menu order</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Purchase-Note/'.$selected_form_slug.'/unique" class="action">Purchase Note</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Menu-order/'.$selected_form_slug.'/unique" class="action">Menu order</a></p>'));
 
                     $form->addElement(new Element_HTML('<p><b>Product Content</b></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Product-Short-Description/'.$selected_form_slug.'" class="action">Product Short Description</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Product-Gallery/'.$selected_form_slug.'" class="action">Product Gallery</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Product Categories/'.$selected_form_slug.'" class="action">Product Categories</a></p>'));
-                        $form->addElement(new Element_HTML('<p><a href="Product Tags/'.$selected_form_slug.'" class="action">Product Tags</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Product-Short-Description/'.$selected_form_slug.'/unique" class="action">Product Short Description</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Product-Gallery/'.$selected_form_slug.'/unique" class="action">Product Gallery</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Product Categories/'.$selected_form_slug.'/unique" class="action">Product Categories</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Product Tags/'.$selected_form_slug.'/unique" class="action">Product Tags</a></p>'));
 
                     $form->addElement(new Element_HTML('
 				</div>
@@ -87,8 +89,9 @@ add_filter('buddyforms_admin_settings_sidebar_metabox','buddyforms_woocommerce_a
 
 
 function buddyforms_woocommerce_create_new_form_builder_form_element($form_fields, $form_slug, $field_type, $field_id){
-
+global $field_position;
     $buddyforms_options = get_option('buddyforms_options');
+
 
     switch ($field_type) {
 
@@ -114,8 +117,6 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
                 'tab_index'         => 0,
                 'taxonomy'          => 'product_type',
                 'hide_if_empty'     => FALSE,
-                'orderby'           => 'SLUG',
-                'order'             => $taxonomy_order,
             );
 
             $dropdown = wp_dropdown_categories($wp_dropdown_categories_args);
@@ -242,6 +243,38 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
 
             break;
+        case 'Attribute-Custom':
+
+            //unset($form_fields);
+
+            $attr_visible = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_visible']))
+                $attr_visible = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_visible'];
+            $form_fields['left']['attr_visible']	= new Element_Checkbox('wewe' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_visible]",array('attr_visible' => '<b>' .__('Visible on the product page', 'buddyforms') . '</b>'),array('value' => $attr_visible));
+
+            $attr_variations = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_variations']))
+                $attr_variations = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_variations'];
+            $form_fields['left']['attr_variations']	= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_variations]",array('attr_variations' => '<b>' .__('Used for variations', 'buddyforms') . '</b>'),array('value' => $attr_variations));
+
+            $attr_new = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_new']))
+                $attr_new = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_new'];
+            $form_fields['left']['attr_new']	= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_new]",array('attr_new' => '<b>' .__('User can create new', 'buddyforms') . '</b>'),array('value' => $attr_new));
+
+            $form_fields['right']['type']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+            break;
+        case 'Attribute-Taxonomy':
+
+            unset($form_fields);
+            $form_fields['right']['html']		= new Element_HTML('<p><b>The Virtual formelement has no options if its added to the form the Virtual Checkbox will be checked </b></p>');
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_product_attributes');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_product_attributes');
+
+            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+            break;
 
     }
 
@@ -291,7 +324,7 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
                     foreach ($the_post_terms as $key => $post_term) {
                         $dropdown = str_replace(' value="' . $post_term->term_id . '"', ' value="' . $post_term->term_id . '" selected="selected"', $dropdown);
                     }
-                    $dropdown = str_replace(' value="' . $customfield_val . '"', ' value="' . $customfield_val . '" selected="selected"', $dropdown);
+                    //$dropdown = str_replace(' value="' . $customfield_val . '"', ' value="' . $customfield_val . '" selected="selected"', $dropdown);
                 } else {
                     $dropdown = str_replace(' value="' . $product_type_default . '"', ' value="' . $product_type_default . '" selected="selected"', $dropdown);
                 }
@@ -306,7 +339,7 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
                                 '.$required.$customfield['name'] . ':
                             </label>
                             <div class="bf_inputs">' . $dropdown . ' </div>
-                            <span class="help-inline">' . $customfield['description'] . '</span>
+                            <span class="help-inline">' . isset( $customfield['description'] ) ? $customfield['description'] : '' . '</span>
                         </div>';
 
                 $form->addElement( new Element_HTML($dropdown));
@@ -321,27 +354,27 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
             $form->addElement( new Element_Hidden($customfield['slug'], 'yes'));
             break;
         case 'SKU':
-            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
             $form->addElement( new Element_Textbox($customfield['name'], $customfield['slug'], $element_attr));
             break;
         case 'Regular-Price':
-            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
             $form->addElement( new Element_Number($customfield['name'], $customfield['slug'], $element_attr));
             break;
         case 'Sale-Price':
-            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
             $form->addElement( new Element_Number($customfield['name'], $customfield['slug'], $element_attr));
             break;
         case 'Sale-Price-Dates':
 
             $customfield_val = get_post_meta($post_id, '_sale_price_dates_from', true);
-            $customfield_val = date_i18n( 'Y-m-d', $customfield_val );
-            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input bf_datetime', 'shortDesc' =>  $customfield['description']) : array( 'value' => $customfield_val, 'class' => 'settings-input bf_price_date', 'shortDesc' =>  $customfield['description']);
+            $customfield_val = date_i18n( 'Y-m-d', (int)$customfield_val );
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input bf_datetime', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array( 'value' => $customfield_val, 'class' => 'settings-input bf_price_date', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
             $form->addElement( new Element_Textbox('Sale Price Date From', '_sale_price_dates_from', $element_attr));
 
             $customfield_val = get_post_meta($post_id, '_sale_price_dates_to', true);
-            $customfield_val = date_i18n( 'Y-m-d', $customfield_val );
-            $element_attr = isset($customfield['required']) ? array( 'required' => true, 'value' => $customfield_val, 'class' => 'settings-input bf_price_date', 'shortDesc' =>  $customfield['description']) : array( 'value' => $customfield_val, 'class' => 'settings-input bf_price_date', 'shortDesc' =>  $customfield['description']);
+            $customfield_val = date_i18n( 'Y-m-d', (int)$customfield_val );
+            $element_attr = isset($customfield['required']) ? array( 'required' => true, 'value' => $customfield_val, 'class' => 'settings-input bf_price_date', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array( 'value' => $customfield_val, 'class' => 'settings-input bf_price_date', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
             $form->addElement( new Element_Textbox('Sale Price Date To', '_sale_price_dates_to', $element_attr));
 
 
@@ -353,16 +386,16 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
             $form->addElement( new Element_Hidden($customfield['slug'], 'yes'));
 
             $customfield_val = get_post_meta($post_id, '_stock', true);
-            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
             $form->addElement( new Element_Number('Stock Qty', '_stock', $element_attr));
 
             $customfield_val = get_post_meta($post_id, '_backorders', true);
-            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
             $form->addElement( new Element_Select('Allow Backorders?', '_backorders', array('no' => 'Do not allow', 'notify' => 'Allow, but notify customer', 'yes' => 'Allow'), $element_attr));
 
             break;
         case 'Stock-status':
-            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']) : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  $customfield['description']);
+            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
             $form->addElement( new Element_Select($customfield['name'], $customfield['slug'], array('instock' => 'In stock', 'outofstock' => 'Out of stock'), $element_attr));
             break;
         case 'Sold-Individually':
@@ -387,6 +420,19 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
             }
 
             $form->addElement(  new Element_HTML('</select>'));
+
+            break;
+        case 'Attribute-Custom':
+
+            ob_start();
+            bf_wc_attrebutes_custom($post_id);
+                $attr_test = ob_get_contents();
+            ob_clean();
+
+            $form->addElement(  new Element_HTML($attr_test));
+
+            break;
+        case 'Attribute-Taxonomy':
 
             break;
 
@@ -450,10 +496,17 @@ function buddyforms_woocommerce__updtae_post_meta($customfield, $post_id){
         update_post_meta($post_id, '_sale_price_dates_from' , strtotime( $sale_price_dates_from ) );
         update_post_meta($post_id, '_sale_price_dates_to'   , strtotime( $sale_price_dates_to ) );
     }
+    if( $customfield['type'] == 'Attribute-Custom'){
+        bf_wc_attrebutes_save($post_id);
+    }
+    if( $customfield['type'] == 'Attribute-Taxonomy'){
 
-
+    }
 }
 
+
+
+// Needs to be reworked for the Linked Products ajax-chosen...
 add_action('wp_head','pluginname_ajaxurl');
 function pluginname_ajaxurl() {
     ?>
@@ -462,4 +515,16 @@ function pluginname_ajaxurl() {
     </script>
 <?php
 }
-?>
+
+
+add_action('init', 'bf_wc_includes');
+function bf_wc_includes(){
+    include_once(dirname(__FILE__) . '/includes/bf-wc-product-attribute.php');
+}
+
+add_action('wp_enqueue_scripts', 'bf_wc_enqueue_script');
+function bf_wc_enqueue_script(){
+
+   wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/includes/js/buddyforms-woocommerce.js' , __FILE__ ), array( 'jquery' ) );
+
+ }
