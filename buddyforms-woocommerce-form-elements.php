@@ -72,9 +72,9 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox($form, $selected_
 //                        $form->addElement(new Element_HTML('<p><a href="Purchase-Note/'.$selected_form_slug.'/unique" class="action">Purchase Note</a></p>'));
 //                        $form->addElement(new Element_HTML('<p><a href="Menu-order/'.$selected_form_slug.'/unique" class="action">Menu order</a></p>'));
 //
-//                    $form->addElement(new Element_HTML('<p><b>Product Content</b></p>'));
+                    $form->addElement(new Element_HTML('<p><b>Product Content</b></p>'));
 //                        $form->addElement(new Element_HTML('<p><a href="Product-Short-Description/'.$selected_form_slug.'/unique" class="action">Product Short Description</a></p>'));
-//                        $form->addElement(new Element_HTML('<p><a href="Product-Gallery/'.$selected_form_slug.'/unique" class="action">Product Gallery</a></p>'));
+                        $form->addElement(new Element_HTML('<p><a href="Product-Gallery/'.$selected_form_slug.'/unique" class="action">Product Gallery</a></p>'));
 //                        $form->addElement(new Element_HTML('<p><a href="Product Categories/'.$selected_form_slug.'/unique" class="action">Product Categories</a></p>'));
 //                        $form->addElement(new Element_HTML('<p><a href="Product Tags/'.$selected_form_slug.'/unique" class="action">Product Tags</a></p>'));
 
@@ -265,7 +265,17 @@ global $field_position;
             $form_fields['left']['attr_new_custom_field']	= new Element_Checkbox('<b>'.__('Custom Attribute', 'buddyforms').'</b> <p><smal>This is the same as the Custom Attributes in the Product edit Screen</smal></p>' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_new_custom_field]",array('attr_new' => '<b>' .__('User can create new custom fields ', 'buddyforms') . '</b>'),array('value' => $attr_new_custom_field));
 
             break;
+        case 'Product-Gallery':
 
+            unset($form_fields);
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Product Gallery');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", 'bf_product_gallery');
+
+            $form_fields['right']['type']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
+
+
+            break;
 
     }
 
@@ -424,6 +434,17 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
 
             break;
 
+        case 'Product-Gallery':
+            ob_start();
+            $post = get_post($post_id);
+            WC_Meta_Box_Product_Images::output($post);
+            $attr_test = ob_get_contents();
+            ob_clean();
+
+            $form->addElement(  new Element_HTML($attr_test));
+
+       break;
+
     }
 
     return $form;
@@ -487,6 +508,15 @@ function buddyforms_woocommerce__updtae_post_meta($customfield, $post_id){
     if( $customfield['type'] == 'Attributes'){
         bf_wc_attrebutes_save($post_id);
     }
+    if( $customfield['type'] == 'Product-Gallery'){
+        global $post;
+        WC_Meta_Box_Product_Images::save($post_id, $post);
+    }
+
+
+
+
+
 }
 
 
