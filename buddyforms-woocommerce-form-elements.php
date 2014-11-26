@@ -240,27 +240,29 @@ global $field_position;
         case 'Attributes':
 
             unset($form_fields);
-             $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Attributes');
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Attributes');
             $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_bf_wc_attributes');
 
             $form_fields['right']['type']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
             $form_fields['right']['order']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
 
 
-            $attr_visible = 'false';
-            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_visible']))
-                $attr_visible = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_visible'];
-            $form_fields['left']['attr_visible']	= new Element_Checkbox('wewe' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_visible]",array('attr_visible' => '<b>' .__('Visible on the product page', 'buddyforms') . '</b>'),array('value' => $attr_visible));
+            $taxonomies = buddyforms_taxonomies($form_slug);
+            $bf_wc_attributes_tax = Array();
+            foreach($taxonomies as $key => $taxonomie){
+                if(substr($taxonomie, 0, 3) == 'pa_')
+                    $bf_wc_attributes_tax[$taxonomie] = $taxonomie;
+            }
 
-            $attr_variations = 'false';
-            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_variations']))
-                $attr_variations = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_variations'];
-            $form_fields['left']['attr_variations']	= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_variations]",array('attr_variations' => '<b>' .__('Used for variations', 'buddyforms') . '</b>'),array('value' => $attr_variations));
+            $bf_wc_attributes_pa = false;
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['_bf_wc_attributes_pa']))
+                $bf_wc_attributes_pa = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['_bf_wc_attributes_pa'];
+            $form_fields['left']['_bf_wc_attributes_pa'] 		= new Element_Checkbox('<b>' . __('Attribute Taxonomies', 'buddyforms') . '</b><p><smal>Select the Attributes Taxonomies you want to include. This are the Attributes you have created under Product/Attributes</smal></p>', "buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][_bf_wc_attributes_pa]", $bf_wc_attributes_tax, array('value' => $bf_wc_attributes_pa));
 
-            $attr_new = 'false';
-            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_new']))
-                $attr_new = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_new'];
-            $form_fields['left']['attr_new']	= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_new]",array('attr_new' => '<b>' .__('User can create new', 'buddyforms') . '</b>'),array('value' => $attr_new));
+            $attr_new_custom_field = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_new_custom_field']))
+                $attr_new_custom_field = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_new_custom_field'];
+            $form_fields['left']['attr_new_custom_field']	= new Element_Checkbox('<b>'.__('Custom Attribute', 'buddyforms').'</b> <p><smal>This is the same as the Custom Attributes in the Product edit Screen</smal></p>' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_new_custom_field]",array('attr_new' => '<b>' .__('User can create new custom fields ', 'buddyforms') . '</b>'),array('value' => $attr_new_custom_field));
 
             break;
 
@@ -414,7 +416,7 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
         case 'Attributes':
 
             ob_start();
-                bf_wc_attrebutes_custom($post_id);
+                bf_wc_attrebutes_custom($post_id, $customfield);
                 $attr_test = ob_get_contents();
             ob_clean();
 

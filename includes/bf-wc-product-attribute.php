@@ -1,6 +1,6 @@
 <?php
 
-function bf_wc_attrebutes_custom($thepostid){ ?>
+function bf_wc_attrebutes_custom($thepostid, $customfield){ ?>
 
 
     <div id="product_attributes" class="panel wc-metaboxes-wrapper">
@@ -12,11 +12,17 @@ function bf_wc_attrebutes_custom($thepostid){ ?>
     <div class="product_attributes wc-metaboxes">
 
         <?php
+
+//        echo '<pre>';
+//        print_r($customfield);
+//        echo '</pre>';
+
         // Array of defined attribute taxonomies
         $attribute_taxonomies = wc_get_attribute_taxonomies();
 
         // Product attributes - taxonomies and custom, ordered, with visibility and variation attributes set
         $attributes = maybe_unserialize( get_post_meta( $thepostid, '_product_attributes', true ) );
+        $form_slug = get_post_meta( $thepostid, '_bf_form_slug', true );
 
         $i = -1;
 
@@ -188,22 +194,28 @@ function bf_wc_attrebutes_custom($thepostid){ ?>
         ?>
     </div>
 
-    <p class="toolbar">
-        <button type="button" class="button button-primary add_attribute"><?php _e( 'Add', 'woocommerce' ); ?></button>
-        <select name="attribute_taxonomy" class="attribute_taxonomy">
-            <option value=""><?php _e( 'Custom product attribute', 'woocommerce' ); ?></option>
-            <?php
-            if ( $attribute_taxonomies ) {
+    <?php  if ( isset($customfield['_bf_wc_attributes_pa']) || isset($customfield['attr_new_custom_field'])) { ?>
+        <p class="toolbar">
+            <button type="button" class="button button-primary add_attribute"><?php _e( 'Add', 'woocommerce' ); ?></button>
+            <select name="attribute_taxonomy" class="attribute_taxonomy">
 
-                foreach ( $attribute_taxonomies as $tax ) {
-                    $attribute_taxonomy_name = wc_attribute_taxonomy_name( $tax->attribute_name );
-                    $label = $tax->attribute_label ? $tax->attribute_label : $tax->attribute_name;
-                    echo '<option value="' . esc_attr( $attribute_taxonomy_name ) . '">' . esc_html( $label ) . '</option>';
+                <?php if(isset($customfield['attr_new_custom_field']))
+                    echo '<option value="">' . __( 'Custom product attribute', 'woocommerce' ) .'</option>';
+
+                if ( $attribute_taxonomies && isset($customfield['_bf_wc_attributes_pa'])) {
+
+                    foreach ( $attribute_taxonomies as $tax ) {
+                        if(in_array('pa_'.$tax->attribute_name, $customfield['_bf_wc_attributes_pa'])){
+                            $attribute_taxonomy_name = wc_attribute_taxonomy_name( $tax->attribute_name );
+                            $label = $tax->attribute_label ? $tax->attribute_label : $tax->attribute_name;
+                            echo '<option value="' . esc_attr( $attribute_taxonomy_name ) . '">' . esc_html( $label ) . '</option>';
+                        }
+                    }
                 }
-            }
-            ?>
-        </select>
-    </p>
+                ?>
+            </select>
+        </p>
+    <?php } ?>
     <?php do_action( 'woocommerce_product_options_attributes' ); ?>
     </div>
 
@@ -211,7 +223,7 @@ function bf_wc_attrebutes_custom($thepostid){ ?>
 }
 
 function bf_wc_attrebutes_save($post_id){
-xdebug_break();
+
     $attributes = array();
 
     if ( isset( $_POST['attribute_names'] ) && isset( $_POST['attribute_values'] ) ) {
