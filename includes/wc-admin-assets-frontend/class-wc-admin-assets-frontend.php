@@ -57,7 +57,7 @@ if ( ! class_exists( 'BF_WC_Frontend_Assets' ) ) :
             global $wp_query, $post;
 
             $wc_screen_id = sanitize_title( __( 'WooCommerce', 'woocommerce' ) );
-            $suffix       = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+            $suffix       = ''; //defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
             // Register scripts
             wp_register_script( 'woocommerce_admin', WC()->plugin_url() . '/assets/js/admin/woocommerce_admin' . $suffix . '.js', array( 'jquery', 'jquery-blockui', 'jquery-ui-sortable', 'jquery-ui-widget', 'jquery-ui-core', 'jquery-tiptip' ), WC_VERSION );
