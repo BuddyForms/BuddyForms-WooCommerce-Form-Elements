@@ -27,11 +27,10 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox($form, $selected_
 
     $form->addElement(new Element_HTML('<p><b>Shipping</b></p>'));
     $form->addElement(new Element_HTML('<p><a href="Shipping/'.$selected_form_slug.'" class="action">Shipping</a></p>'));
-//
-//                    $form->addElement(new Element_HTML('<p><b>Linked Products</b></p>'));
-//                        $form->addElement(new Element_HTML('<p><a href="Up-Sells/'.$selected_form_slug.'/unique" class="action">Up-Sells</a></p>'));
-//                        $form->addElement(new Element_HTML('<p><a href="Cross-Sells/'.$selected_form_slug.'/unique" class="action">Cross-Sells</a></p>'));
-//                        $form->addElement(new Element_HTML('<p><a href="Grouping/'.$selected_form_slug.'/unique" class="action">Grouping</a></p>'));
+
+    $form->addElement(new Element_HTML('<p><b>Linked Products</b></p>'));
+        $form->addElement(new Element_HTML('<p><a href="Linked-Products/'.$selected_form_slug.'/unique" class="action">Linked Products</a></p>'));
+
 
     $form->addElement(new Element_HTML('<p><b>Attributes</b></p>'));
     $form->addElement(new Element_HTML('<p><a href="Attributes/'.$selected_form_slug.'/unique" class="action">Attributes</a></p>'));
@@ -209,11 +208,11 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
 
 
             break;
-        case 'Up-Sells':
+        case 'Linked-Products':
 
             unset($form_fields);
-            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_upsell_ids');
-            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_upsell_ids');
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Linked Products');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_linked_products');
 
             $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
             $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));

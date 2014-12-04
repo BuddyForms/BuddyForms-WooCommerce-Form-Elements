@@ -68,7 +68,7 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
 
 
             ob_start();
-                bf_wc_product_type($post_id, $customfield);
+               // bf_wc_product_type($post_id, $customfield);
             //$post = get_post($post_id);
             //WC_Meta_Box_Product_Data::output($post);
             $attr_test = ob_get_contents();
@@ -143,39 +143,28 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
         case 'Shipping':
 
             ob_start();
-            bf_wc_shipping($post_id, $customfield);
-            $attr_test = ob_get_contents();
+                bf_wc_shipping($post_id, $customfield);
+                $attr_test = ob_get_contents();
             ob_clean();
 
             $form->addElement(  new Element_HTML($attr_test));
 
             break;
-        case 'Up-Sells':
-            $form->addElement( new Element_HTML('<select id="upsell_ids" name="upsell_ids[]" class=" chosen" multiple="multiple" data-placeholder="Search for a product&hellip">'));
+        case 'Linked-Products':
 
-            $upsell_ids = get_post_meta( $post_id, '_upsell_ids', true );
-            $product_ids = ! empty( $upsell_ids ) ? array_map( 'absint',  $upsell_ids ) : null;
+            ob_start();
+                bf_wc_product_linked($post_id, $customfield);
+                $attr_test = ob_get_contents();
+            ob_clean();
 
-            if ( $product_ids ) {
-
-                foreach ( $product_ids as $product_id ) {
-
-                    $product = wc_get_product( $product_id );
-
-                    if ( $product ) {
-                        $form->addElement(  new Element_HTML('<option value="' . esc_attr( $product_id ) . '" selected="selected">' . esc_html( $product->get_formatted_name() ) . '</option>'));
-                    }
-                }
-            }
-
-            $form->addElement(  new Element_HTML('</select>'));
+            $form->addElement(  new Element_HTML($attr_test));
 
             break;
         case 'Attributes':
 
             ob_start();
-            bf_wc_attrebutes_custom($post_id, $customfield);
-            $attr_test = ob_get_contents();
+                bf_wc_attrebutes_custom($post_id, $customfield);
+                $attr_test = ob_get_contents();
             ob_clean();
 
             $form->addElement(  new Element_HTML($attr_test));
@@ -185,8 +174,8 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
         case 'Product-Gallery':
             ob_start();
             $post = get_post($post_id);
-            WC_Meta_Box_Product_Images::output($post);
-            $attr_test = ob_get_contents();
+                WC_Meta_Box_Product_Images::output($post);
+                $attr_test = ob_get_contents();
             ob_clean();
 
             $form->addElement(  new Element_HTML($attr_test));

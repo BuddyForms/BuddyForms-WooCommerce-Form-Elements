@@ -1,8 +1,10 @@
 <?php
 
+add_action('buddyforms_update_post_meta', 'buddyforms_woocommerce_updtae_post_meta', 99, 2);
+function buddyforms_woocommerce_updtae_post_meta($customfield, $post_id){
+    global $wc_save, $post;
 
-add_action('buddyforms_update_post_meta', 'buddyforms_woocommerce__updtae_post_meta', 99, 2);
-function buddyforms_woocommerce__updtae_post_meta($customfield, $post_id){
+    $wc_save = false;
 
     if( $customfield['type'] == 'Product-Type' ){
 
@@ -54,27 +56,28 @@ function buddyforms_woocommerce__updtae_post_meta($customfield, $post_id){
         update_post_meta($post_id, '_sale_price_dates_to'   , strtotime( $sale_price_dates_to ) );
     }
     if( $customfield['type'] == 'Attributes'){
-        //bf_wc_attrebutes_save($post_id);
+        $wc_save = true;
         WC_Meta_Box_Product_Data::save($post_id,$post);
     }
     if( $customfield['type'] == 'Product-Gallery'){
-        global $post;
+        $wc_save = true;
         WC_Meta_Box_Product_Images::save($post_id, $post);
     }
-
-
+    if( $customfield['type'] == 'Linked-Products'){
+        $wc_save = true;
+        WC_Meta_Box_Product_Data::save($post_id,$post);
+    }
 
 
 
 }
 
-// Needs to be reworked for the Linked Products ajax-chosen...
-add_action('wp_head','pluginname_ajaxurl');
-function pluginname_ajaxurl() {
-    ?>
-    <script type="text/javascript">
-        var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
-    </script>
-<?php
+add_action('buddyforms_after_save_post', 'buddyforms_woocommerce_updtae_wc_post_meta', 99, 1);
+function buddyforms_woocommerce_updtae_wc_post_meta($post_id){
+    global $post, $wc_save;
+xdebug_break();
+  //  if($wc_save == true)
+        WC_Meta_Box_Product_Images::save($post_id, $post);
+
 }
 
