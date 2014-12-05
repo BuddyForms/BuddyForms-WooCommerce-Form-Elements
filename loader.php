@@ -35,12 +35,14 @@ function bf_wc_includes(){
     include_once(dirname(__FILE__) . '/includes/form-elements.php');
     include_once(dirname(__FILE__) . '/includes/form-elements-save.php');
 
-
-    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-type.php');
-    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-linked.php');
+    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-advanced.php');
     include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-attribute.php');
-    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-shipping.php');
     include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-downloadable.php');
+    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-general.php');
+    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-inventory.php');
+    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-linked.php');
+    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-shipping.php');
+    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-type.php');
 
     include_once(dirname(__FILE__) . '/includes/wc-admin-assets-frontend/class-wc-admin-assets-frontend.php');
 

@@ -11,11 +11,9 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox($form, $selected_
 
     $form->addElement(new Element_HTML('<p><b>Product Data</b></p>'));
     $form->addElement(new Element_HTML('<p><a href="Product-Type/'.$selected_form_slug.'/unique" class="action">Product Type</a></p>'));
-    $form->addElement(new Element_HTML('<p><a href="Virtual/'.$selected_form_slug.'/unique" class="action">Virtual</a></p>'));
-    $form->addElement(new Element_HTML('<p><a href="Downloadable/'.$selected_form_slug.'/unique" class="action">Downloadable</a></p>'));
 
     $form->addElement(new Element_HTML('<p><b>General</b></p>'));
-    $form->addElement(new Element_HTML('<p><a href="SKU/'.$selected_form_slug.'/unique" class="action">SKU</a></p>'));
+    $form->addElement(new Element_HTML('<p><a href="General/'.$selected_form_slug.'/unique" class="action">General</a></p>'));
     $form->addElement(new Element_HTML('<p><a href="Regular-Price/'.$selected_form_slug.'/unique" class="action">Regular Price</a></p>'));
     $form->addElement(new Element_HTML('<p><a href="Sale-Price/'.$selected_form_slug.'/unique" class="action">Sale Price</a></p>'));
     $form->addElement(new Element_HTML('<p><a href="Sale-Price-Dates/'.$selected_form_slug.'/unique" class="action">Sale Price Dates</a></p>'));
@@ -38,9 +36,9 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox($form, $selected_
 
 
 
-//                    $form->addElement(new Element_HTML('<p><b>Advanced</b></p>'));
-//                        $form->addElement(new Element_HTML('<p><a href="Purchase-Note/'.$selected_form_slug.'/unique" class="action">Purchase Note</a></p>'));
-//                        $form->addElement(new Element_HTML('<p><a href="Menu-order/'.$selected_form_slug.'/unique" class="action">Menu order</a></p>'));
+    $form->addElement(new Element_HTML('<p><b>Advanced</b></p>'));
+        $form->addElement(new Element_HTML('<p><a href="Advanced/'.$selected_form_slug.'/unique" class="action">Advanced</a></p>'));
+
 //
     $form->addElement(new Element_HTML('<p><b>Product Content</b></p>'));
 //                        $form->addElement(new Element_HTML('<p><a href="Product-Short-Description/'.$selected_form_slug.'/unique" class="action">Product Short Description</a></p>'));
@@ -113,30 +111,10 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
 
 
             break;
-        case 'Virtual':
-
+        case 'General':
             unset($form_fields);
-            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_virtual');
-            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_virtual');
-
-            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
-            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
-
-            break;
-        case 'Downloadable':
-
-            unset($form_fields);
-            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", '_downloadable');
-            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_downloadable');
-
-            $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
-            $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
-
-            break;
-        case 'SKU':
-            unset($form_fields);
-            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'SKU');
-            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_sku');
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'General');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", '_general');
 
             $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
             $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
@@ -244,6 +222,16 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_new_custom_field']))
                 $attr_new_custom_field = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['attr_new_custom_field'];
             $form_fields['left']['attr_new_custom_field']	= new Element_Checkbox('<b>'.__('Custom Attribute', 'buddyforms').'</b> <p><smal>This is the same as the Custom Attributes in the Product edit Screen</smal></p>' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][attr_new_custom_field]",array('attr_new' => '<b>' .__('User can create new custom fields ', 'buddyforms') . '</b>'),array('value' => $attr_new_custom_field));
+
+            break;
+        case 'Advanced':
+
+            unset($form_fields);
+            $form_fields['right']['name']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][name]", 'Advanced');
+            $form_fields['right']['slug']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][slug]", 'bf_advanced');
+
+            $form_fields['right']['type']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
+            $form_fields['right']['order']		    = new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
 
             break;
         case 'Product-Gallery':

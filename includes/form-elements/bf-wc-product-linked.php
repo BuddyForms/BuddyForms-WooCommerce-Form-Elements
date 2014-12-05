@@ -111,7 +111,3 @@ function bf_wc_product_linked($thepostid, $customfield){
 
 
 }
-
-function bf_wc_product_linked_save($post_id){
-}
-

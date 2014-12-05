@@ -1,8 +1,12 @@
 <?php
 
 function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
+global $thepostid, $post;
 
     extract($form_args);
+    $thepostid = $post_id;
+
+    $post = get_post($post_id);
 
     $buddyforms_options = get_option('buddyforms_options');
 
@@ -17,84 +21,86 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_hidden'])){
                 $form->addElement( new Element_Hidden($customfield['slug'], $product_type_default));
             } else {
-                $args = array(
-                    'hide_empty'        => 0,
-                    'id'                => $customfield['slug'],
-                    'child_of'          => 0,
-                    'echo'              => FALSE,
-                    'selected'          => false,
-                    'hierarchical'      => 1,
-                    'name'              => $customfield['slug'] . '[]',
-                    'class'             => 'postform chosen',
-                    'depth'             => 0,
-                    'tab_index'         => 0,
-                    'taxonomy'          => 'product_type',
-                    'hide_if_empty'     => FALSE,
-                );
 
-                $dropdown = wp_dropdown_categories($args);
+                ob_start();
+                bf_wc_product_type($post_id, $customfield);
+                //$post = get_post($post_id);
+                //WC_Meta_Box_Product_Data::output($post);
+                $attr_test = ob_get_contents();
+                ob_clean();
 
-                $the_post_terms = get_the_terms( $post_id, $customfield['slug'] );
+                $form->addElement(  new Element_HTML($attr_test));
 
-                if (is_array($the_post_terms)) {
-                    foreach ($the_post_terms as $key => $post_term) {
-                        $dropdown = str_replace(' value="' . $post_term->term_id . '"', ' value="' . $post_term->term_id . '" selected="selected"', $dropdown);
-                    }
-                    //$dropdown = str_replace(' value="' . $customfield_val . '"', ' value="' . $customfield_val . '" selected="selected"', $dropdown);
-                } else {
-                    $dropdown = str_replace(' value="' . $product_type_default . '"', ' value="' . $product_type_default . '" selected="selected"', $dropdown);
-                }
+                $form->addElement( new Element_Hidden($customfield['slug'], 'yes'));
 
+                ob_start();
+                bf_wc_downloadable($post_id, $customfield);
 
-                $required = '';
-                if(isset($customfield['required']) && is_array( $customfield['required'] )){
-                    $required = '<span class="required">* </span>';
-                }
-                $dropdown = '<div class="bf_field_group">
-                            <label for="editpost-element-' . $field_id . '">
-                                '.$required.$customfield['name'] . ':
-                            </label>
-                            <div class="bf_inputs">' . $dropdown . ' </div>
+                $attr_test = ob_get_contents();
+                ob_clean();
 
-                        </div>';
+                $form->addElement(  new Element_HTML($attr_test));
 
-                $form->addElement( new Element_HTML($dropdown));
+//                $args = array(
+//                    'hide_empty'        => 0,
+//                    'id'                => $customfield['slug'],
+//                    'child_of'          => 0,
+//                    'echo'              => FALSE,
+//                    'selected'          => false,
+//                    'hierarchical'      => 1,
+//                    'name'              => $customfield['slug'] . '[]',
+//                    'class'             => 'postform chosen',
+//                    'depth'             => 0,
+//                    'tab_index'         => 0,
+//                    'taxonomy'          => 'product_type',
+//                    'hide_if_empty'     => FALSE,
+//                );
+//
+//                $dropdown = wp_dropdown_categories($args);
+//
+//                $the_post_terms = get_the_terms( $post_id, $customfield['slug'] );
+//
+//                if (is_array($the_post_terms)) {
+//                    foreach ($the_post_terms as $key => $post_term) {
+//                        $dropdown = str_replace(' value="' . $post_term->term_id . '"', ' value="' . $post_term->term_id . '" selected="selected"', $dropdown);
+//                    }
+//                    //$dropdown = str_replace(' value="' . $customfield_val . '"', ' value="' . $customfield_val . '" selected="selected"', $dropdown);
+//                } else {
+//                    $dropdown = str_replace(' value="' . $product_type_default . '"', ' value="' . $product_type_default . '" selected="selected"', $dropdown);
+//                }
+//
+//
+//                $required = '';
+//                if(isset($customfield['required']) && is_array( $customfield['required'] )){
+//                    $required = '<span class="required">* </span>';
+//                }
+//                $dropdown = '<div class="bf_field_group">
+//                            <label for="editpost-element-' . $field_id . '">
+//                                '.$required.$customfield['name'] . ':
+//                            </label>
+//                            <div class="bf_inputs">' . $dropdown . ' </div>
+//
+//                        </div>';
+//
+//                $form->addElement( new Element_HTML($dropdown));
 
             }
 
+
+
+
             break;
-        case 'Virtual':
-            $form->addElement( new Element_Hidden($customfield['slug'], 'yes'));
 
-
+        case 'General':
             ob_start();
-               // bf_wc_product_type($post_id, $customfield);
-            //$post = get_post($post_id);
-            //WC_Meta_Box_Product_Data::output($post);
-            $attr_test = ob_get_contents();
+                bf_wc_product_general($post_id, $customfield);
+                $attr_test = ob_get_contents();
             ob_clean();
 
             $form->addElement(  new Element_HTML($attr_test));
 
-
-            break;
-        case 'Downloadable':
-            $form->addElement( new Element_Hidden($customfield['slug'], 'yes'));
-
-            ob_start();
-            bf_wc_downloadable($post_id, $customfield);
-
-            $attr_test = ob_get_contents();
-            ob_clean();
-
-            $form->addElement(  new Element_HTML($attr_test));
-
-
-
-            break;
-        case 'SKU':
-            $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
-            $form->addElement( new Element_Textbox($customfield['name'], $customfield['slug'], $element_attr));
+            // $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
+            // $form->addElement( new Element_Textbox($customfield['name'], $customfield['slug'], $element_attr));
             break;
         case 'Regular-Price':
             $element_attr = isset($customfield['required']) ? array('required' => true, 'value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '') : array('value' => $customfield_val, 'class' => 'settings-input', 'shortDesc' =>  isset( $customfield['description'] ) ? $customfield['description'] : '');
@@ -171,7 +177,18 @@ function buddyforms_woocommerce_create_frontend_form_element($form, $form_args){
 
             break;
 
+        case 'Advanced':
+
+            ob_start();
+                bf_wc_product_advanced();
+                $attr_test = ob_get_contents();
+            ob_clean();
+
+            $form->addElement(  new Element_HTML($attr_test));
+            break;
+
         case 'Product-Gallery':
+
             ob_start();
             $post = get_post($post_id);
                 WC_Meta_Box_Product_Images::output($post);
