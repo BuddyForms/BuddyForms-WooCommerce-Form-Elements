@@ -17,7 +17,7 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox($form, $selected_
         $form->addElement(new Element_HTML('<p><a href="Inventory/'.$selected_form_slug.'/unique" class="action">Inventory</a></p>'));
 
     $form->addElement(new Element_HTML('<p><b>Shipping</b></p>'));
-        $form->addElement(new Element_HTML('<p><a href="Shipping/'.$selected_form_slug.'" class="action">Shipping</a></p>'));
+        $form->addElement(new Element_HTML('<p><a href="Shipping/'.$selected_form_slug.'/unique" class="action">Shipping</a></p>'));
 
     $form->addElement(new Element_HTML('<p><b>Linked Products</b></p>'));
         $form->addElement(new Element_HTML('<p><a href="Linked-Products/'.$selected_form_slug.'/unique" class="action">Linked Products</a></p>'));

@@ -3,13 +3,11 @@
 function bf_wc_downloadable($thepostid, $customfield){
     global $post;
     $post = get_post($thepostid);
-    ?>
-    <div id="general_product_data" class="panel "><?php
 
         echo '<div class="options_group show_if_downloadable">';
 
         ?>
-        <div id="woocommerce-product-data" class="form-field ">
+
             <label><?php _e( 'Downloadable Files', 'woocommerce' ); ?>:</label><br><br><br>
             <table class="downloadable_files bf-upload" style="padding: 0">
                 <thead>
@@ -47,7 +45,7 @@ function bf_wc_downloadable($thepostid, $customfield){
                 </tr>
                 </tfoot>
             </table>
-        </div>
+
         <?php
 
         // Download Limit
@@ -105,6 +103,5 @@ function bf_wc_downloadable($thepostid, $customfield){
 
         do_action( 'woocommerce_product_options_general_product_data' );
         ?>
-    </div>
 <?php
 }

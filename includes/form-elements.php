@@ -12,7 +12,7 @@ global $thepostid, $post;
     switch ($customfield['type']) {
 
         case 'General':
-
+            $form->addElement(  new Element_HTML('<div id="woocommerce-product-data" class="form-field ">'));
             $product_type_default = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default']))
                 $product_type_default = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default'];
@@ -48,7 +48,7 @@ global $thepostid, $post;
             ob_clean();
 
             $form->addElement(  new Element_HTML($attr_test) );
-
+            $form->addElement(  new Element_HTML('</div>'));
             break;
 
         case 'Inventory':
