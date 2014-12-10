@@ -33,6 +33,7 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
     woocommerce_wp_text_input(array('id' => '_regular_price', 'label' => __('Regular Price', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')', 'data_type' => 'price'));
 
     // Special Price
+    echo '<div id="woocommerce-product-data">';
     woocommerce_wp_text_input(array('id' => '_sale_price', 'data_type' => 'price', 'label' => __('Sale Price', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')', 'description' => '<a href="#" class="sale_schedule">' . __('Schedule', 'woocommerce') . '</a>'));
 
     // Special Price date range
@@ -43,9 +44,9 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
                                     <label for="_sale_price_dates_from">' . __('Sale Price Dates', 'woocommerce') . '</label>
                                     <input type="text" class="short" name="_sale_price_dates_from" id="_sale_price_dates_from" value="' . esc_attr($sale_price_dates_from) . '" placeholder="' . _x('From&hellip;', 'placeholder', 'woocommerce') . ' YYYY-MM-DD" maxlength="10" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
                                     <input type="text" class="short" name="_sale_price_dates_to" id="_sale_price_dates_to" value="' . esc_attr($sale_price_dates_to) . '" placeholder="' . _x('To&hellip;', 'placeholder', 'woocommerce') . '  YYYY-MM-DD" maxlength="10" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
-                                    <a href="#" class="cancel_sale_schedule">' . __('Cancel', 'woocommerce') . '</a>
+                                    <a id="woocommerce-product-data" href="#" class="cancel_sale_schedule">' . __('Cancel', 'woocommerce') . '</a>
                                 </p>';
-
+    echo '</div>';
     do_action('woocommerce_product_options_pricing');
 
     echo '</div>';

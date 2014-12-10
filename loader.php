@@ -35,7 +35,6 @@ function bf_wc_includes(){
     include_once(dirname(__FILE__) . '/includes/form-elements.php');
     include_once(dirname(__FILE__) . '/includes/form-elements-save.php');
 
-    include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-advanced.php');
     include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-attribute.php');
     include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-downloadable.php');
     include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-general.php');

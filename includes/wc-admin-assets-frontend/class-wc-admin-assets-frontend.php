@@ -45,7 +45,7 @@ if ( ! class_exists( 'BF_WC_Frontend_Assets' ) ) :
                 wp_enqueue_style( 'jquery-ui-style', '//ajax.googleapis.com/ajax/libs/jqueryui/' . $jquery_version . '/themes/smoothness/jquery-ui.css', array(), WC_VERSION );
                 wp_enqueue_style( 'wp-color-picker' );
 
-                 wp_enqueue_style( 'woocommerce_admin_dashboard_styles', WC()->plugin_url() . '/assets/css/dashboard.css', array(), WC_VERSION );
+                wp_enqueue_style( 'woocommerce_admin_dashboard_styles', WC()->plugin_url() . '/assets/css/dashboard.css', array(), WC_VERSION );
 
         }
 
