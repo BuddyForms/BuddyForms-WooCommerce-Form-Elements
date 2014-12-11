@@ -49,10 +49,10 @@ function bf_wc_includes(){
     include_once(WC()->plugin_path() . '/includes/admin/wc-meta-box-functions.php');
 }
 
-add_action('wp_enqueue_scripts', 'bf_wc_enqueue_script');
+add_action('admin_enqueue_scripts', 'bf_wc_enqueue_script');
 function bf_wc_enqueue_script(){
 
-  // wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/assets/js/buddyforms-woocommerce.js' , __FILE__ ), array( 'jquery' ) );
+   wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/assets/js/buddyforms-woocommerce.js' , __FILE__ ), array( 'jquery' ) );
 
  }
 

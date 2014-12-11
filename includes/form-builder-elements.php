@@ -54,43 +54,75 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
             $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
 
-            $wp_dropdown_categories_args = array(
-                'hide_empty'        => 0,
-                'child_of'          => 0,
-                'echo'              => FALSE,
-                'selected'          => false,
-                'hierarchical'      => 1,
-                'name'              => "buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_type_default]",
-                'class'             => 'postform chosen',
-                'depth'             => 0,
-                'tab_index'         => 0,
-                'taxonomy'          => 'product_type',
-                'hide_if_empty'     => FALSE,
-            );
-
-            $dropdown = wp_dropdown_categories($wp_dropdown_categories_args);
 
             $product_type_default = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default']))
                 $product_type_default = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default'];
 
-            if($product_type_default)
-                $dropdown = str_replace(' value="' . $product_type_default . '"', ' value="' . $product_type_default . '" selected="selected"', $dropdown);
-
-            $dropdown = '<div class="bf_field_group">
-                    <div class="buddyforms_field_label"><b>Product Type Default</b></div>
-                    <div class="bf_inputs">' . $dropdown . ' </div>
-
-                </div>';
-
-            $form_fields['left']['product_type_default'] 		= new Element_HTML($dropdown);
 
             $product_type_hidden = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_hidden']))
                 $product_type_hidden = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_hidden'];
-            $form_fields['left']['product_type_hidden']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_type_hidden]",array('hidden' => '<b>' .__('Make a hidden field', 'buddyforms') . '</b>'),array('value' => $product_type_hidden));
+            $form_fields['full']['product_type_hidden']		= new Element_Checkbox('Make the Product Type a Hidden Field' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_type_hidden]",array('hidden' => '<b>' .__('Make a hidden field', 'buddyforms') . '</b>'),array('id' => 'product_type_hidden'.$form_slug.'_'.$field_id, 'class' => 'product_type_hidden' , 'value' => $product_type_hidden));
+
+            $form_fields['full']['hr1'] = new Element_HTML('<hr>');
+
+            $product_type_hidden_checked = isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_hidden']) ? '' : 'style="display: none;"';
+            echo $product_type_hidden_checked;
+            $form_fields['full']['product_type_default_div_start'] = new Element_HTML('<div ' . $product_type_hidden_checked . ' class="product_type_hidden'.$form_slug.'_'.$field_id.'-0">');
 
 
+            $product_type_default = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default']))
+                $product_type_default = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default'];
+
+            $product_type = apply_filters( 'default_product_type', 'simple' );
+
+            $product_type_selector = apply_filters( 'product_type_selector', array(
+                'simple'   => __( 'Simple product', 'woocommerce' ),
+                'grouped'  => __( 'Grouped product', 'woocommerce' ),
+                'external' => __( 'External/Affiliate product', 'woocommerce' ),
+                'variable' => __( 'Variable product', 'woocommerce' )
+            ), $product_type );
+
+
+
+
+            $type_box = '<label for="product-type"><p>Default Product Type</p><select id="product-type" name="buddyforms_options[buddyforms]['.$form_slug.'][form_fields]['.$field_id.'][product_type_default]"><optgroup label="' . __( 'Product Type', 'woocommerce' ) . '">';
+
+            foreach ( $product_type_selector as $value => $label ) {
+                $type_box .= '<option value="' . esc_attr( $value ) . '" ' . selected( $product_type_default, $value, false ) .'>' . esc_html( $label ) . '</option>';
+            }
+
+            $type_box .= '</optgroup></select></label>';
+
+            $form_fields['full']['product_type_default'] = new Element_HTML($type_box);
+
+            $product_type_options = apply_filters( 'product_type_options', array(
+                'virtual' => array(
+                    'id'            => '_virtual',
+                    'wrapper_class' => 'show_if_simple',
+                    'label'         => __( 'Virtual', 'woocommerce' ),
+                    'description'   => __( 'Virtual products are intangible and aren\'t shipped.', 'woocommerce' ),
+                    'default'       => 'no'
+                ),
+                'downloadable' => array(
+                    'id'            => '_downloadable',
+                    'wrapper_class' => 'show_if_simple',
+                    'label'         => __( 'Downloadable', 'woocommerce' ),
+                    'description'   => __( 'Downloadable products give access to a file upon purchase.', 'woocommerce' ),
+                    'default'       => 'no'
+                )
+            ) );
+
+            foreach ( $product_type_options as $key => $option ) {
+                $product_type_option_value  = isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_options'][esc_attr( $option["id"] )] ) ? $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_options'][esc_attr( $option["id"] )] : '';
+                $form_fields['full'][$key]  = new Element_Checkbox($option['description'] ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_type_options][". esc_attr( $option['id'] ) ."]",array($option['id'] => esc_html( $option['label'] ) ),array('id' => esc_attr( $option['id']), 'value' => $product_type_option_value  ));
+            }
+
+            $form_fields['full']['hr2'] = new Element_HTML('<hr>');
+
+            $form_fields['full']['product_type_default_div_end'] = new Element_HTML('</div>');
             break;
         case 'Inventory':
 
