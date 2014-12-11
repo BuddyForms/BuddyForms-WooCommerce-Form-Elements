@@ -170,6 +170,18 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
             $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
 
+
+            $product_up_sales = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_up_sales']))
+                $product_up_sales = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_up_sales'];
+            $form_fields['full']['product_up_sales']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_up_sales]",array('hidden' => '<b>' .__('Hide the Up-Sales', 'buddyforms') . '</b>'),array('id' => 'product_up_sales'.$form_slug.'_'.$field_id , 'value' => $product_up_sales));
+
+            $product_cross_sales = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_cross_sales']))
+                $product_cross_sales = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_cross_sales'];
+            $form_fields['full']['product_cross_sales']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_cross_sales]",array('hidden' => '<b>' .__('Hide the Cross Sales', 'buddyforms') . '</b>'),array('id' => 'product_cross_sales'.$form_slug.'_'.$field_id, 'value' => $product_cross_sales));
+
+
             break;
         case 'Attributes':
 

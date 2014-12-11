@@ -10,47 +10,53 @@ function bf_wc_product_linked($thepostid, $customfield){
 
     <div class="options_group">
 
-        <p class="form-field"><label for="upsell_ids"><?php _e( 'Up-Sells', 'woocommerce' ); ?></label>
-            <select id="upsell_ids" name="upsell_ids[]" class="ajax_chosen_select_products" multiple="multiple" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce' ); ?>">
-                <?php
-                $upsell_ids = get_post_meta( $thepostid, '_upsell_ids', true );
-                $product_ids = ! empty( $upsell_ids ) ? array_map( 'absint',  $upsell_ids ) : null;
+        <?php if(!isset($customfield['product_up_sales'])) { ?>
+            <p class="form-field"><label for="upsell_ids"><?php _e( 'Up-Sells', 'woocommerce' ); ?></label>
+                <select id="upsell_ids" name="upsell_ids[]" class="ajax_chosen_select_products" multiple="multiple" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce' ); ?>">
+                    <?php
+                    $upsell_ids = get_post_meta( $thepostid, '_upsell_ids', true );
+                    $product_ids = ! empty( $upsell_ids ) ? array_map( 'absint',  $upsell_ids ) : null;
 
-                if ( $product_ids ) {
+                    if ( $product_ids ) {
 
-                    foreach ( $product_ids as $product_id ) {
+                        foreach ( $product_ids as $product_id ) {
 
-                        $product = wc_get_product( $product_id );
+                            $product = wc_get_product( $product_id );
 
-                        if ( $product ) {
-                            echo '<option value="' . esc_attr( $product_id ) . '" selected="selected">' . esc_html( $product->get_formatted_name() ) . '</option>';
+                            if ( $product ) {
+                                echo '<option value="' . esc_attr( $product_id ) . '" selected="selected">' . esc_html( $product->get_formatted_name() ) . '</option>';
+                            }
                         }
                     }
-                }
-                ?>
-            </select> <img class="help_tip" data-tip='<?php _e( 'Up-sells are products which you recommend instead of the currently viewed product, for example, products that are more profitable or better quality or more expensive.', 'woocommerce' ) ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
+                    ?>
+                </select> <img class="help_tip" data-tip='<?php _e( 'Up-sells are products which you recommend instead of the currently viewed product, for example, products that are more profitable or better quality or more expensive.', 'woocommerce' ) ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
 
-        <p class="form-field"><label for="crosssell_ids"><?php _e( 'Cross-Sells', 'woocommerce' ); ?></label>
-            <select id="crosssell_ids" name="crosssell_ids[]" class="ajax_chosen_select_products" multiple="multiple" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce' ); ?>">
-                <?php
-                $crosssell_ids = get_post_meta( $thepostid, '_crosssell_ids', true );
-                $product_ids = ! empty( $crosssell_ids ) ? array_map( 'absint',  $crosssell_ids ) : null;
+        <?php } ?>
 
-                if ( $product_ids ) {
+        <?php if(!isset($customfield['product_cross_sales'])) { ?>
+            <p class="form-field"><label for="crosssell_ids"><?php _e( 'Cross-Sells', 'woocommerce' ); ?></label>
+                <select id="crosssell_ids" name="crosssell_ids[]" class="ajax_chosen_select_products" multiple="multiple" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce' ); ?>">
+                    <?php
+                    $crosssell_ids = get_post_meta( $thepostid, '_crosssell_ids', true );
+                    $product_ids = ! empty( $crosssell_ids ) ? array_map( 'absint',  $crosssell_ids ) : null;
 
-                    foreach ( $product_ids as $product_id ) {
+                    if ( $product_ids ) {
 
-                        $product = wc_get_product( $product_id );
+                        foreach ( $product_ids as $product_id ) {
 
-                        if ( $product ) {
-                            echo '<option value="' . esc_attr( $product_id ) . '" selected="selected">' . esc_html( $product->get_formatted_name() ) . '</option>';
+                            $product = wc_get_product( $product_id );
+
+                            if ( $product ) {
+                                echo '<option value="' . esc_attr( $product_id ) . '" selected="selected">' . esc_html( $product->get_formatted_name() ) . '</option>';
+                            }
                         }
                     }
-                }
-                ?>
-            </select> <img class="help_tip" data-tip='<?php _e( 'Cross-sells are products which you promote in the cart, based on the current product.', 'woocommerce' ) ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
+                    ?>
+                </select> <img class="help_tip" data-tip='<?php _e( 'Cross-sells are products which you promote in the cart, based on the current product.', 'woocommerce' ) ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
 
-    </div>
+
+        <?php } ?>
+         </div>
 
     <?php
 
