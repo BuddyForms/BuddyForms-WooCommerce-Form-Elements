@@ -62,7 +62,7 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $form_fields['full']['hr1'] = new Element_HTML('<hr>');
 
             $product_type_hidden_checked = isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_hidden']) ? '' : 'style="display: none;"';
-            echo $product_type_hidden_checked;
+
             $form_fields['full']['product_type_default_div_start'] = new Element_HTML('<div ' . $product_type_hidden_checked . ' class="product_type_hidden'.$form_slug.'_'.$field_id.'-0">');
 
 
