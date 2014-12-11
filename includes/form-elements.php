@@ -13,50 +13,21 @@ global $thepostid, $post;
 
         case 'General':
             $form->addElement(  new Element_HTML('<div id="woocommerce-product-data" class="form-field ">'));
-                $product_type_default = 'false';
-                if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default']))
-                    $product_type_default = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default'];
-
-                if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_hidden'])){
-                    $form->addElement( new Element_Hidden('product-type', $product_type_default));
-
-                    if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_options']))
-                        $product_type_options = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_options'];
-
-                        foreach($product_type_options as $key => $value){
-
-                            switch($key){
-
-                                case '_virtual':
-                                    $form->addElement( new Element_Hidden($key, 'yes'));
-                                    break;
-                                case '_downloadable':
-                                    $form->addElement( new Element_Hidden($key, 'true'));
-                                    break;
-                                default:
-                                    $form = apply_filters('buddyforms_form_element_add_field',$form, $key, $value);
-                                    break;
-                            }
-
-                        }
-
-
-                } else {
-                    ob_start();
-                        bf_wc_product_type($post_id, $customfield);
-                        $get_contents = ob_get_contents();
-                    ob_clean();
-                    $form->addElement(  new Element_HTML($get_contents));
-                }
 
                 ob_start();
-                    bf_wc_downloadable($post_id, $customfield);
+                    bf_wc_product_type($post_id, $customfield);
+                    $get_contents = ob_get_contents();
+                ob_clean();
+                $form->addElement(  new Element_HTML($get_contents));
+
+                ob_start();
+                    bf_wc_product_general($post_id, $customfield);
                     $get_contents = ob_get_contents();
                 ob_clean();
                 $form->addElement(  new Element_HTML($get_contents) );
 
                 ob_start();
-                    bf_wc_product_general($post_id, $customfield);
+                    bf_wc_downloadable($post_id, $customfield);
                     $get_contents = ob_get_contents();
                 ob_clean();
                 $form->addElement(  new Element_HTML($get_contents) );

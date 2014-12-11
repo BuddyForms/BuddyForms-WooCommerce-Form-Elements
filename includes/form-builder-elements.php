@@ -54,16 +54,10 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $form_fields['right']['type']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][type]", $field_type);
             $form_fields['right']['order']		= new Element_Hidden("buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][order]", $field_position, array('id' => 'buddyforms/' . $form_slug .'/form_fields/'. $field_id .'/order'));
 
-
-            $product_type_default = 'false';
-            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default']))
-                $product_type_default = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_default'];
-
-
             $product_type_hidden = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_hidden']))
                 $product_type_hidden = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_type_hidden'];
-            $form_fields['full']['product_type_hidden']		= new Element_Checkbox('Make the Product Type a Hidden Field' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_type_hidden]",array('hidden' => '<b>' .__('Make a hidden field', 'buddyforms') . '</b>'),array('id' => 'product_type_hidden'.$form_slug.'_'.$field_id, 'class' => 'product_type_hidden' , 'value' => $product_type_hidden));
+            $form_fields['full']['product_type_hidden']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_type_hidden]",array('hidden' => '<b>' .__('Make the Product Type a Hidden Field', 'buddyforms') . '</b>'),array('id' => 'product_type_hidden'.$form_slug.'_'.$field_id, 'class' => 'product_type_hidden' , 'value' => $product_type_hidden));
 
             $form_fields['full']['hr1'] = new Element_HTML('<hr>');
 
@@ -123,6 +117,28 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $form_fields['full']['hr2'] = new Element_HTML('<hr>');
 
             $form_fields['full']['product_type_default_div_end'] = new Element_HTML('</div>');
+
+            $product_sku = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sku']))
+                $product_sku = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sku'];
+            $form_fields['full']['product_sku']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sku]",array('hidden' => '<b>' .__('Hide the SKU Field', 'buddyforms') . '</b>'),array('id' => 'product_sku'.$form_slug.'_'.$field_id , 'value' => $product_sku));
+
+            $product_regular_price = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_regular_price']))
+                $product_regular_price = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_regular_price'];
+            $form_fields['full']['product_regular_price']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_regular_price]",array('hidden' => '<b>' .__('Hide the Regular Price', 'buddyforms') . '</b>'),array('id' => 'product_regular_price'.$form_slug.'_'.$field_id, 'value' => $product_regular_price));
+
+            $product_sales_price = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sales_price']))
+                $product_sales_price = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sales_price'];
+            $form_fields['full']['product_sales_price']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sales_price]",array('hidden' => '<b>' .__('Hide the Sales Price', 'buddyforms') . '</b>'),array('id' => 'product_sales_price'.$form_slug.'_'.$field_id , 'value' => $product_sales_price));
+
+            $product_sales_price_dates = 'false';
+            if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sales_price_dates']))
+                $product_sales_price_dates = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sales_price_dates'];
+            $form_fields['full']['product_sales_price_dates']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sales_price_dates]",array('hidden' => '<b>' .__('Hide the Sales Price Date', 'buddyforms') . '</b>'),array('id' => 'product_sales_price_dates'.$form_slug.'_'.$field_id, 'value' => $product_sales_price_dates));
+
+
             break;
         case 'Inventory':
 

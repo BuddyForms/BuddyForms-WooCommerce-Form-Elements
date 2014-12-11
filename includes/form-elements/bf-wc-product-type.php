@@ -2,10 +2,18 @@
 
 function bf_wc_product_type($thepostid, $customfield){
 
+    if(isset($customfield['product_type_default']))
+        echo '<div class="bf-hidden">';
+
     if ( $terms = wp_get_object_terms( $thepostid, 'product_type' ) ) {
         $product_type = sanitize_title( current( $terms )->name );
     } else {
-        $product_type = apply_filters( 'default_product_type', 'simple' );
+        if(isset($customfield['product_type_default'])){
+            $product_type = apply_filters( 'default_product_type', $customfield['product_type_default'] );
+        } else {
+            $product_type = apply_filters( 'default_product_type', 'simple' );
+        }
+
     }
 
     $product_type_selector = apply_filters( 'product_type_selector', array(
@@ -43,6 +51,22 @@ function bf_wc_product_type($thepostid, $customfield){
     foreach ( $product_type_options as $key => $option ) {
         $selected_value = get_post_meta( $thepostid, '_' . $key, true );
 
+
+
+        if( '' == $selected_value && isset($customfield['product_type_options'][$option['id']])){
+
+              $product_type_options = $customfield['product_type_options'][$option['id']];
+
+              switch($product_type_options[0]){
+                  case '_virtual':
+                      $selected_value = 'yes';
+                      break;
+                  case '_downloadable':
+                      $selected_value = 'yes';
+                      break;
+            }
+        }
+
         if ( '' == $selected_value && isset( $option['default'] ) ) {
             $selected_value = $option['default'];
         }
@@ -50,10 +74,9 @@ function bf_wc_product_type($thepostid, $customfield){
         $type_box .= '<label for="' . esc_attr( $option['id'] ) . '" class="'. esc_attr( $option['wrapper_class'] ) . ' tips" data-tip="' . esc_attr( $option['description'] ) . '">' . esc_html( $option['label'] ) . ': <input type="checkbox" name="' . esc_attr( $option['id'] ) . '" id="' . esc_attr( $option['id'] ) . '" ' . checked( $selected_value, 'yes', false ) .' /></label>';
     }
 
-    echo '<span class="type_box"> &mdash; ' . $type_box . '</span>';
+    echo '<span>Product Data </span><br><span class="type_box">' . $type_box . '</span>';
 
-}
-
-function bf_wc_product_type_save($post_id){
+    if(isset($customfield['product_type_default']))
+        echo '</div>';
 }
 

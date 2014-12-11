@@ -4,6 +4,7 @@ function bf_wc_downloadable($thepostid, $customfield){
     global $post;
     $post = get_post($thepostid);
 
+
         echo '<div class="options_group show_if_downloadable">';
 
         ?>
