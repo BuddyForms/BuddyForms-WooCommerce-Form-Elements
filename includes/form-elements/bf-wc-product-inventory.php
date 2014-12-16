@@ -3,7 +3,7 @@
 function bf_wc_product_inventory($thepostid, $customfield){
 global $post; ?>
 
-    <div id="inventory_product_data" class="panel woocommerce_options_panel">
+    <div id="inventory_product_data">
 
         <?php
 

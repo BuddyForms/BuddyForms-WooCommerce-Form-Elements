@@ -2,7 +2,7 @@
 
 function bf_wc_product_general($thepostid, $customfield){ ?>
 
-    <div id="general_product_data" class="panel woocommerce_options_panel"><?php
+    <div id="general_product_data"><?php
 
     if(!isset($customfield['product_sku'])){
 

@@ -228,4 +228,7 @@ if ( ! class_exists( 'BF_WC_Frontend_Assets' ) ) :
 
 endif;
 
-return new BF_WC_Frontend_Assets();
+add_action('buddyforms_front_js_css_enqueue', 'bf_wc_create_edit_form_js_css');
+function bf_wc_create_edit_form_js_css(){
+    return new BF_WC_Frontend_Assets();
+}

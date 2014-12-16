@@ -45,20 +45,14 @@ function bf_wc_includes(){
 
     include_once(dirname(__FILE__) . '/includes/wc-admin-assets-frontend/class-wc-admin-assets-frontend.php');
 
-    //echo WC()->plugin_url() . '/includes/admin/wc-meta-box-functions.php';
     include_once(WC()->plugin_path() . '/includes/admin/wc-meta-box-functions.php');
 }
 
 add_action('admin_enqueue_scripts', 'bf_wc_enqueue_script');
-function bf_wc_enqueue_script(){
+function bf_wc_enqueue_script($hook){
 
-   wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/assets/js/buddyforms-woocommerce.js' , __FILE__ ), array( 'jquery' ) );
+    if($hook == 'toplevel_page_buddyforms_options_page'){
+        wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/assets/js/buddyforms-woocommerce.js' , __FILE__ ), array( 'jquery' ) );
+    }
 
  }
-
-add_action('wp_enqueue_scripts', 'bf_wp_enqueue_style');
-function bf_wp_enqueue_style(){
-
-   // wp_enqueue_style( 'buddyforms-woocommerce-css', plugins_url( '/assets/css/buddyforms-woocommerce.css' , __FILE__ ));
-
-}

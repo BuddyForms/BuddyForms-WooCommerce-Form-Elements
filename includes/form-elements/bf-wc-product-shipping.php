@@ -2,7 +2,7 @@
 
 function bf_wc_shipping($thepostid, $customfield){ ?>
 
-    <div id="shipping_product_data" class="panel woocommerce_options_panel">
+    <div id="shipping_product_data">
 
     <?php
 

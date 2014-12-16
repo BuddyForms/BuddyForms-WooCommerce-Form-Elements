@@ -5,9 +5,11 @@ global $thepostid, $post;
 
     extract($form_args);
 
+    if(!isset($customfield['type']))
+        return $form;
+
     $thepostid          = $post_id;
     $post               = get_post($post_id);
-    $buddyforms_options = get_option('buddyforms_options');
 
     switch ($customfield['type']) {
 
@@ -93,4 +95,3 @@ global $thepostid, $post;
 
 }
 add_filter('buddyforms_create_edit_form_display_element','buddyforms_woocommerce_create_frontend_form_element',1,2);
-

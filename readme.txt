@@ -7,13 +7,13 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WordPress Front End Editor And Form Builder For Your User Generated Content
+WordPress Front End Editor and Form Builder for your User Generated Content
 
 == Description ==
 
-This is the BuddyForms WooCommerce Extension. Create Powerful Frontend Management for your Vendors. You need the BuddyForms plugin installed for the plugin to work. <a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
+This is the BuddyForms WooCommerce Extension. Create powerful frontend management for your vendors. You need the BuddyForms plugin installed for the plugin to work. <a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
 
-This Plugin adds a new section to the BuddyForms Form Builder with all WooCommerce fields to create Product creation/editing forms for to the frontend.
+This plugin adds a new section to the BuddyForms Form Builder with all WooCommerce fields to create product forms to manage (create/edit) products from the frontend.
 
 <b>WooCommerce Fields</b>
 
@@ -28,33 +28,33 @@ This Plugin adds a new section to the BuddyForms Form Builder with all WooCommer
 
 <b>Keep your User in the Frontend.</b>
 
-Your users can become Vendors and able to create and manage there WooCommerce Products from the Frontend. If you use BuddyPress all can be integrated into the members profile with one click.
+Your users can become vendors and are able to manage there WooCommerce products from the frontend. If you use BuddyPress all can be integrated into the members profile with one click.
 
 
 <b>Create a Marketplace.</b>
 
-Create All Kind of MarketPlaces and let your user become the Vendor.
+Create All Kind of marketplaces and let your user become the vendor.
 like classifieds, advertisements, creative markets...
 
 
-What else do I need to create a Socialised marketplace?
+What else do I need to create a marketplace?
 
-We believe that a plugin should work grate and should be build for one purpose Instead of try to make all possible in one solution but buggy or not easy to update.
-Therefor with BuddyForms WooCommerce Form Fields you will manage all the creation and editing of your WooCommerce Products.
+We believe that a plugin should work great and should be build for one purpose instead of trying to make all possible in one solution but buggy or not easy to update.
+Therefor with BuddyForms WooCommerce Form Fields you will manage only the creating and editing of your WooCommerce products.
 
 The plugin generates different views.
 
-One for the vendor products and One for the create and edit screen. With the BuddyPress Plugin enabled the author product list can be public to show the users products in the profile.
+One for the vendor products and one for the created and edit screen. With the BuddyPress plugin is enabled the author product list can be public to show the users products in the profile.
 
-If you want to Integrate WooCommerce with BuddyPress please see this Plugin. The Plugin makes it very easy to integrate WooCommerce or other WooCommerce plugins into the BuddyPress Profile. and manage WooCommerce and BuddyPress Profile synchronisation.
+If you want to integrate WooCommerce with BuddyPress please see this plugin. The plugin makes it very easy to integrate WooCommerce or other WooCommerce plugins into the BuddyPress profile and manage WooCommerce and BuddyPress Profile synchronisation.
 
 If you need a vendor management you can use any. This is a lot of freedom for you. You can change your vendors extension if you are unhappy, but all the rest will work. We decided to leave the vendor payment management to other plugins.
 
-There are already Vendor plugins available from WooThemes and tther developers.
+There are already vendor plugins available from WooThemes and other developers.
 
 LIST
 
-for more information please read the documentation on How to Create a Marketplace with WordPress WooCommerce and BuddyPress.
+for more information please read the documentation on How to Create a Marketplace with WordPress, WooCommerce and BuddyPress.
 
 https://themekraft.zendesk.com/hc/en-us/articles/200829781-Create-a-Socialized-Marketplace-with-WooCommerce-and-BuddyPress
 
@@ -62,12 +62,12 @@ https://themekraft.zendesk.com/hc/en-us/articles/200829781-Create-a-Socialized-M
 
 <h4>Extensive Documentation and Support</h4>
 
-All code is neat, clean and well documented (inline as well as in the documentation).
+All code is clean and well documented (inline as well as in the documentation).
 
-The BuddyForms Documentation with many how-to’s is following now!
+The BuddyForms documentation with many how-to’s is following now!
 
 If you still get stuck somewhere, our support gets you back on the right track.
-You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard!
+You can find all help buttons in your BuddyForms settings panel in your WP dashboard!
 
 <h4>Got ideas or just missing something?</h4>
 
@@ -79,7 +79,7 @@ Visit our ideas forums, add your ideas and vote for others!
 
  == Installation ==
 
-You can download and install BuddyForms WooCommerce Form Elements using the built in WordPress plugin installer. If you download BuddyForms WooCommerce Form Elements manually,
+You can download and install BuddyForms WooCommerce Form Elements by using the built in WordPress plugin installer. If you download BuddyForms WooCommerce Form Elements manually,
 make sure it is uploaded to "/wp-content/plugins/".
 
  == Frequently Asked Questions ==
