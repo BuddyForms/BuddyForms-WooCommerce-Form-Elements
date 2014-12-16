@@ -2,7 +2,7 @@
 
 function bf_wc_product_type($thepostid, $customfield){
 
-    if(isset($customfield['product_type_default']))
+    if(isset($customfield['product_type_hidden']))
         echo '<div class="bf-hidden">';
 
     if ( $terms = wp_get_object_terms( $thepostid, 'product_type' ) ) {
@@ -76,7 +76,7 @@ function bf_wc_product_type($thepostid, $customfield){
 
     echo '<span>Product Data </span><br><span class="type_box">' . $type_box . '</span>';
 
-    if(isset($customfield['product_type_default']))
+    if(isset($customfield['product_type_hidden']))
         echo '</div>';
 }
 

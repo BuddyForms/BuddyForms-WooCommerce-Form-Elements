@@ -50,19 +50,19 @@ function bf_wc_downloadable($thepostid, $customfield){
         <?php
 
         // Download Limit
-        woocommerce_wp_text_input( array( 'id' => '_download_limit', 'label' => __( 'Download Limit', 'woocommerce' ), 'placeholder' => __( 'Unlimited', 'woocommerce' ), 'description' => __( 'Leave blank for unlimited re-downloads.', 'woocommerce' ), 'type' => 'number', 'custom_attributes' => array(
+        woocommerce_wp_text_input( array( 'id' => '_download_limit', 'label' => __( 'Download Limit', 'woocommerce' ).'<br>', 'placeholder' => __( 'Unlimited', 'woocommerce' ), 'description' => '<br>'.__( 'Leave blank for unlimited re-downloads.', 'woocommerce' ), 'type' => 'number', 'custom_attributes' => array(
             'step' 	=> '1',
             'min'	=> '0'
         ) ) );
 
         // Expirey
-        woocommerce_wp_text_input( array( 'id' => '_download_expiry', 'label' => __( 'Download Expiry', 'woocommerce' ), 'placeholder' => __( 'Never', 'woocommerce' ), 'description' => __( 'Enter the number of days before a download link expires, or leave blank.', 'woocommerce' ), 'type' => 'number', 'custom_attributes' => array(
+        woocommerce_wp_text_input( array( 'id' => '_download_expiry', 'label' => __( 'Download Expiry', 'woocommerce' ).'<br>', 'placeholder' => __( 'Never', 'woocommerce' ), 'description' => '<br>'.__( 'Enter the number of days before a download link expires, or leave blank.', 'woocommerce' ), 'type' => 'number', 'custom_attributes' => array(
             'step' 	=> '1',
             'min'	=> '0'
         ) ) );
 
         // Download Type
-        woocommerce_wp_select( array( 'id' => '_download_type', 'label' => __( 'Download Type', 'woocommerce' ), 'description' => sprintf( __( 'Choose a download type - this controls the <a href="%s">schema</a>.', 'woocommerce' ), 'http://schema.org/' ), 'options' => array(
+        woocommerce_wp_select( array( 'id' => '_download_type', 'label' => __( 'Download Type', 'woocommerce' ).'<br>', 'description' => '<br>'.sprintf( __( 'Choose a download type - this controls the <a href="%s">schema</a>.', 'woocommerce' ), 'http://schema.org/' ), 'options' => array(
             ''            => __( 'Standard Product', 'woocommerce' ),
             'application' => __( 'Application/Software', 'woocommerce' ),
             'music'       => __( 'Music', 'woocommerce' ),
@@ -70,7 +70,6 @@ function bf_wc_downloadable($thepostid, $customfield){
 
         do_action( 'woocommerce_product_options_downloads' );
 
-        echo '</div>';
 
         if ( 'yes' == get_option( 'woocommerce_calc_taxes' ) ) {
 
@@ -104,5 +103,6 @@ function bf_wc_downloadable($thepostid, $customfield){
 
         do_action( 'woocommerce_product_options_general_product_data' );
         ?>
+    </div>
 <?php
 }
