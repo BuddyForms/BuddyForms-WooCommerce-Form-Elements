@@ -49,7 +49,7 @@ function bf_wc_shipping($thepostid, $customfield){ ?>
         'selected'         => $current_shipping_class,
         'class'            => 'select short'
     );
-    ?><p class="form-field dimensions_field"><label for="product_shipping_class"><?php _e( 'Shipping class', 'woocommerce' ); ?></label> <br><?php wp_dropdown_categories( $args ); ?> <img class="help_tip" data-tip="<?php esc_attr_e( 'Shipping classes are used by certain shipping methods to group similar products.', 'woocommerce' ); ?>" src="<?php echo esc_url( WC()->plugin_url() ); ?>/assets/images/help.png" height="16" width="16" /></p><?php
+    ?><label for="product_shipping_class"><?php _e( 'Shipping class', 'woocommerce' ); ?></label><p class="form-field dimensions_field"><?php wp_dropdown_categories( $args ); ?> <img class="help_tip" data-tip="<?php esc_attr_e( 'Shipping classes are used by certain shipping methods to group similar products.', 'woocommerce' ); ?>" src="<?php echo esc_url( WC()->plugin_url() ); ?>/assets/images/help.png" height="16" width="16" /></p><?php
 
     do_action( 'woocommerce_product_options_shipping' );
 

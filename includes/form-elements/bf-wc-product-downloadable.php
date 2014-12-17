@@ -9,7 +9,7 @@ function bf_wc_downloadable($thepostid, $customfield){
 
         ?>
 
-            <label><?php _e( 'Downloadable Files', 'woocommerce' ); ?>:</label><br><br><br>
+            <label><?php _e( 'Downloadable Files', 'woocommerce' ); ?>:</label><br>
             <table class="downloadable_files bf-upload" style="padding: 0">
                 <thead>
                 <tr>

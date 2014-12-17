@@ -11,7 +11,8 @@ function bf_wc_product_linked($thepostid, $customfield){
     <div class="options_group">
 
         <?php if(!isset($customfield['product_up_sales'])) { ?>
-            <div class="form-field"><label for="upsell_ids"><?php _e( 'Up-Sells', 'woocommerce' ); ?></label><br>
+            <label for="upsell_ids"><?php _e( 'Up-Sells', 'woocommerce' ); ?></label>
+            <div class="form-field">
                 <select id="upsell_ids" name="upsell_ids[]" class="ajax_chosen_select_products" multiple="multiple" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce' ); ?>">
                     <?php
                     $upsell_ids = get_post_meta( $thepostid, '_upsell_ids', true );
@@ -34,7 +35,8 @@ function bf_wc_product_linked($thepostid, $customfield){
         <?php } ?>
 
         <?php if(!isset($customfield['product_cross_sales'])) { ?>
-            <p class="form-field"><label for="crosssell_ids"><?php _e( 'Cross-Sells', 'woocommerce' ); ?></label><br>
+            <label for="crosssell_ids"><?php _e( 'Cross-Sells', 'woocommerce' ); ?></label>
+            <p class="form-field">
                 <select id="crosssell_ids" name="crosssell_ids[]" class="ajax_chosen_select_products" multiple="multiple" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce' ); ?>">
                     <?php
                     $crosssell_ids = get_post_meta( $thepostid, '_crosssell_ids', true );
@@ -100,7 +102,7 @@ function bf_wc_product_linked($thepostid, $customfield){
 
     }
 
-    woocommerce_wp_select( array( 'id' => 'parent_id', 'label' => __( 'Grouping', 'woocommerce' ), 'value' => absint( $post->post_parent ), 'options' => $post_parents, 'desc_tip' => true, 'description' => __( 'Set this option to make this product part of a grouped product.', 'woocommerce' ) ) );
+    woocommerce_wp_select( array( 'id' => 'parent_id', 'label' => __( 'Grouping', 'woocommerce' ).'<br>', 'value' => absint( $post->post_parent ), 'options' => $post_parents, 'desc_tip' => true, 'description' => __( 'Set this option to make this product part of a grouped product.', 'woocommerce' ) ) );
 
     woocommerce_wp_hidden_input( array( 'id' => 'previous_parent_id', 'value' => absint( $post->post_parent ) ) );
 
