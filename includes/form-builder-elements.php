@@ -121,22 +121,23 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $product_sku = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sku']))
                 $product_sku = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sku'];
-            $form_fields['full']['product_sku']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sku]",array('hidden' => '<b>' .__('Hide the SKU Field', 'buddyforms') . '</b>'),array('id' => 'product_sku'.$form_slug.'_'.$field_id , 'value' => $product_sku));
+            $form_fields['full']['product_sku']		= new Element_Checkbox('<b>' . __('SKU Field', 'buddyforms') . '</b>' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sku]",array('hidden' => __('Hide', 'buddyforms'), "Required" => __('Required', 'buddyforms') ),array('inline' => 1, 'id' => 'product_sku'.$form_slug.'_'.$field_id , 'value' => $product_sku));
+
 
             $product_regular_price = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_regular_price']))
                 $product_regular_price = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_regular_price'];
-            $form_fields['full']['product_regular_price']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_regular_price]",array('hidden' => '<b>' .__('Hide the Regular Price', 'buddyforms') . '</b>'),array('id' => 'product_regular_price'.$form_slug.'_'.$field_id, 'value' => $product_regular_price));
+            $form_fields['full']['product_regular_price']		= new Element_Checkbox('<b>' . __('Regular Price', 'buddyforms') . '</b>' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_regular_price]",array('hidden' => __('Hide', 'buddyforms'), "Required" => __('Required', 'buddyforms') ),array('inline' => 1, 'id' => 'product_regular_price'.$form_slug.'_'.$field_id, 'value' => $product_regular_price));
 
             $product_sales_price = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sales_price']))
                 $product_sales_price = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sales_price'];
-            $form_fields['full']['product_sales_price']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sales_price]",array('hidden' => '<b>' .__('Hide the Sales Price', 'buddyforms') . '</b>'),array('id' => 'product_sales_price'.$form_slug.'_'.$field_id , 'value' => $product_sales_price));
+            $form_fields['full']['product_sales_price']		= new Element_Checkbox('<b>' . __('Sales Price', 'buddyforms') . '</b>'  ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sales_price]",array('hidden' => __('Hide', 'buddyforms'), "Required" => __('Required', 'buddyforms') ),array('inline' => 1, 'id' => 'product_sales_price'.$form_slug.'_'.$field_id , 'value' => $product_sales_price));
 
             $product_sales_price_dates = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sales_price_dates']))
                 $product_sales_price_dates = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sales_price_dates'];
-            $form_fields['full']['product_sales_price_dates']		= new Element_Checkbox('' ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sales_price_dates]",array('hidden' => '<b>' .__('Hide the Sales Price Date', 'buddyforms') . '</b>'),array('id' => 'product_sales_price_dates'.$form_slug.'_'.$field_id, 'value' => $product_sales_price_dates));
+            $form_fields['full']['product_sales_price_dates']		= new Element_Checkbox('<b>' . __('Sales Price Date', 'buddyforms') . '</b>'  ,"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sales_price_dates]",array('hidden' => __('Hide', 'buddyforms'), "Required" => __('Required', 'buddyforms') ),array('inline' => 1, 'id' => 'product_sales_price_dates'.$form_slug.'_'.$field_id, 'value' => $product_sales_price_dates));
 
 
             break;
