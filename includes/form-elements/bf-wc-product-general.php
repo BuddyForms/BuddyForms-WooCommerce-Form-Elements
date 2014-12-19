@@ -35,18 +35,16 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
     echo '<div class="options_group pricing show_if_simple show_if_external">';
 
     if(!(isset($customfield['product_regular_price']) && in_array('hidden', $customfield['product_regular_price']))){
-        $required       = isset($customfield['product_sku'])?in_array('Required', $customfield['product_sku'])? array('required' => ''):'':'';
-        $required_html  = isset($customfield['product_sku'])?in_array('Required', $customfield['product_sku'])? '<span class="required">* </span>':'':'';
+        $required       = isset($customfield['product_regular_price'])?in_array('Required', $customfield['product_regular_price'])? array('required' => ''):'':'';
+        $required_html  = isset($customfield['product_regular_price'])?in_array('Required', $customfield['product_regular_price'])? '<span class="required">* </span>':'':'';
 
         // Price
         woocommerce_wp_text_input(array( 'custom_attributes' => $required , 'id' => '_regular_price', 'label' => $required_html.__('Regular Price', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')<br>', 'data_type' => 'price'));
     }
     if(!(isset($customfield['product_sales_price']) && in_array('hidden', $customfield['product_sales_price']))){
-        $required       = isset($customfield['product_sku'])?in_array('Required', $customfield['product_sku'])? array('required' => ''):'':'';
-        $required_html  = isset($customfield['product_sku'])?in_array('Required', $customfield['product_sku'])? '<span class="required">* </span>':'':'';
+        $required       = isset($customfield['product_sales_price'])?in_array('Required', $customfield['product_sales_price'])? array('required' => ''):'':'';
+        $required_html  = isset($customfield['product_sales_price'])?in_array('Required', $customfield['product_sales_price'])? '<span class="required">* </span>':'':'';
         $description    = isset($customfield['product_sales_price_dates'])?in_array('hidden', $customfield['product_sales_price_dates'])? '':'<a href="#" class="sale_schedule">' . __('Schedule', 'woocommerce') . '</a>':'';
-
-
 
         // Special Price
         woocommerce_wp_text_input(array( 'custom_attributes' => $required , 'id' => '_sale_price', 'data_type' => 'price', 'label' => $required_html.__('Sale Price', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')<br>', 'description' => $description));
@@ -54,15 +52,13 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
 
      if(!(isset($customfield['product_sales_price_dates']) && in_array('hidden', $customfield['product_sales_price_dates']))){
 
-         $required       = isset($customfield['product_sku'])?in_array('Required', $customfield['product_sku'])? 'required':'':'';
-         $required_html  = isset($customfield['product_sku'])?in_array('Required', $customfield['product_sku'])? '<span class="required">* </span>':'':'';
-         $required_style  = isset($customfield['product_sku'])?in_array('Required', $customfield['product_sku'])? 'style="display: block;"':'':'';
+         $required       = isset($customfield['product_sales_price_dates'])?in_array('Required', $customfield['product_sales_price_dates'])? 'required':'':'';
+         $required_html  = isset($customfield['product_sales_price_dates'])?in_array('Required', $customfield['product_sales_price_dates'])? '<span class="required">* </span>':'':'';
+         $required_style  = isset($customfield['product_sales_price_dates'])?in_array('Required', $customfield['product_sales_price_dates'])? 'style="display: block;"':'':'';
 
          // Special Price date range
         $sale_price_dates_from = ($date = get_post_meta($thepostid, '_sale_price_dates_from', true)) ? date_i18n('Y-m-d', $date) : '';
         $sale_price_dates_to = ($date = get_post_meta($thepostid, '_sale_price_dates_to', true)) ? date_i18n('Y-m-d', $date) : '';
-
-
 
         echo '	<p class="form-field sale_price_dates_fields" '.$required_style.'>
                                     <label for="_sale_price_dates_from">' .$required_html. __('Sale Price Dates', 'woocommerce') . '</label>

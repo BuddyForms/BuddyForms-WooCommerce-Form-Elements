@@ -28,8 +28,34 @@
  ****************************************************************************
  */
 
-add_action('init', 'bf_wc_includes');
-function bf_wc_includes(){
+add_action('init', 'bf_wc_fe_loader', 10);
+
+function bf_wc_fe_loader(){
+    if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+        add_action('init', 'bf_wc_fe_includes', 999);
+        add_action('admin_enqueue_scripts', 'bf_wc_admin_enqueue_script');
+
+    }
+
+}
+
+
+add_action('plugins_loaded', 'bf_wc_fe_requirements');
+function bf_wc_fe_requirements(){
+
+    if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+        add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms WooCommerce Form Elements needs WooCommerce to be installed. <a href="%s">Download it now</a>!\', " buddyforms" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
+        return;
+    }
+
+    if( ! defined( 'buddyforms' )){
+        add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms WooCommerce Form Elements needs BuddyForms to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " wc4bp_xprofile" ) . \'</strong></p></div>\', "http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" );' ) );
+        return;
+    }
+
+}
+
+function bf_wc_fe_includes(){
 
     include_once(dirname(__FILE__) . '/includes/form-builder-elements.php');
     include_once(dirname(__FILE__) . '/includes/form-elements.php');
@@ -48,11 +74,8 @@ function bf_wc_includes(){
     include_once(WC()->plugin_path() . '/includes/admin/wc-meta-box-functions.php');
 }
 
-add_action('admin_enqueue_scripts', 'bf_wc_admin_enqueue_script');
 function bf_wc_admin_enqueue_script($hook){
-
     if($hook == 'toplevel_page_buddyforms_options_page'){
         wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/assets/js/buddyforms-woocommerce.js' , __FILE__ ), array( 'jquery' ) );
     }
-
  }
