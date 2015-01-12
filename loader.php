@@ -71,7 +71,8 @@ function bf_wc_fe_includes(){
 
     include_once(dirname(__FILE__) . '/includes/wc-admin-assets-frontend/class-wc-admin-assets-frontend.php');
 
-    include_once(WC()->plugin_path() . '/includes/admin/wc-meta-box-functions.php');
+    if(!function_exists('woocommerce_wp_text_input'))
+        include_once(WC()->plugin_path() . '/includes/admin/wc-meta-box-functions.php');
 }
 
 function bf_wc_admin_enqueue_script($hook){
