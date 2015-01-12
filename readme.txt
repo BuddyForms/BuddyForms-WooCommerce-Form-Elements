@@ -1,4 +1,5 @@
 === BuddyForms WooCommerce Form Elements ===
+
 Contributors: svenl77
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
@@ -7,7 +8,7 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WordPress Front End Editor and Form Builder for your User Generated Content
+Let your WooCommerce Vendors Manage there Products from teh Frontend
 
 == Description ==
 
@@ -28,7 +29,7 @@ This plugin adds a new section to the BuddyForms Form Builder with all WooCommer
 
 <b>Keep your User in the Frontend.</b>
 
-Your users can become vendors and are able to manage there WooCommerce products from the frontend. If you use BuddyPress all can be integrated into the members profile with one click.
+Your users can become vendors and are able to manage their WooCommerce products from the front end. If you use BuddyPress, all can be integrated into the members profile with one click.
 
 
 <b>Create a Marketplace.</b>
@@ -39,20 +40,32 @@ like classifieds, advertisements, creative markets...
 
 What else do I need to create a marketplace?
 
-We believe that a plugin should work great and should be build for one purpose instead of trying to make all possible in one solution but buggy or not easy to update.
-Therefor with BuddyForms WooCommerce Form Fields you will manage only the creating and editing of your WooCommerce products.
+BuddyForms WooCommerce Form Elements is build for one purpose, to make it easy for you to manage creating and editing your WooCommerce products. This plugin is a clean, bloat free solution to front end edition of your WooCommerce products.
 
-The plugin generates different views.
+<strong>Features</strong>:
+The plugin generates two different views.
 
-One for the vendor products and one for the created and edit screen. With the BuddyPress plugin is enabled the author product list can be public to show the users products in the profile.
+1. For the list of vendor products
+2. For the creation and edition screen.
 
-If you want to integrate WooCommerce with BuddyPress please see this plugin. The plugin makes it very easy to integrate WooCommerce or other WooCommerce plugins into the BuddyPress profile and manage WooCommerce and BuddyPress Profile synchronisation.
+When used with BuddyPress, the members product listing can be displayed publicly to show their products directly within their profile page.
+
+If you wish to integrate WooCommerce with BuddyPress please use our <a href="http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" title="WooCommerce BuddyPress Integration WordPress Plugin" target="_blank">WooCommerce and BuddyPress Profile synchronization plugin</a>. This plugin makes it very easy to integrate WooCommerce and other WooCommerce plugins directly within the BuddyPress profile pages.
 
 If you need a vendor management you can use any. This is a lot of freedom for you. You can change your vendors extension if you are unhappy, but all the rest will work. We decided to leave the vendor payment management to other plugins.
 
 There are already vendor plugins available from WooThemes and other developers.
 
-LIST
+Free Vendor Plugins
+<ul>
+<li><a href="https://wordpress.org/plugins/wc-vendors/" target="_blank">WP Vendors<a/></li>
+</ul>
+
+Paid Vendor Plugins
+<ul>
+<li><a href="http://www.woothemes.com/products/product-vendors/" target="_blank">Product Vendors<a/></li>
+<li><a href="http://ignitewoo.com/woocommerce-extensions-plugins-themes/woocommerce-vendor-stores/" target="_blank">WooCommerce Vendor Stores<a/></li>
+</ul>
 
 for more information please read the documentation on How to Create a Marketplace with WordPress, WooCommerce and BuddyPress.
 
@@ -79,20 +92,18 @@ Visit our ideas forums, add your ideas and vote for others!
 
  == Installation ==
 
-You can download and install BuddyForms WooCommerce Form Elements by using the built in WordPress plugin installer. If you download BuddyForms WooCommerce Form Elements manually,
-make sure it is uploaded to "/wp-content/plugins/".
+You can download and install BuddyForms WooCommerce Form Elements by using the built in WordPress plugin installer. If you download BuddyForms WooCommerce Form Elements manually, make sure it is uploaded to "/wp-content/plugins/".
 
  == Frequently Asked Questions ==
 
 You need the BuddyForms plugin installed for the plugin to work.
 <a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
 
-Yes, the plugin should work just fine with every theme.
+The plugin should work with every theme. (Please let us know if you experience any issues with your theme.)
 
 
  == Changelog ==
 
-final release 1.0 ;)
+Initial release 1.0 ;)
 
  == Screenshots ==
-
