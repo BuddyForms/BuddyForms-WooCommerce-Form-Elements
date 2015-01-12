@@ -3,12 +3,12 @@
 Contributors: svenl77
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
-Tested up to: WordPress 4.0, BuddyPress 2.x
+Tested up to: WordPress 4.1, BuddyPress 2.x
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Let your WooCommerce Vendors Manage there Products from teh Frontend
+Let your WooCommerce Vendors Manage there Products from the Frontend
 
 == Description ==
 
