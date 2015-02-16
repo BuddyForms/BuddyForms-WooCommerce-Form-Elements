@@ -19,7 +19,6 @@ if ( ! class_exists( 'BF_WC_Frontend_Assets' ) ) :
      */
     class BF_WC_Frontend_Assets {
 
-
         /**
          * Hook in tabs.
          */

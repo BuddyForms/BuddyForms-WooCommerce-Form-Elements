@@ -11,6 +11,7 @@ global $thepostid, $post;
     $thepostid          = $post_id;
     $post               = get_post($post_id);
 
+
     switch ($customfield['type']) {
 
         case 'General':
