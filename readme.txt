@@ -3,8 +3,8 @@
 Contributors: svenl77
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
-Tested up to: WordPress 4.1.1, BuddyPress 2.2.1
-Stable tag: 1.1
+Tested up to: WordPress 4.1.1, BuddyPress 2.2.2.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,15 +102,25 @@ You need the BuddyForms plugin installed for the plugin to work.
 The plugin should work with every theme. (Please let us know if you experience any issues with your theme.)
 
 
- == Changelog ==
+== Changelog ==
 
- == 1.1 ==
- Add support for WooCommerce 2.3
- Update the form fields logic and css for WooCommerce
- Load needed js for the fronted in WooCommerce 2.3
+== 1.1.1 ==
+<ul>
+<li>add a new function buddyforms_woocommerce_updtae_visibility to add visibility = visible if the post status is set to published during submit.</li>
+<li>fixed a bug in the taxonomies form handling if the taxonomy is used for a product attribute the post meta needs to be updated.</li>
+<ul>
+
+== 1.1 ==
+<ul>
+<li>Add support for WooCommerce 2.3</li>
+<li>Update the form fields logic and css for WooCommerce</li>
+<li>Load needed js for the fronted in WooCommerce 2.3</li>
+<ul>
 
  == 1.0 ==
+<ul>
+<li>Initial release 1.0 ;)</li>
+<ul>
 
-Initial release 1.0 ;)
 
  == Screenshots ==
