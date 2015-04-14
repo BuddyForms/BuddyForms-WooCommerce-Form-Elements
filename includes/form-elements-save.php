@@ -40,7 +40,7 @@ function buddyforms_woocommerce_updtae_wc_post_meta($post_id){
 
     if($bf_wc_save_gallery == 'yes')
         WC_Meta_Box_Product_Images::save($post_id, $post);
-    
+
 
     if(!isset($bf_product_attributes))
         return;
@@ -65,6 +65,14 @@ function buddyforms_woocommerce_updtae_wc_post_meta($post_id){
     }
 
     update_post_meta($post_id, '_product_attributes', $product_attributes);
+
+}
+
+add_action('buddyforms_after_save_post', 'buddyforms_woocommerce_updtae_visibility', 999, 1);
+function buddyforms_woocommerce_updtae_visibility($post_id) {
+
+    if(get_post_status($post_id) == 'publish');
+        update_post_meta($post_id, '_visibility', 'visible');
 
 }
 
