@@ -1,7 +1,6 @@
 <?php
 
-function bf_wc_product_inventory($thepostid, $customfield){
-global $post; ?>
+function bf_wc_product_inventory($thepostid, $customfield){ ?>
 
     <div id="inventory_product_data">
 
@@ -11,14 +10,7 @@ global $post; ?>
 
         if ( 'yes' == get_option( 'woocommerce_manage_stock' ) ) {
 
-
-
-
-
            if(!isset($customfield['product_manage_stock']) || !in_array('manage', $customfield['product_manage_stock'])){
-//               echo '<pre>';
-//               print_r($customfield);
-//               echo '</pre>';
 
                // manage stock
                if( isset($customfield['product_manage_stock_hide']) && in_array('hidden', $customfield['product_manage_stock_hide']))
@@ -29,10 +21,16 @@ global $post; ?>
                if( isset($customfield['product_manage_stock_hide']) && in_array('hidden', $customfield['product_manage_stock_hide']))
                    echo '</span>';
 
-
                do_action( 'woocommerce_product_options_stock' );
 
-               echo '<div class="stock_fields show_if_simple show_if_variable">';
+               echo '<div class="stock_fields show_if_simple show_if_variable">';#
+
+               $product_manage_stock_qty = isset($customfield['product_manage_stock_qty']) ? $customfield['product_manage_stock_qty'] : 0;
+               $product_manage_stock_qty = isset($customfield['product_manage_stock_qty_options']) ? $product_manage_stock_qty : 0;
+
+               $stock = get_post_meta( $thepostid, '_stock', true );
+               $product_manage_stock_qty = !empty($stock) ? $stock : $product_manage_stock_qty;
+               ;
 
                // Stock
                woocommerce_wp_text_input( array(
@@ -44,7 +42,8 @@ global $post; ?>
                    'custom_attributes' => array(
                        'step' => 'any'
                    ),
-                   'data_type'         => 'stock'
+                   'data_type'         => 'stock',
+                   'value'             => $product_manage_stock_qty,
                ) );
 
 
@@ -71,8 +70,6 @@ global $post; ?>
 
         }
 
-
-
         if( isset($customfield['product_stock_status_options']) && in_array('hidden', $customfield['product_stock_status_options'])){
 
             woocommerce_wp_hidden_input(array( 'id' => '_stock_status', 'value' => $customfield['product_stock_status']));
@@ -87,9 +84,6 @@ global $post; ?>
 
             do_action( 'woocommerce_product_options_stock_status' );
         }
-
-
-
 
         echo '</div>';
 
@@ -108,11 +102,6 @@ global $post; ?>
             do_action( 'woocommerce_product_options_sold_individually' );
 
         }
-
-
-
-
-
 
         echo '</div>';
 
