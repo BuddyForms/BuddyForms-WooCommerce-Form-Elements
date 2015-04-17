@@ -34,13 +34,12 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
 
     echo '<div class="options_group pricing show_if_simple show_if_external">';
 
-    if(!(isset($customfield['product_regular_price']) && in_array('hidden', $customfield['product_regular_price']))){
-        $required       = isset($customfield['product_regular_price'])?in_array('Required', $customfield['product_regular_price'])? array('required' => ''):'':'';
-        $required_html  = isset($customfield['product_regular_price'])?in_array('Required', $customfield['product_regular_price'])? '<span class="required">* </span>':'':'';
+    $required       = isset($customfield['product_regular_price'])?in_array('Required', $customfield['product_regular_price'])? array('required' => ''):'':'';
+    $required_html  = isset($customfield['product_regular_price'])?in_array('Required', $customfield['product_regular_price'])? '<span class="required">* </span>':'':'';
 
-        // Price
-        woocommerce_wp_text_input(array( 'custom_attributes' => $required , 'id' => '_regular_price', 'label' => $required_html.__('Regular Price', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')<br>', 'data_type' => 'price'));
-    }
+    // Price
+    woocommerce_wp_text_input(array( 'custom_attributes' => $required , 'id' => '_regular_price', 'label' => $required_html.__('Regular Price', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')<br>', 'data_type' => 'price'));
+
     if(!(isset($customfield['product_sales_price']) && in_array('hidden', $customfield['product_sales_price']))){
         $required       = isset($customfield['product_sales_price'])?in_array('Required', $customfield['product_sales_price'])? array('required' => ''):'':'';
         $required_html  = isset($customfield['product_sales_price'])?in_array('Required', $customfield['product_sales_price'])? '<span class="required">* </span>':'':'';
@@ -48,6 +47,8 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
 
         // Special Price
         woocommerce_wp_text_input(array( 'custom_attributes' => $required , 'id' => '_sale_price', 'data_type' => 'price', 'label' => $required_html.__('Sale Price', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')<br>', 'description' => $description));
+    } else {
+        woocommerce_wp_hidden_input(array( 'id' => '_sale_price', 'data_type' => 'price'));
     }
 
      if(!(isset($customfield['product_sales_price_dates']) && in_array('hidden', $customfield['product_sales_price_dates']))){
