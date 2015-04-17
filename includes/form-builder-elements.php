@@ -219,7 +219,7 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $product_sold_individually_options = 'false';
             if(isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sold_individually_options']))
                 $product_sold_individually_options = $buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sold_individually_options'];
-            $form_fields['full']['product_sold_individually_options']		= new Element_Checkbox( '<hr><h4>'.__('Sold Individually', 'buddyforms').'</h4>',"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sold_individually_options]",array('hidden' => '<b>' .__('Hide', 'buddyforms')),array('id' => 'product_sold_individually_options'.$form_slug.'_'.$field_id, 'class' => 'product_sold_individually_options' , 'value' => $product_sold_individually_options));
+            $form_fields['full']['product_sold_individually_options']		= new Element_Checkbox( '<hr><h4>'.__('Sold Individually', 'buddyforms').'</h4>',"buddyforms_options[buddyforms][".$form_slug."][form_fields][".$field_id."][product_sold_individually_options]",array('hidden' => '<b>' .__('Hide', 'buddyforms') . '</b>'),array('id' => 'product_sold_individually_options'.$form_slug.'_'.$field_id, 'class' => 'product_sold_individually_options' , 'value' => $product_sold_individually_options));
 
 
             $product_sold_individually_options_checked = isset($buddyforms_options['buddyforms'][$form_slug]['form_fields'][$field_id]['product_sold_individually_options']) ? '' : 'style="display: none;"';

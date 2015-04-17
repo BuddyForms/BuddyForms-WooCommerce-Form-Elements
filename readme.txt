@@ -4,7 +4,7 @@ Contributors: svenl77
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.1.1, BuddyPress 2.2.2.1
-Stable tag: 1.1.1
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,16 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+
+== 1.1.3 ==
+forgot to close a b tag
+
+== 1.1.2 ==
+<ul>
+<li>Add new options to the inventory form element.</li>
+<li>fixed an issue with the price field if the sales price was set to hidden.</li>
+<li>removed the hide attribute from the price option. It doesn't make sense.</li>
+</ul>
 
 == 1.1.1 ==
 <ul>
