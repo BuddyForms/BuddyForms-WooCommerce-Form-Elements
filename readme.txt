@@ -1,6 +1,6 @@
 === BuddyForms WooCommerce Form Elements ===
 
-Contributors: svenl77
+Contributors: svenl77, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.1.1, BuddyPress 2.2.2.1
@@ -12,7 +12,7 @@ Let your WooCommerce Vendors Manage there Products from the Frontend
 
 == Description ==
 
-This is the BuddyForms WooCommerce Extension. Create powerful frontend management for your vendors. You need the BuddyForms plugin installed for the plugin to work. <a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
+This is the BuddyForms WooCommerce Extension. Create powerful frontend management for your vendors. You need the BuddyForms plugin installed for the plugin to work. <a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
 
 This plugin adds a new section to the BuddyForms Form Builder with all WooCommerce fields to create product forms to manage (create/edit) products from the frontend.
 
@@ -50,7 +50,7 @@ The plugin generates two different views.
 
 When used with BuddyPress, the members product listing can be displayed publicly to show their products directly within their profile page.
 
-If you wish to integrate WooCommerce with BuddyPress please use our <a href="http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/" title="WooCommerce BuddyPress Integration WordPress Plugin" target="_blank">WooCommerce and BuddyPress Profile synchronization plugin</a>. This plugin makes it very easy to integrate WooCommerce and other WooCommerce plugins directly within the BuddyPress profile pages.
+If you wish to integrate WooCommerce with BuddyPress please use our <a href="http://buddyforms.com" title="WooCommerce BuddyPress Integration WordPress Plugin" target="_blank">WooCommerce and BuddyPress Profile synchronization plugin</a>. This plugin makes it very easy to integrate WooCommerce and other WooCommerce plugins directly within the BuddyPress profile pages.
 
 If you need a vendor management you can use any. This is a lot of freedom for you. You can change your vendors extension if you are unhappy, but all the rest will work. We decided to leave the vendor payment management to other plugins.
 
@@ -69,7 +69,7 @@ Paid Vendor Plugins
 
 for more information please read the documentation on How to Create a Marketplace with WordPress, WooCommerce and BuddyPress.
 
-https://themekraft.zendesk.com/hc/en-us/articles/200829781-Create-a-Socialized-Marketplace-with-WooCommerce-and-BuddyPress
+http://docs.buddyforms.com/article/151-create-a-social-marketplace-with-woocommerce-and-buddypress
 
 == Documentation & Support ==
 
@@ -82,14 +82,6 @@ The BuddyForms documentation with many how-to’s is following now!
 If you still get stuck somewhere, our support gets you back on the right track.
 You can find all help buttons in your BuddyForms settings panel in your WP dashboard!
 
-<h4>Got ideas or just missing something?</h4>
-
-If you still miss something, now it’s your time!
-
-Visit our ideas forums, add your ideas and vote for others!
-
-<a href="https://themekraft.zendesk.com/hc/communities/public/topics/200001402-BuddyForms-Ideas" target="_blank">Visit Ideas Forums</a>
-
  == Installation ==
 
 You can download and install BuddyForms WooCommerce Form Elements by using the built in WordPress plugin installer. If you download BuddyForms WooCommerce Form Elements manually, make sure it is uploaded to "/wp-content/plugins/".
@@ -97,7 +89,7 @@ You can download and install BuddyForms WooCommerce Form Elements by using the b
  == Frequently Asked Questions ==
 
 You need the BuddyForms plugin installed for the plugin to work.
-<a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
+<a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
 
 The plugin should work with every theme. (Please let us know if you experience any issues with your theme.)
 
