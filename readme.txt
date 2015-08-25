@@ -96,6 +96,11 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 == Changelog ==
 
+== 1.1.4 ==
+add new hook bf_woocommerce_product_options_general_last to bf-wc-product-general.php
+change the url to buddyforms.com
+start developing variations support
+
 == 1.1.3 ==
 forgot to close a b tag
 
