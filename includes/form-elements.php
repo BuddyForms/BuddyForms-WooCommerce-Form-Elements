@@ -35,6 +35,12 @@ global $thepostid, $post;
                 ob_clean();
                 $form->addElement(  new Element_HTML($get_contents) );
 
+//                ob_start();
+//                    bf_wc_variations_custom($post_id, $customfield);
+//                    $get_contents = ob_get_contents();
+//                ob_clean();
+//                $form->addElement(  new Element_HTML($get_contents) );
+
             $form->addElement(  new Element_HTML('</div>'));
             break;
 
@@ -95,4 +101,4 @@ global $thepostid, $post;
     return $form;
 
 }
-add_filter('buddyforms_create_edit_form_display_element','buddyforms_woocommerce_create_frontend_form_element',1,2);
+add_filter('buddyforms_create_edit_form_display_element','buddyforms_woocommerce_create_frontend_form_element',1 ,2);

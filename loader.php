@@ -32,9 +32,8 @@ add_action('init', 'bf_wc_fe_loader', 10);
 
 function bf_wc_fe_loader(){
     if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-        add_action('init', 'bf_wc_fe_includes', 999);
         add_action('admin_enqueue_scripts', 'bf_wc_admin_enqueue_script');
-
+        bf_wc_fe_includes();
     }
 
 }
@@ -62,6 +61,7 @@ function bf_wc_fe_includes(){
     include_once(dirname(__FILE__) . '/includes/form-elements-save.php');
 
     include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-attribute.php');
+    //include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-variations.php');
     include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-downloadable.php');
     include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-general.php');
     include_once(dirname(__FILE__) . '/includes/form-elements/bf-wc-product-inventory.php');

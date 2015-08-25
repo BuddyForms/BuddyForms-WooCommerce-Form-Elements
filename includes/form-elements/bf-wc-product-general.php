@@ -71,6 +71,8 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
     do_action('woocommerce_product_options_pricing');
 
     echo '</div>';
+
+
     echo '</div>';
 
     do_action('bf_woocommerce_product_options_general_last');
