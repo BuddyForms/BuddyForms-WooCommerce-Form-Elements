@@ -57,6 +57,7 @@ function bf_wc_fe_requirements(){
 function bf_wc_fe_includes(){
 
     include_once(dirname(__FILE__) . '/includes/form-builder-elements.php');
+    include_once(dirname(__FILE__) . '/includes/class-wc-meta-box-product-data.php');
     include_once(dirname(__FILE__) . '/includes/form-elements.php');
     include_once(dirname(__FILE__) . '/includes/form-elements-save.php');
 
@@ -75,8 +76,18 @@ function bf_wc_fe_includes(){
         include_once(WC()->plugin_path() . '/includes/admin/wc-meta-box-functions.php');
 }
 
-function bf_wc_admin_enqueue_script($hook){
-    if($hook == 'toplevel_page_buddyforms_options_page'){
+function bf_wc_admin_enqueue_script($hook_suffix){
+    global $post;
+
+    if(
+        (isset($post) && $post->post_type == 'buddyforms'
+            && isset($_GET['action']) &&  $_GET['action'] == 'edit'
+            || isset($post) && $post->post_type == 'buddyforms'
+            && $hook_suffix == 'post-new.php'
+        )
+        || $hook_suffix == 'buddyforms_page_create-new-form'
+        || $hook_suffix == 'buddyforms_page_bf_add_ons'
+    ) {
         wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/assets/js/buddyforms-woocommerce.js' , __FILE__ ), array( 'jquery' ) );
     }
  }

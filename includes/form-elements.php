@@ -14,8 +14,8 @@ global $thepostid, $post;
 
     switch ($customfield['type']) {
 
-        case 'General':
-            $form->addElement(  new Element_HTML('<div id="woocommerce-product-data" class="form-field ">'));
+        case 'WooCommerce':
+            $form->addElement( new Element_HTML('<div id="woocommerce-product-data" class="form-field ">'));
 
                 ob_start();
                     bf_wc_product_type($post_id, $customfield);
@@ -42,9 +42,8 @@ global $thepostid, $post;
 //                $form->addElement(  new Element_HTML($get_contents) );
 
             $form->addElement(  new Element_HTML('</div>'));
-            break;
 
-        case 'Inventory':
+            // Inventory
 
             ob_start();
                 bf_wc_product_inventory($post_id, $customfield);
@@ -53,8 +52,7 @@ global $thepostid, $post;
 
             $form->addElement(  new Element_HTML($get_contents) );
 
-            break;
-        case 'Shipping':
+            // 'Shipping':
 
             ob_start();
                 bf_wc_shipping($post_id, $customfield);
@@ -63,8 +61,7 @@ global $thepostid, $post;
 
             $form->addElement(  new Element_HTML($get_contents));
 
-            break;
-        case 'Linked-Products':
+            // Linked-Products':
 
             ob_start();
                 bf_wc_product_linked($post_id, $customfield);
@@ -76,6 +73,7 @@ global $thepostid, $post;
             break;
         case 'Attributes':
 
+
             ob_start();
                 bf_wc_attrebutes_custom($post_id, $customfield);
                 $get_contents = ob_get_contents();
@@ -84,7 +82,8 @@ global $thepostid, $post;
             $form->addElement(  new Element_HTML($get_contents));
 
             break;
-        case 'Product-Gallery':
+        case 'Gallery':
+            // Product Gallery
 
             ob_start();
             $post = get_post($post_id);
