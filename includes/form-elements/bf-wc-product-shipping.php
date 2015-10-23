@@ -1,8 +1,7 @@
 <?php
 
 function bf_wc_shipping($thepostid, $customfield){ ?>
-
-    <div id="shipping_product_data" >
+    <div id="shipping_product_data" class="hide_if_virtual hide_if_grouped hide_if_external">
 
     <?php
 

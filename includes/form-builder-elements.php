@@ -337,10 +337,14 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
 
             // Shipping
 
-            $product_shipping_enabled = 'false';
-            if(isset($buddyform['form_fields'][$field_id]['product_shipping_enabled']))
-                $product_shipping_enabled = $buddyform['form_fields'][$field_id]['product_shipping_enabled'];
-            $form_fields['Shipping']['product_shipping_enabled']		= new Element_Checkbox( '<b>'.__('Enable Shipping', 'buddyforms').'</b>',"buddyforms_options[form_fields][".$field_id."][product_shipping_enabled]",array('enabled' =>  __('Enable', 'buddyforms')),array('id' => 'product_shipping_enabled'.$field_id , 'value' => $product_shipping_enabled));
+            $form_fields['Shipping']['product_shipping_enabled_html']		= new Element_HTML('<p>' . __('If you want to tur off Shipping you need to set the Product Type to Virtual, Grouped or External. In the General Tab.
+             This will automatically hide the shipping fields.', 'buddyforms') . '</p>');
+
+
+//            $product_shipping_enabled = 'false';
+//            if(isset($buddyform['form_fields'][$field_id]['product_shipping_enabled']))
+//                $product_shipping_enabled = $buddyform['form_fields'][$field_id]['product_shipping_enabled'];
+//            $form_fields['Shipping']['product_shipping_enabled']		= new Element_Checkbox( '<b>'.__('Enable Shipping', 'buddyforms').'</b>',"buddyforms_options[form_fields][".$field_id."][product_shipping_enabled]",array('enabled' =>  __('Enable', 'buddyforms')),array('id' => 'product_shipping_enabled'.$field_id , 'value' => $product_shipping_enabled));
 
 
             // Linked-Products
