@@ -15,6 +15,7 @@ global $thepostid, $post;
     switch ($customfield['type']) {
 
         case 'WooCommerce':
+
             $form->addElement( new Element_HTML('<div id="woocommerce-product-data" class="form-field ">'));
 
                 ob_start();
@@ -71,6 +72,7 @@ global $thepostid, $post;
             $form->addElement(  new Element_HTML($get_contents));
 
             break;
+
         case 'Attributes':
 
 
@@ -82,12 +84,13 @@ global $thepostid, $post;
             $form->addElement(  new Element_HTML($get_contents));
 
             break;
-        case 'Gallery':
+
+        case 'Product-Gallery':
             // Product Gallery
 
             ob_start();
             $post = get_post($post_id);
-                WC_Meta_Box_Product_Images::output($post);
+                BF_WC_Meta_Box_Product_Images::output($post);
                 $get_contents = ob_get_contents();
             ob_clean();
 

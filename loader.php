@@ -58,6 +58,7 @@ function bf_wc_fe_includes(){
 
     include_once(dirname(__FILE__) . '/includes/form-builder-elements.php');
     include_once(dirname(__FILE__) . '/includes/class-wc-meta-box-product-data.php');
+    include_once(dirname(__FILE__) . '/includes/class-wc-meta-box-product-images.php');
     include_once(dirname(__FILE__) . '/includes/form-elements.php');
     include_once(dirname(__FILE__) . '/includes/form-elements-save.php');
 
