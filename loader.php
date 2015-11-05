@@ -47,7 +47,7 @@ function bf_wc_fe_requirements(){
         return;
     }
 
-    if( ! defined( 'buddyforms' )){
+    if ( !BUDDYFORMS_STORE_URL ) {
         add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms WooCommerce Form Elements needs BuddyForms to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " wc4bp_xprofile" ) . \'</strong></p></div>\', "http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" );' ) );
         return;
     }

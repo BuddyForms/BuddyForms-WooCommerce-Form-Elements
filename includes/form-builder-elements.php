@@ -7,7 +7,7 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox(){
 
     $buddyform = get_post_meta($post->ID, '_buddyforms_options', true);
 
-    if($buddyform['post_type'] != 'product')
+    if(!isset($buddyform['post_type']) || $buddyform['post_type'] != 'product')
         return;
 
     add_meta_box('buddyforms_wc_form_elements', __("WC Form Elements",'buddyforms'), 'buddyforms_woocommerce_admin_settings_sidebar_metabox_html', 'buddyforms', 'side', 'low');
@@ -28,14 +28,14 @@ function buddyforms_woocommerce_admin_settings_sidebar_metabox_html(){
 
     $form_setup[] = new Element_HTML('<p><b>Product General Data</b></p>');
 
-    $form_setup[] = new Element_HTML('<p><a href="#" data-fieldtype="WooCommerce" data-unique="unique" class="bf_add_element_action">WooCommerce</a></p>');
+    $form_setup[] = new Element_HTML('<p><a href="#" data-fieldtype="woocommerce" data-unique="unique" class="bf_add_element_action">WooCommerce</a></p>');
 
 
     $form_setup[] = new Element_HTML('<p><b>Attributes</b></p>');
-    $form_setup[] = new Element_HTML('<p><a href="#" data-fieldtype="Attributes" data-unique="unique" class="bf_add_element_action"">Attributes</a></p>');
+    $form_setup[] = new Element_HTML('<p><a href="#" data-fieldtype="attributes" data-unique="unique" class="bf_add_element_action"">Attributes</a></p>');
 
     $form_setup[] = new Element_HTML('<p><b>Product Gallery</b></p>');
-    $form_setup[] = new Element_HTML('<p><a href="#" data-fieldtype="Product-Gallery" data-unique="unique" class="bf_add_element_action">Product Gallery</a></p>');
+    $form_setup[] = new Element_HTML('<p><a href="#" data-fieldtype="product-gallery" data-unique="unique" class="bf_add_element_action">Product Gallery</a></p>');
 
 
 
@@ -62,7 +62,7 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
 
     switch ($field_type) {
 
-        case 'WooCommerce':
+        case 'woocommerce':
 
             unset($form_fields);
 
@@ -334,7 +334,6 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
                     )
                 );
 
-
             // Shipping
 
             $form_fields['Shipping']['product_shipping_enabled_html']		= new Element_HTML('<p>' . __('If you want to tur off Shipping you need to set the Product Type to Virtual, Grouped or External. In the General Tab.
@@ -352,16 +351,21 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $product_up_sales = 'false';
             if(isset($buddyform['form_fields'][$field_id]['product_up_sales']))
                 $product_up_sales = $buddyform['form_fields'][$field_id]['product_up_sales'];
-            $form_fields['Linked-Products']['product_up_sales']		= new Element_Checkbox( '<b>'.__('Up-Sales', 'buddyforms').'</b>' ,"buddyforms_options[form_fields][".$field_id."][product_up_sales]",array('hidden' => __('Hide the Up-Sales', 'buddyforms')),array('id' => 'product_up_sales_'.$field_id , 'value' => $product_up_sales));
+            $form_fields['Linked-Products']['product_up_sales']		= new Element_Checkbox( '<b>'.__('Up-Sales', 'buddyforms').'</b>' ,"buddyforms_options[form_fields][".$field_id."][product_up_sales]",array('hidden' => __('Hide Up-Sales', 'buddyforms')),array('id' => 'product_up_sales_'.$field_id , 'value' => $product_up_sales));
 
             $product_cross_sales = 'false';
             if(isset($buddyform['form_fields'][$field_id]['product_cross_sales']))
                 $product_cross_sales = $buddyform['form_fields'][$field_id]['product_cross_sales'];
-            $form_fields['Linked-Products']['product_cross_sales']		= new Element_Checkbox( '<b>'.__('Cross Sales', 'buddyforms').'</b>' ,"buddyforms_options[form_fields][".$field_id."][product_cross_sales]",array('hidden' => __('Hide the Cross Sales', 'buddyforms')),array('id' => 'product_cross_sales_'.$field_id, 'value' => $product_cross_sales));
+            $form_fields['Linked-Products']['product_cross_sales']		= new Element_Checkbox( '<b>'.__('Cross Sales', 'buddyforms').'</b>' ,"buddyforms_options[form_fields][".$field_id."][product_cross_sales]",array('hidden' => __('Hide Cross Sales', 'buddyforms')),array('id' => 'product_cross_sales_'.$field_id, 'value' => $product_cross_sales));
+
+            $product_grouping = 'false';
+            if(isset($buddyform['form_fields'][$field_id]['product_grouping']))
+                $product_grouping = $buddyform['form_fields'][$field_id]['product_grouping'];
+            $form_fields['Linked-Products']['product_grouping']		= new Element_Checkbox( '<b>'.__('Grouping', 'buddyforms').'</b>' ,"buddyforms_options[form_fields][".$field_id."][product_cross_sales]",array('hidden' => __('Hide Grouping', 'buddyforms')),array('id' => 'product_grouping'.$field_id, 'value' => $product_grouping));
 
             break;
 
-        case 'Attributes':
+        case 'attributes':
 
             unset($form_fields);
 
@@ -392,7 +396,7 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
 
             break;
 
-        case 'Product-Gallery':
+        case 'product-gallery':
 
             unset($form_fields);
 

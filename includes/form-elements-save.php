@@ -22,11 +22,11 @@ add_action('buddyforms_update_post_meta', 'buddyforms_woocommerce_updtae_post_me
 function buddyforms_woocommerce_updtae_post_meta($customfield, $post_id){
     global $bf_wc_save_meta, $bf_wc_save_gallery;
 
-    if( $customfield['type'] == 'WooCommerce' )
+    if( $customfield['type'] == 'woocommerce' )
         $bf_wc_save_meta = 'yes';
 
 
-    if( $customfield['type'] == 'Product-Gallery')
+    if( $customfield['type'] == 'product-gallery')
         $bf_wc_save_gallery = 'yes';
 
 }
