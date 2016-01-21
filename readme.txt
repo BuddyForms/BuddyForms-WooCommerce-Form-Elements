@@ -2,9 +2,9 @@
 
 Contributors: svenl77, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
-Requires at least: WordPress 3.9, BuddyPress 1.7.x
-Tested up to: WordPress 4.3, BuddyPress 2.3.2.1
-Stable tag: 1.1.4
+Requires at least: WordPress 3.9
+Tested up to: 4.4.1
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,14 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+== 1.2.1 ==
+WooCommerce Version 2.5.0 comes with a new function wc_help_tip. This functions was only loaded in the admin but we need it to work in the front end.
+
+== 1.2 ==
+Huge update
+Merged all WoCommerce relevant form elements into one Form Element to avoid conflicts and make it more easy extendable.
+Insert the class-ac-meta-box-data.php into the plugin to save the values
+Remove the chipping option. Its not needed anymore
 
 == 1.1.4 ==
 add new hook bf_woocommerce_product_options_general_last to bf-wc-product-general.php

@@ -104,3 +104,26 @@ global $thepostid, $post;
 
 }
 add_filter('buddyforms_create_edit_form_display_element','buddyforms_woocommerce_create_frontend_form_element',1 ,2);
+
+if(!is_admin() && !function_exists('wc_help_tip')){
+
+  /**
+   * Display a WooCommerce help tip.
+   *
+   * @since  2.5.0
+   *
+   * @param  string $tip        Help tip text
+   * @param  bool   $allow_html Allow sanitized HTML if true or escape
+   * @return string
+   */
+  function wc_help_tip( $tip, $allow_html = false ) {
+      if ( $allow_html ) {
+          $tip = wc_sanitize_tooltip( $tip );
+      } else {
+          $tip = esc_attr( $tip );
+      }
+
+      return '<span class="woocommerce-help-tip" data-tip="' . $tip . '"></span>';
+  }
+
+}
