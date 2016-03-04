@@ -71,9 +71,6 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
 
             $form_fields['General']['type']		= new Element_Hidden("buddyforms_options[form_fields][".$field_id."][type]", $field_type);
 
-
-
-
             $product_type_options = apply_filters( 'product_type_options', array(
                 'virtual' => array(
                     'id'            => '_virtual',
@@ -361,7 +358,7 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
             $product_grouping = 'false';
             if(isset($buddyform['form_fields'][$field_id]['product_grouping']))
                 $product_grouping = $buddyform['form_fields'][$field_id]['product_grouping'];
-            $form_fields['Linked-Products']['product_grouping']		= new Element_Checkbox( '<b>'.__('Grouping', 'buddyforms').'</b>' ,"buddyforms_options[form_fields][".$field_id."][product_cross_sales]",array('hidden' => __('Hide Grouping', 'buddyforms')),array('id' => 'product_grouping'.$field_id, 'value' => $product_grouping));
+            $form_fields['Linked-Products']['product_grouping']		= new Element_Checkbox( '<b>'.__('Grouping', 'buddyforms').'</b>' ,"buddyforms_options[form_fields][".$field_id."][product_grouping]",array('hidden' => __('Hide Grouping', 'buddyforms')),array('id' => 'product_grouping'.$field_id, 'value' => $product_grouping));
 
             break;
 

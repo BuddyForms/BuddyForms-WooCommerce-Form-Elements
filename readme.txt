@@ -95,6 +95,7 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+
 == 1.2.1 ==
 WooCommerce Version 2.5.0 comes with a new function wc_help_tip. This functions was only loaded in the admin but we need it to work in the front end.
 
