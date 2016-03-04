@@ -90,7 +90,7 @@ global $thepostid, $post;
 
             ob_start();
             $post = get_post($post_id);
-                BF_WC_Meta_Box_Product_Images::output($post);
+                BF_WC_Meta_Box_Product_Images::output($post, $customfield);
                 $get_contents = ob_get_contents();
             ob_clean();
 

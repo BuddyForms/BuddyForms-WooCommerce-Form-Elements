@@ -22,7 +22,7 @@ class BF_WC_Meta_Box_Product_Images {
     /**
      * Output the metabox
      */
-    public static function output( $post ) {
+    public static function output( $post, $customfield ) {
         ?>
         <div id="product_images_container">
             <ul class="product_images">
@@ -51,7 +51,7 @@ class BF_WC_Meta_Box_Product_Images {
                 ?>
             </ul>
 
-            <input required="required" type="hidden" id="product_image_gallery" name="product_image_gallery" value="<?php echo esc_attr( $product_image_gallery ); ?>" />
+            <input <?php if(isset($customfield['required'])){ echo 'required="required"'; } ?> type="hidden" id="product_image_gallery" name="product_image_gallery" value="<?php echo esc_attr( $product_image_gallery ); ?>" />
 
         </div>
         <p class="add_product_images hide-if-no-js">
