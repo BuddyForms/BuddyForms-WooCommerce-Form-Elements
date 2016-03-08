@@ -3,8 +3,8 @@
 Contributors: svenl77, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.9
-Tested up to: 4.4.1
-Stable tag: 1.2.1
+Tested up to: 4.4.2
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,7 +64,6 @@ Free Vendor Plugins
 Paid Vendor Plugins
 <ul>
 <li><a href="http://www.woothemes.com/products/product-vendors/" target="_blank">Product Vendors<a/></li>
-<li><a href="http://ignitewoo.com/woocommerce-extensions-plugins-themes/woocommerce-vendor-stores/" target="_blank">WooCommerce Vendor Stores<a/></li>
 </ul>
 
 for more information please read the documentation on How to Create a Marketplace with WordPress, WooCommerce and BuddyPress.
@@ -95,6 +94,10 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+
+== 1.2.2 ==
+Hide grouped products option did not work
+The WooCommerce gallery was always required thanks to Emmanuel for pointing me on this issue.
 
 == 1.2.1 ==
 WooCommerce Version 2.5.0 comes with a new function wc_help_tip. This functions was only loaded in the admin but we need it to work in the front end.
