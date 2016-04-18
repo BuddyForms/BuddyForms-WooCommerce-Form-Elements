@@ -178,29 +178,13 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
                 $product_sales_price_dates = $buddyform['form_fields'][$field_id]['product_sales_price_dates'];
             $form_fields['General']['product_sales_price_dates']		= new Element_Select('<b>' . __('Sales Price Date', 'buddyforms') . '</b>'  ,"buddyforms_options[form_fields][".$field_id."][product_sales_price_dates]",array('hidden' => __('Hide', 'buddyforms'), "required" => __('Required', 'buddyforms') ),array('inline' => 1, 'id' => 'product_sales_price_dates_'.$field_id, 'value' => $product_sales_price_dates));
 
-
-
-            //unset($form_fields);
-            //$form_fields['Inventory']['name']		= new Element_Hidden("buddyforms_options[form_fields][".$field_id."][name]", 'Inventory');
-            //$form_fields['general']['slug']		= new Element_Hidden("buddyforms_options[form_fields][".$field_id."][slug]", '_inventory');
-
-            //$form_fields['general']['type']		= new Element_Hidden("buddyforms_options[form_fields][".$field_id."][type]", $field_type);
+            // Inventory
 
             $product_manage_stock = 'false';
             if(isset($buddyform['form_fields'][$field_id]['product_manage_stock']))
                 $product_manage_stock = $buddyform['form_fields'][$field_id]['product_manage_stock'];
 
-
-
-
-            // Inventory
-
-
-           // $product_manage_stock_checked = isset($buddyform['form_fields'][$field_id]['product_manage_stock']) && in_array('manage', $buddyform['form_fields'][$field_id]['product_manage_stock']) ? 'style="display: none;"' : '';
-           // $form_fields['general']['product_manage_stock_div_start'] = new Element_HTML('<div ' . $product_manage_stock_checked . ' class="product_manage_stock_'.$field_id.'-0">');
-
             $product_manage_stock_checked = isset($buddyform['form_fields'][$field_id]['product_manage_stock']) ? '' : 'hidden';
-
 
             $data  = $field_id .'_product_type_hidden ';
             $data .= $field_id .'_product_manage_stock_hide ';
@@ -321,26 +305,90 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
                 $product_sold_individually_checked = $product_sold_individually_options == 'false' ? 'hidden' : '';
                 $product_sold_individually = isset($buddyform['form_fields'][$field_id]['product_sold_individually']) ? $buddyform['form_fields'][$field_id]['product_sold_individually'] : 'false';
                 $form_fields['Inventory']['product_sold_individually']		= new Element_Select( '<p>'.__('Select hidden value: ', 'buddyforms').'</p>',"buddyforms_options[form_fields][".$field_id."][product_sold_individually]",
-                    array(
-                        'yes' => '<b>' .__('Yes', 'buddyforms') . '</b>',
-                        'no' => '<b>' .__('No', 'buddyforms') . '</b>'),
-                    array(
-                        'id' => $field_id . '_product_sold_individually',
-                        'class' => $product_sold_individually_checked ,
-                        'value' => $product_sold_individually
+                  array(
+                      'yes' => '<b>' .__('Yes', 'buddyforms') . '</b>',
+                      'no' => '<b>' .__('No', 'buddyforms') . '</b>'),
+                  array(
+                      'id' => $field_id . '_product_sold_individually',
+                      'class' => $product_sold_individually_checked ,
+                      'value' => $product_sold_individually
                     )
                 );
 
             // Shipping
 
-            $form_fields['Shipping']['product_shipping_enabled_html']		= new Element_HTML('<p>' . __('If you want to tur off Shipping you need to set the Product Type to Virtual, Grouped or External. In the General Tab.
-             This will automatically hide the shipping fields.', 'buddyforms') . '</p>');
+           $form_fields['Shipping']['product_shipping_enabled_html']		= new Element_HTML('<p>' . __('If you want to tur off Shipping you need to set the Product Type to Virtual, Grouped or External. In the General Tab. This will automatically hide the shipping fields.', 'buddyforms') . '</p>');
 
+           $product_shipping_hidden = isset($buddyform['form_fields'][$field_id]['product_shipping_hidden']) ?  $buddyform['form_fields'][$field_id]['product_shipping_hidden'] : 'false';
+           $element = new Element_Checkbox( '<b>'.__('Hide Shipping', 'buddyforms').'</b>',"buddyforms_options[form_fields][".$field_id."][product_shipping_hidden]",
+              array(
+                'hidden' =>  __('Hide', 'buddyforms')
+              ),
+              array(
+                  'id' => 'product_shipping_hidden'.$field_id,
+                  'class' => 'bf_hidden_checkbox',
+                  'value' => $product_shipping_hidden
+                )
+            );
 
-//            $product_shipping_enabled = 'false';
-//            if(isset($buddyform['form_fields'][$field_id]['product_shipping_enabled']))
-//                $product_shipping_enabled = $buddyform['form_fields'][$field_id]['product_shipping_enabled'];
-//            $form_fields['Shipping']['product_shipping_enabled']		= new Element_Checkbox( '<b>'.__('Enable Shipping', 'buddyforms').'</b>',"buddyforms_options[form_fields][".$field_id."][product_shipping_enabled]",array('enabled' =>  __('Enable', 'buddyforms')),array('id' => 'product_shipping_enabled'.$field_id , 'value' => $product_shipping_enabled));
+            $data  = $field_id . '_product_shipping_hidden_weight ';
+            $data .= $field_id . '_product_shipping_hidden_dimension_length ';
+            $data .= $field_id . '_product_shipping_hidden_dimension_width ';
+            $data .= $field_id . '_product_shipping_hidden_dimension_height ';
+            $data .= $field_id . '_product_shipping_hidden_shipping_class ';
+
+            $element->setAttribute('bf_hidden_checkbox', $data);
+            $form_fields['Shipping']['product_shipping_hidden']	= $element;
+
+                // Shipping Hidden Value
+                $product_shipping_hidden_checked = $product_shipping_hidden == 'false' ? 'hidden' : '';
+
+                // Shipping Hidden Weight
+                $product_shipping_hidden_weight  = isset( $buddyform['form_fields'][$field_id]['product_shipping_hidden_weight'] ) ? $buddyform['form_fields'][$field_id]['product_shipping_hidden_weight'] : 'false';
+                $form_fields['Shipping']['product_shipping_hidden_weight']		= new Element_Number( '<b>'.__('Weight (kg): ', 'buddyforms').'</b>',"buddyforms_options[form_fields][".$field_id."][product_shipping_hidden_weight]",
+                    array(
+                        'id' => $field_id . '_product_shipping_hidden_weight',
+                        'class' => $product_shipping_hidden_checked,
+                        'value' => $product_shipping_hidden_weight
+                    )
+                );
+
+                // Shipping Hidden Dimension length
+                $form_fields['Shipping']['product_shipping_hidden_dimension_length'] = new Element_Number( '<b>'.__('Dimension Length: ', 'buddyforms').'</b>',"buddyforms_options[form_fields][".$field_id."][product_shipping_hidden_dimension_length]",
+                    array(
+                        'id' => $field_id . '_product_shipping_hidden_dimension_length',
+                        'class' => $product_shipping_hidden_checked,
+                        'value' => isset( $buddyform['form_fields'][$field_id]['product_shipping_hidden_dimension_length'] ) ? $buddyform['form_fields'][$field_id]['product_shipping_hidden_dimension_length'] : 'false'
+                    )
+                );
+                // Shipping Hidden Dimension width
+                $form_fields['Shipping']['product_shipping_hidden_dimension_width'] = new Element_Number( '<b>'.__('Dimension Width: ', 'buddyforms').'</b>',"buddyforms_options[form_fields][".$field_id."][product_shipping_hidden_dimension_width]",
+                    array(
+                        'id' => $field_id . '_product_shipping_hidden_dimension_width',
+                        'class' => $product_shipping_hidden_checked,
+                        'value' => isset( $buddyform['form_fields'][$field_id]['product_shipping_hidden_dimension_width'] ) ? $buddyform['form_fields'][$field_id]['product_shipping_hidden_dimension_width'] : 'false'
+                    )
+                );
+                // Shipping Hidden Dimension height
+                $form_fields['Shipping']['product_shipping_hidden_dimension_height'] = new Element_Number( '<b>'.__('Dimension Height: ', 'buddyforms').'</b>',"buddyforms_options[form_fields][".$field_id."][product_shipping_hidden_dimension_height]",
+                    array(
+                        'id' => $field_id . '_product_shipping_hidden_dimension_height',
+                        'class' => $product_shipping_hidden_checked,
+                        'value' => isset( $buddyform['form_fields'][$field_id]['product_shipping_hidden_dimension_height'] ) ? $buddyform['form_fields'][$field_id]['product_shipping_hidden_dimension_height'] : 'false'
+                    )
+                );
+
+                // Shipping Hidden Shipping Class
+                $args = array(
+      						'taxonomy'         => 'product_shipping_class',
+      						'hide_empty'       => 0,
+      						'show_option_none' => __( 'No shipping class', 'woocommerce' ),
+      						'name'             => 'buddyforms_options[form_fields]['.$field_id.'][product_shipping_hidden_shipping_class]',
+      						'id'               => $field_id . '_product_shipping_hidden_shipping_class',
+      						'selected'         => isset( $buddyform['form_fields'][$field_id]['product_shipping_hidden_shipping_class'] ) ? $buddyform['form_fields'][$field_id]['product_shipping_hidden_shipping_class'] : 'false',
+      						'class'            => $product_shipping_hidden_checked
+      					);
+                $form_fields['Shipping']['product_shipping_hidden_shipping_class'] = new Element_HTML(wp_dropdown_categories( $args ));
 
 
             // Linked-Products
