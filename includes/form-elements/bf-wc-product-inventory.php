@@ -10,15 +10,15 @@ function bf_wc_product_inventory($thepostid, $customfield){ ?>
 
         if ( 'yes' == get_option( 'woocommerce_manage_stock' ) ) {
 
-           if(!isset($customfield['product_manage_stock']) || !in_array('manage', $customfield['product_manage_stock'])){
+           //if(!isset($customfield['product_manage_stock']) || !in_array('manage', $customfield['product_manage_stock'])){
 
                // manage stock
-               if( isset($customfield['product_manage_stock_hide']) && in_array('hidden', $customfield['product_manage_stock_hide']))
+               if( isset($customfield['product_manage_stock']) && in_array('manage', $customfield['product_manage_stock']))
                    echo '<span style="display: none;">';
 
                woocommerce_wp_checkbox( array( 'value' => 'yes', 'id' => '_manage_stock', 'wrapper_class' => 'show_if_simple show_if_variable', 'label' => __( 'Manage stock?', 'woocommerce' ), 'description' => __( 'Enable stock management at product level', 'woocommerce' ) ) );
 
-               if( isset($customfield['product_manage_stock_hide']) && in_array('hidden', $customfield['product_manage_stock_hide']))
+               if( isset($customfield['product_manage_stock']) && in_array('manage', $customfield['product_manage_stock']))
                    echo '</span>';
 
                do_action( 'woocommerce_product_options_stock' );
@@ -37,7 +37,7 @@ function bf_wc_product_inventory($thepostid, $customfield){ ?>
                    'id'                => '_stock',
                    'label'             => __( 'Stock Qty', 'woocommerce' ),
                    'desc_tip'          => true,
-                   'description'       => __( 'Stock quantity. If this is a variable product this value will be used to control stock for all variations, unless you define stock at variation level.', 'woocommerce' ),
+                   //'description'       => __( 'Stock quantity. If this is a variable product this value will be used to control stock for all variations, unless you define stock at variation level.', 'woocommerce' ),
                    'type'              => 'number',
                    'custom_attributes' => array(
                        'step' => 'any'
@@ -66,7 +66,7 @@ function bf_wc_product_inventory($thepostid, $customfield){ ?>
 
                echo '</div>';
 
-           }
+          // }
 
         }
 
