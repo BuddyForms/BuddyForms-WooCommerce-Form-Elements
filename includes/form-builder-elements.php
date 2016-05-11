@@ -317,12 +317,14 @@ function buddyforms_woocommerce_create_new_form_builder_form_element($form_field
 
             // Shipping
 
-           $form_fields['Shipping']['product_shipping_enabled_html']		= new Element_HTML('<p>' . __('If you want to tur off Shipping you need to set the Product Type to Virtual, Grouped or External. In the General Tab. This will automatically hide the shipping fields.', 'buddyforms') . '</p>');
+            $form_fields['Shipping']['product_shipping_enabled_html']		= new Element_HTML('<p>' . __('If you want to turn off Shipping you need to set the Product Type to Virtual, Grouped or External. In the General Tab. This will automatically disable the shipping fields.', 'buddyforms') . '</p>');
+
+
 
            $product_shipping_hidden = isset($buddyform['form_fields'][$field_id]['product_shipping_hidden']) ?  $buddyform['form_fields'][$field_id]['product_shipping_hidden'] : 'false';
            $element = new Element_Checkbox( '<b>'.__('Hide Shipping', 'buddyforms').'</b>',"buddyforms_options[form_fields][".$field_id."][product_shipping_hidden]",
               array(
-                'hidden' =>  __('Hide', 'buddyforms')
+                'hidden' =>  __('Hide Shipping fields and set default hidden values.', 'buddyforms')
               ),
               array(
                   'id' => 'product_shipping_hidden'.$field_id,
