@@ -3,8 +3,8 @@
 Contributors: svenl77, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.9
-Tested up to: 4.4.2
-Stable tag: 1.2.2
+Tested up to: 4.5.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,12 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+
+== 1.3 ==
+Add new hidden options to the shipping options.
+Fixed a smaller issue with the stock management display options.
+Fixed issue with the product sold individually options. The hidden value none was not recognized by wc
+inline documentation
 
 == 1.2.2 ==
 Hide grouped products option did not work
