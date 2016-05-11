@@ -91,8 +91,8 @@ function bf_wc_product_inventory($thepostid, $customfield){ ?>
 
 
         if( isset($customfield['product_sold_individually_options']) && in_array('hidden', $customfield['product_sold_individually_options'])){
-
-            woocommerce_wp_hidden_input(array( 'id' => '_sold_individually', 'value' => $customfield['product_sold_individually']));
+            if(isset($customfield['product_sold_individually']) && $customfield['product_sold_individually'] != 'no')
+              woocommerce_wp_hidden_input(array( 'id' => '_sold_individually', 'value' => $customfield['product_sold_individually']));
 
         } else {
 
