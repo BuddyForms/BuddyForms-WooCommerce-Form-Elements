@@ -47,9 +47,9 @@ if ( ! class_exists( 'BF_WC_Frontend_Assets' ) ) :
          * Enqueue scripts
          */
         public function admin_scripts() {
-            global $post;
+            global $post, $current_user;
 
-            get_currentuserinfo();
+            $current_user = wp_get_current_user();
 
             $suffix       = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 

@@ -95,54 +95,56 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 == Changelog ==
 
-== 1.3 ==
+= 1.3 =
+
+= 1.3 =
 Add new hidden options to the shipping options.
 Fixed a smaller issue with the stock management display options.
 Fixed issue with the product sold individually options. The hidden value none was not recognized by wc
 inline documentation
 
-== 1.2.2 ==
+= 1.2.2 =
 Hide grouped products option did not work
 The WooCommerce gallery was always required thanks to Emmanuel for pointing me on this issue.
 
-== 1.2.1 ==
+= 1.2.1 =
 WooCommerce Version 2.5.0 comes with a new function wc_help_tip. This functions was only loaded in the admin but we need it to work in the front end.
 
-== 1.2 ==
+= 1.2 =
 Huge update
 Merged all WoCommerce relevant form elements into one Form Element to avoid conflicts and make it more easy extendable.
 Insert the class-ac-meta-box-data.php into the plugin to save the values
 Remove the chipping option. Its not needed anymore
 
-== 1.1.4 ==
+= 1.1.4 =
 add new hook bf_woocommerce_product_options_general_last to bf-wc-product-general.php
 change the url to buddyforms.com
 start developing variations support
 
-== 1.1.3 ==
+= 1.1.3 =
 forgot to close a b tag
 
-== 1.1.2 ==
+= 1.1.2 =
 <ul>
 <li>Add new options to the inventory form element.</li>
 <li>fixed an issue with the price field if the sales price was set to hidden.</li>
 <li>removed the hide attribute from the price option. It doesn't make sense.</li>
 </ul>
 
-== 1.1.1 ==
+= 1.1.1 =
 <ul>
 <li>add a new function buddyforms_woocommerce_updtae_visibility to add visibility = visible if the post status is set to published during submit.</li>
 <li>fixed a bug in the taxonomies form handling if the taxonomy is used for a product attribute the post meta needs to be updated.</li>
 <ul>
 
-== 1.1 ==
+= 1.1 =
 <ul>
 <li>Add support for WooCommerce 2.3</li>
 <li>Update the form fields logic and css for WooCommerce</li>
 <li>Load needed js for the fronted in WooCommerce 2.3</li>
 <ul>
 
- == 1.0 ==
+ = 1.0 =
 <ul>
 <li>Initial release 1.0 ;)</li>
 <ul>
