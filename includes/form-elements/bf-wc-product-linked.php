@@ -91,11 +91,8 @@ function bf_wc_product_linked($thepostid, $customfield){
 
         }
         if(!isset($customfield['product_grouping'])) {
-            echo 'em ja';
             woocommerce_wp_select( array( 'id' => 'post_parent', 'label' => __( 'Grouping', 'woocommerce' ).'<br>', 'value' => absint( $post->post_parent ), 'options' => $post_parents, 'desc_tip' => true, 'description' => __( 'Set this option to make this product part of a grouped product.', 'woocommerce' ) ) );
-
             woocommerce_wp_hidden_input( array( 'id' => 'previous_parent_id', 'value' => absint( $post->post_parent ) ) );
-
             do_action( 'woocommerce_product_options_grouping' );
         }
 

@@ -26,8 +26,6 @@ class BF_WC_Meta_Box_Product_Data {
 		global $wpdb;
 
 
-xdebug_break();
-
 		// Add any default post meta
 		add_post_meta( $post_id, 'total_sales', '0', true );
 
