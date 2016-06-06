@@ -284,9 +284,6 @@ class BF_WC_Meta_Box_Product_Data {
 			}
 		}
 
-
-		xdebug_break();
-
 		// Update parent if grouped so price sorting works and stays in sync with the cheapest child
 		if ( isset( $post->post_parent ) || 'grouped' == $product_type || $_POST['previous_parent_id'] > 0 || $_POST['parent_id'] > 0 ) {
 

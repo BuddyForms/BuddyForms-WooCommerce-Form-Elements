@@ -10,9 +10,6 @@ global $variation_data, $post;
     $variation_data->get_variation_attributes();
 
     $variation_data = (array) $variation_data;
-    echo '<pre>';
-    print_r($variation_data);
-    echo '</pre>';
 
     extract( $variation_data );
     ?>
