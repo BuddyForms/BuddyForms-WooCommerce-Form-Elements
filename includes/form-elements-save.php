@@ -1,7 +1,7 @@
 <?php
 
-add_action( 'buddyforms_update_post_meta', 'test_buddyforms_update_post_meta', 10, 2 );
-
+//add_action( 'buddyforms_update_post_meta', 'test_buddyforms_update_post_meta', 10, 2 );
+//
 
 function test_buddyforms_update_post_meta( $customfield, $post_id ) {
 	global $bf_product_attributes;

@@ -1,51 +1,32 @@
 <?php
-function buddyforms_woocommerce_admin_settings_sidebar_metabox() {
+
+function buddyforms_woocommerce_formbuilder_elements_select( $elements_select_options ) {
 	global $post;
 
 	if ( $post->post_type != 'buddyforms' ) {
 		return;
 	}
 
-	$buddyform = get_post_meta( $post->ID, '_buddyforms_options', true );
+	$elements_select_options['WooCommerce'] = array(
+		'woocommerce' => array(
+			'label'     => __( 'General Settings', 'buddyforms' ),
+			'unique'    => 'unique'
+		),
+		'attributes' => array(
+			'label'     => __( 'Attributes', 'buddyforms' ),
+			'unique'    => 'unique'
+		),
+		'product-gallery' => array(
+			'label'     => __( 'Product Gallery', 'buddyforms' ),
+			'unique'    => 'unique'
+		)
+	);
 
-	if ( ! isset( $buddyform['post_type'] ) || $buddyform['post_type'] != 'product' ) {
-		return;
-	}
-
-	add_meta_box( 'buddyforms_wc_form_elements', __( "WC Form Elements", 'buddyforms' ), 'buddyforms_woocommerce_admin_settings_sidebar_metabox_html', 'buddyforms', 'side', 'low' );
+	return $elements_select_options;
 }
+add_filter( 'buddyforms_add_form_element_to_select', 'buddyforms_woocommerce_formbuilder_elements_select' );
 
-function buddyforms_woocommerce_admin_settings_sidebar_metabox_html() {
-	global $post;
 
-	if ( $post->post_type != 'buddyforms' ) {
-		return;
-	}
-
-	$buddyform = get_post_meta( $post->ID, '_buddyforms_options', true );
-
-	if ( $buddyform['post_type'] != 'product' ) {
-		return;
-	}
-
-	$form_setup = array();
-
-	$form_setup[] = new Element_HTML( '<p><b>Product General Data</b></p>' );
-
-	$form_setup[] = new Element_HTML( '<p><a href="#" data-fieldtype="woocommerce" data-unique="unique" class="bf_add_element_action">WooCommerce</a></p>' );
-
-	$form_setup[] = new Element_HTML( '<p><b>Attributes</b></p>' );
-	$form_setup[] = new Element_HTML( '<p><a href="#" data-fieldtype="attributes" data-unique="unique" class="bf_add_element_action"">Attributes</a></p>' );
-
-	$form_setup[] = new Element_HTML( '<p><b>Product Gallery</b></p>' );
-	$form_setup[] = new Element_HTML( '<p><a href="#" data-fieldtype="product-gallery" data-unique="unique" class="bf_add_element_action">Product Gallery</a></p>' );
-
-	foreach ( $form_setup as $key => $field ) {
-		echo $field->render();
-	}
-}
-
-add_filter( 'add_meta_boxes', 'buddyforms_woocommerce_admin_settings_sidebar_metabox' );
 
 
 function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fields, $form_slug, $field_type, $field_id ) {
