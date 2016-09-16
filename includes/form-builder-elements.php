@@ -7,19 +7,18 @@ function buddyforms_woocommerce_formbuilder_elements_select( $elements_select_op
 		return;
 	}
 
-	$elements_select_options['WooCommerce'] = array(
-		'woocommerce' => array(
-			'label'     => __( 'General Settings', 'buddyforms' ),
-			'unique'    => 'unique'
-		),
-		'attributes' => array(
-			'label'     => __( 'Attributes', 'buddyforms' ),
-			'unique'    => 'unique'
-		),
-		'product-gallery' => array(
-			'label'     => __( 'Product Gallery', 'buddyforms' ),
-			'unique'    => 'unique'
-		)
+	$elements_select_options['woocommerce']['label'] = 'WooCommerce';
+	$elements_select_options['woocommerce']['fields']['woocommerce'] = array(
+		'label'     => __( 'General Settings', 'buddyforms' ),
+		'unique'    => 'unique'
+	);
+	$elements_select_options['woocommerce']['fields']['attributes'] = array(
+		'label'     => __( 'Attributes', 'buddyforms' ),
+		'unique'    => 'unique'
+	);
+	$elements_select_options['woocommerce']['fields']['product-gallery'] = array(
+		'label'     => __( 'Product Gallery', 'buddyforms' ),
+		'unique'    => 'unique'
 	);
 
 	return $elements_select_options;
