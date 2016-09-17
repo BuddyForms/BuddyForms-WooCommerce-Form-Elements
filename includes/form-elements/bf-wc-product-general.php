@@ -38,17 +38,17 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
 
     echo '<div class="options_group pricing show_if_simple show_if_external">';
 
-    $required       = $customfield['product_regular_price'][0] == 'required' ? array('required' => '') : '';
-    $required_html  = $customfield['product_regular_price'][0] == 'required' ? '<span class="required">* </span>' : '';
+    $required       = isset($customfield['product_regular_price']) && $customfield['product_regular_price'][0] == 'required' ? array('required' => '') : '';
+    $required_html  = isset($customfield['product_regular_price']) && $customfield['product_regular_price'][0] == 'required' ? '<span class="required">* </span>' : '';
 
     // Price
     woocommerce_wp_text_input(array( 'custom_attributes' => $required , 'id' => '_regular_price', 'label' => $required_html.__('Regular Price', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')<br>', 'data_type' => 'price'));
 
     if(isset($customfield['product_sales_price']) && $customfield['product_sales_price'] != 'hidden'){
 
-        $required       = $customfield['product_sales_price'] == 'required' ? array('required' => '') : '';
-        $required_html  = $customfield['product_sales_price'] == 'required' ? '<span class="required">* </span>' : '';
-        $description    = isset($customfield['product_sales_price']) ? $customfield['product_sales_price'] == 'required' ? '':'<a href="#" class="sale_schedule">' . __('Schedule', 'woocommerce') . '</a>':'';
+        $required       = isset($customfield['product_sales_price']) && $customfield['product_sales_price'] == 'required' ? array('required' => '') : '';
+        $required_html  = isset($customfield['product_sales_price']) && $customfield['product_sales_price'] == 'required' ? '<span class="required">* </span>' : '';
+        $description    = isset($customfield['product_sales_price_dates']) ? $customfield['product_sales_price_dates'] == 'hidden' ? '':'<a href="#" class="sale_schedule">' . __('Schedule', 'woocommerce') . '</a>':'';
 
         // Special Price
         woocommerce_wp_text_input(array( 'custom_attributes' => $required , 'id' => '_sale_price', 'data_type' => 'price', 'label' => $required_html.__('Sale Price', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')<br>', 'description' => $description));
@@ -58,7 +58,7 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
 
      if(isset($customfield['product_sales_price_dates']) && $customfield['product_sales_price_dates'] != 'hidden'){
 
-         $required       = $customfield['product_sales_price_dates'] == 'required' ? array('required' => '') : '';
+         $required       = $customfield['product_sales_price_dates'] == 'required' ? 'required' : '';
          $required_html  = $customfield['product_sales_price_dates'] == 'required' ? '<span class="required">* </span>' : '';
          $description    = isset($customfield['product_sales_price_dates']) ? $customfield['product_sales_price'] == 'required' ? 'style="display: block;"':'':'';
 
@@ -67,7 +67,7 @@ function bf_wc_product_general($thepostid, $customfield){ ?>
         $sale_price_dates_from = ($date = get_post_meta($thepostid, '_sale_price_dates_from', true)) ? date_i18n('Y-m-d', $date) : '';
         $sale_price_dates_to = ($date = get_post_meta($thepostid, '_sale_price_dates_to', true)) ? date_i18n('Y-m-d', $date) : '';
 
-        echo '	<p class="form-field sale_price_dates_fields" '.$required_style.'>
+        echo '	<p class="form-field sale_price_dates_fields">
             <label for="_sale_price_dates_from">' .$required_html. __('Sale Price Dates', 'woocommerce') . '</label>
             <input '.$required.' type="text" class="short" name="_sale_price_dates_from" id="_sale_price_dates_from" value="' . esc_attr($sale_price_dates_from) . '" placeholder="' . _x('From&hellip;', 'placeholder', 'woocommerce') . ' YYYY-MM-DD" maxlength="10" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
             <input '.$required.' type="text" class="short" name="_sale_price_dates_to" id="_sale_price_dates_to" value="' . esc_attr($sale_price_dates_to) . '" placeholder="' . _x('To&hellip;', 'placeholder', 'woocommerce') . '  YYYY-MM-DD" maxlength="10" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />

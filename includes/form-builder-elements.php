@@ -173,6 +173,7 @@ function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fiel
 			}
 			$form_fields['general']['product_sales_price'] = new Element_Select( '<b>' . __( 'Sales Price', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_sales_price]", array(
 				'hidden'   => __( 'Hide', 'buddyforms' ),
+				'none'   => __( 'Not Required', 'buddyforms' ),
 				"required" => __( 'Required', 'buddyforms' )
 			), array( 'inline' => 1, 'id' => 'product_sales_price_' . $field_id, 'value' => $product_sales_price ) );
 
@@ -182,6 +183,7 @@ function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fiel
 			}
 			$form_fields['general']['product_sales_price_dates'] = new Element_Select( '<b>' . __( 'Sales Price Date', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_sales_price_dates]", array(
 				'hidden'   => __( 'Hide', 'buddyforms' ),
+				'none'     => __( 'Not Required', 'buddyforms' ),
 				"required" => __( 'Required', 'buddyforms' )
 			), array(
 				'inline' => 1,

@@ -8,9 +8,9 @@ function bf_wc_shipping($thepostid, $customfield){ ?>
     echo '<div class="options_group">';
 
     // Hidden Weight ?
+    $product_shipping_hidden_weight = isset($customfield['product_shipping_hidden_weight']) ? $customfield['product_shipping_hidden_weight'] : 0;
     if( isset($customfield['product_shipping_hidden']) && in_array('hidden', $customfield['product_shipping_hidden'])){
       echo '<span style="display: none;">';
-      $product_shipping_hidden_weight = isset($customfield['product_shipping_hidden_weight']) ? $customfield['product_shipping_hidden_weight'] : 0;
     }
 
     // Weight
