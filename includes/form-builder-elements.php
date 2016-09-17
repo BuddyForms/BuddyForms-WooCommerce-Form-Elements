@@ -45,13 +45,11 @@ function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fiel
 	switch ( $field_type ) {
 
 		case 'woocommerce':
-
 			unset( $form_fields );
+			$form_fields['hidden']['name'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", 'WooCommerce' );
+			$form_fields['hidden']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_woocommerce' );
 
-			$form_fields['general']['name'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", 'WooCommerce' );
-			$form_fields['advanced']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_woocommerce' );
-
-			$form_fields['general']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
+			$form_fields['hidden']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
 
 			$product_type_options = apply_filters( 'product_type_options', array(
 				'virtual'      => array(
@@ -402,7 +400,7 @@ function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fiel
 			);
 
 			// Shipping Hidden Shipping Class
-			$args                                                              = array(
+			$args = array(
 				'taxonomy'         => 'product_shipping_class',
 				'hide_empty'       => 0,
 				'show_option_none' => __( 'No shipping class', 'woocommerce' ),
@@ -411,11 +409,14 @@ function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fiel
 				'selected'         => isset( $buddyform['form_fields'][ $field_id ]['product_shipping_hidden_shipping_class'] ) ? $buddyform['form_fields'][ $field_id ]['product_shipping_hidden_shipping_class'] : 'false',
 				'class'            => $product_shipping_hidden_checked
 			);
-			$form_fields['Shipping']['product_shipping_hidden_shipping_class'] = new Element_HTML( wp_dropdown_categories( $args ) );
 
+			ob_start();
+				wp_dropdown_categories( $args );
+			$product_shipping_class_tmp = ob_get_clean();
+
+			$form_fields['Shipping']['product_shipping_hidden_shipping_class'] = new Element_HTML( $product_shipping_class_tmp );
 
 			// Linked-Products
-
 			$product_up_sales = 'false';
 			if ( isset( $buddyform['form_fields'][ $field_id ]['product_up_sales'] ) ) {
 				$product_up_sales = $buddyform['form_fields'][ $field_id ]['product_up_sales'];
@@ -444,7 +445,6 @@ function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fiel
 			) );
 
 			break;
-
 		case 'attributes':
 
 			unset( $form_fields );
@@ -476,7 +476,6 @@ function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fiel
 
 
 			break;
-
 		case 'product-gallery':
 
 			unset( $form_fields );
