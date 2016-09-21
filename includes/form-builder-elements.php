@@ -8,6 +8,7 @@ function buddyforms_woocommerce_formbuilder_elements_select( $elements_select_op
 	}
 
 	$elements_select_options['woocommerce']['label'] = 'WooCommerce';
+	$elements_select_options['woocommerce']['class']  = 'bf_show_if_f_type_post';
 	$elements_select_options['woocommerce']['fields']['woocommerce'] = array(
 		'label'     => __( 'General Settings', 'buddyforms' ),
 		'unique'    => 'unique'
