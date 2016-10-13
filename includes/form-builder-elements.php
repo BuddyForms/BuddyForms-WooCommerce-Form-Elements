@@ -455,7 +455,7 @@ function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fiel
 
 			$form_fields['Attributes']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
 
-			$taxonomies           = buddyforms_taxonomies( $buddyform );
+			$taxonomies           = buddyforms_taxonomies( $buddyform['post_type'] );
 			$bf_wc_attributes_tax = Array();
 			foreach ( $taxonomies as $key => $taxonomie ) {
 				if ( substr( $taxonomie, 0, 3 ) == 'pa_' ) {
