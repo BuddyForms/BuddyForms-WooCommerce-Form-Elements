@@ -1,25 +1,5 @@
 <?php
 
-//add_action( 'buddyforms_update_post_meta', 'test_buddyforms_update_post_meta', 10, 2 );
-//
-
-function test_buddyforms_update_post_meta( $customfield, $post_id ) {
-	global $bf_product_attributes;
-
-	if ( ! isset( $customfield['taxonomy'] ) ) {
-		return;
-	}
-
-	if ( substr( $customfield['taxonomy'], 0, 3 ) != 'pa_' ) {
-		return;
-	}
-
-	$bf_product_attributes[ $customfield['taxonomy'] ] = $customfield['taxonomy'];
-
-
-}
-
-
 add_action( 'buddyforms_update_post_meta', 'buddyforms_woocommerce_updtae_post_meta', 99, 2 );
 function buddyforms_woocommerce_updtae_post_meta( $customfield, $post_id ) {
 	global $bf_wc_save_meta, $bf_wc_save_gallery;
