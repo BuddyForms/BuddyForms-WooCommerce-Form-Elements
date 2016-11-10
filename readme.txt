@@ -1,10 +1,10 @@
 === BuddyForms WooCommerce Form Elements ===
 
-Contributors: svenl77, buddyforms
+Contributors: svenl77,konradS, buddyforms, themekraft
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
 Tested up to: 4.6.1
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,10 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+
+= 1.3.4 =
+Make the plugin network compatible
+Check if the class WooCommerce exists to dertamine if th eplugin is active
 
 = 1.3.3 =
 use buddyforms_display_field_group_table to display options
