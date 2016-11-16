@@ -24,7 +24,7 @@ function buddyforms_woocommerce_formbuilder_elements_select( $elements_select_op
 
 	return $elements_select_options;
 }
-add_filter( 'buddyforms_add_form_element_to_select', 'buddyforms_woocommerce_formbuilder_elements_select' );
+add_filter( 'buddyforms_add_form_element_select_option', 'buddyforms_woocommerce_formbuilder_elements_select' );
 
 
 

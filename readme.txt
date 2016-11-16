@@ -97,7 +97,7 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 = 1.3.4 =
 Make the plugin network compatible
-Check if the class WooCommerce exists to dertamine if th eplugin is active
+Check if the class WooCommerce exists to now if the plugin is active
 
 = 1.3.3 =
 use buddyforms_display_field_group_table to display options

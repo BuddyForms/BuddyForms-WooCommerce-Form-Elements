@@ -7,7 +7,6 @@
  Author: Sven Lehnert
  Author URI: https://profiles.wordpress.org/svenl77
  License: GPLv2 or later
- Network: true
 
  *****************************************************************************
  *
