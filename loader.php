@@ -37,23 +37,6 @@ function bf_wc_fe_loader() {
 
 }
 
-add_action( 'plugins_loaded', 'bf_wc_fe_requirements' );
-function bf_wc_fe_requirements() {
-
-	if ( !class_exists( 'WooCommerce' ) ) {
-		add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms WooCommerce Form Elements needs WooCommerce to be installed. <a href="%s">Download it now</a>!\', " buddyforms" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
-
-		return;
-	}
-
-	if ( ! BUDDYFORMS_VERSION ) {
-		add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms WooCommerce Form Elements needs BuddyForms to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " wc4bp_xprofile" ) . \'</strong></p></div>\', "http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" );' ) );
-
-		return;
-	}
-
-}
-
 function bf_wc_fe_includes() {
 
 	include_once( dirname( __FILE__ ) . '/includes/form-builder-elements.php' );
@@ -93,3 +76,48 @@ function bf_wc_admin_enqueue_script( $hook_suffix ) {
 		wp_enqueue_script( 'buddyforms-woocommerce', plugins_url( '/assets/js/buddyforms-woocommerce.js', __FILE__ ), array( 'jquery' ) );
 	}
 }
+
+//
+// Check the plugin dependencies
+//
+add_action('init', function(){
+
+	// Only Check for requirements in the admin
+	if(!is_admin()){
+		return;
+	}
+
+	// Require TGM
+	require ( dirname(__FILE__) . '/includes/resources/tgm/class-tgm-plugin-activation.php' );
+
+	// Hook required plugins function to the tgmpa_register action
+	add_action( 'tgmpa_register', function(){
+
+		// Create the required plugins array
+		$plugins = array(
+			array(
+				'name'              => 'BuddyForms',
+				'slug'              => 'buddyforms',
+				'required'          => true,
+			),
+			array(
+				'name'              => 'WooCommerce',
+				'slug'              => 'woocommerce',
+				'required'          => true,
+			),
+		);
+
+		$config = array(
+			'id'           => 'buddyforms-woocommerce',         // Unique ID for hashing notices for multiple instances of TGMPA.
+			'parent_slug'  => 'edit.php?post_type=buddyforms',            // Parent menu slug.
+			'capability'   => 'manage_options',    // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
+			'has_notices'  => true,                    // Show admin notices or not.
+			'dismissable'  => false,                    // If false, a user cannot dismiss the nag message.
+			'is_automatic' => true,                   // Automatically activate plugins after installation or not.
+		);
+
+		// Call the tgmpa function to register the required plugins
+		tgmpa( $plugins, $config );
+
+	} );
+}, 1, 1);
