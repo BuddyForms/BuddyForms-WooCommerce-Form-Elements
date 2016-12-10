@@ -3,7 +3,7 @@
  Plugin Name: BuddyForms WooCommerce Form Elements
  Plugin URI: http://buddyforms.com/downloads/buddyforms-woocommerce-form-elements/
  Description: This Plugin adds a new section to the BuddyForms Form Builder with all WooCommerce fields to create Product creation forms for the frontend
- Version: 1.3.5
+ Version: 1.3.5.1
  Author: Sven Lehnert
  Author URI: https://profiles.wordpress.org/svenl77
  License: GPLv2 or later
@@ -94,18 +94,19 @@ add_action('init', function(){
 	add_action( 'tgmpa_register', function(){
 
 		// Create the required plugins array
-		$plugins = array(
-			array(
-				'name'              => 'BuddyForms',
-				'slug'              => 'buddyforms',
-				'required'          => true,
-			),
-			array(
-				'name'              => 'WooCommerce',
-				'slug'              => 'woocommerce',
-				'required'          => true,
-			),
+		$plugins['woocommerce'] = array(
+			'name'     => 'WooCommerce',
+			'slug'     => 'woocommerce',
+			'required' => true,
 		);
+
+		if ( ! defined( 'BUDDYFORMS_PRO_VERSION' ) ) {
+			$plugins['buddyforms'] = array(
+				'name'      => 'BuddyForms',
+				'slug'      => 'buddyforms',
+				'required'  => true,
+			);
+		}
 
 		$config = array(
 			'id'           => 'buddyforms-tgmpa',  // Unique ID for hashing notices for multiple instances of TGMPA.
