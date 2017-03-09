@@ -51,7 +51,9 @@ class BF_WC_Meta_Box_Product_Images {
 				?>
 			</ul>
 
-			<input <?php if ( isset( $customfield['required'] ) ) {
+			<input <?php
+			wp_enqueue_script( 'buddyforms-woocommerce-meta-boxes-product',plugin_dir_url(__FILE__) . '../assets/js/buddyforms-woocommerce-meta-boxes-product.js', array( 'jquery' ), null, true);
+			if ( isset( $customfield['required'] ) ) {
 				echo 'required="required"';
 			} ?> type="hidden" id="product_image_gallery" name="product_image_gallery"
 			     value="<?php echo esc_attr( $product_image_gallery ); ?>"/>
@@ -61,7 +63,8 @@ class BF_WC_Meta_Box_Product_Images {
 			<a href="#" data-choose="<?php esc_attr_e( 'Add Images to Product Gallery', 'woocommerce' ); ?>"
 			   data-update="<?php esc_attr_e( 'Add to gallery', 'woocommerce' ); ?>"
 			   data-delete="<?php esc_attr_e( 'Delete image', 'woocommerce' ); ?>"
-			   data-text="<?php esc_attr_e( 'Delete', 'woocommerce' ); ?>"><?php _e( 'Add product gallery images', 'woocommerce' ); ?></a>
+			   data-text="<?php esc_attr_e( 'Delete', 'woocommerce' ); ?>">
+			   <?php _e( 'Add product gallery images', 'woocommerce' ); ?></a>
 		</p>
 		<?php
 	}
