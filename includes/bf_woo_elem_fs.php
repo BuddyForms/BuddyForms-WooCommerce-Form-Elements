@@ -35,7 +35,7 @@
 
 			if ( ! isset( $bf_woo_elem_fs ) ) {
 				// Include Freemius SDK.
-				require_once dirname( __FILE__ ) . '/include/freemius/start.php';
+				require_once dirname( __FILE__ ) . '/include/resources/freemius/start.php';
 
 				$bf_woo_elem_fs = fs_dynamic_init( array(
 					'id'                  => '848',

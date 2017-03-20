@@ -1,10 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Victor
- * Date: 20/03/2017
- * Time: 13:59
- */
+	/**
+	 * Created by PhpStorm.
+	 * User: Victor
+	 * Date: 20/03/2017
+	 * Time: 13:59
+	 */
 	if ( ! defined( 'WPINC' ) ) {
 		die;
 	}
@@ -17,16 +17,39 @@
 			 * @var instance
 			 */
 			protected static $instance = null;
-			private function __construct(){
+
+			private function __construct() {
+				$this->constants();
 				$this->bf_wc_fe_loader();
-				$this->getRequirements();
+				require_once GFIREM_CLASSES_PATH . 'bf_woo_elem_requirements.php';
+				$this->requirements = new bf_woo_elem_requirements();
+				if ( $this->requirements->satisfied() ) {
+					require_once GFIREM_CLASSES_PATH . 'bf_woo_elem_manager.php';
+					new bf_woo_elem_manager();
+				} else {
+
+				}
 			}
+
 			function bf_wc_fe_loader() {
 				if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-					add_action( 'admin_enqueue_scripts', 'bf_wc_admin_enqueue_script' );
+					add_action( 'admin_enqueue_scripts', array( $this, 'bf_wc_admin_enqueue_script' ), 1 );
 					bf_wc_fe_includes();
 				}
 			}
+
+			private function constants() {
+				define( 'BF_WOO_ELEM_BASE_NAME', plugin_basename( __FILE__ ) );
+				define( 'BF_WOO_ELEM_BASE_NAMEBASE_FILE', trailingslashit( wp_normalize_path( plugin_dir_path( __FILE__ ) ) ) . 'bf_woo_elem_loader.php' );
+				define( 'BF_WOO_ELEM_URL_PATH', plugin_dir_url( __FILE__ ) );
+				define( 'BF_WOO_ELEM_CSS_PATH', GFIREM_URL_PATH . 'assets/css/' );
+				define( 'BF_WOO_ELEM_JS_PATH', GFIREM_URL_PATH . 'assets/js/' );
+				define( 'BF_WOO_ELEM_VIEW_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR );
+				define( 'BF_WOO_ELEM_CLASSES_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR );
+				define( 'BF_WOO_ELEM_FIELDS_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'fields' . DIRECTORY_SEPARATOR );
+				define( 'BF_WOO_ELEM_TEMPLATES_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR );
+			}
+
 			function bf_wc_fe_includes() {
 
 				include_once( dirname( __FILE__ ) . '/includes/form-builder-elements.php' );
@@ -50,6 +73,7 @@
 					include_once( WC()->plugin_path() . '/includes/admin/wc-meta-box-functions.php' );
 				}
 			}
+
 			function bf_wc_admin_enqueue_script( $hook_suffix ) {
 				global $post;
 
@@ -67,49 +91,6 @@
 			}
 
 			/**
-			 * Check the plugin dependencies
-			 */
-			function getRequirements(){
-				// Only Check for requirements in the admin
-				if(!is_admin()){
-					return;
-				}
-				// Require TGM
-				require ( dirname(__FILE__) . '/includes/resources/tgm/class-tgm-plugin-activation.php' );
-				// Hook required plugins function to the tgmpa_register action
-				add_action( 'tgmpa_register', 'bf_wc_tgmpa_register' );
-
-			}
-			public function bf_wc_tgmpa_register(){
-				// Create the required plugins array
-				$plugins['woocommerce'] = array(
-					'name'     => 'WooCommerce',
-					'slug'     => 'woocommerce',
-					'required' => true,
-				);
-
-				if ( ! defined( 'BUDDYFORMS_PRO_VERSION' ) ) {
-					$plugins['buddyforms'] = array(
-						'name'      => 'BuddyForms',
-						'slug'      => 'buddyforms',
-						'required'  => true,
-					);
-				}
-
-				$config = array(
-					'id'           => 'buddyforms-tgmpa',  // Unique ID for hashing notices for multiple instances of TGMPA.
-					'parent_slug'  => 'plugins.php',       // Parent menu slug.
-					'capability'   => 'manage_options',    // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
-					'has_notices'  => true,                // Show admin notices or not.
-					'dismissable'  => false,               // If false, a user cannot dismiss the nag message.
-					'is_automatic' => true,                // Automatically activate plugins after installation or not.
-				);
-
-				// Call the tgmpa function to register the required plugins
-				tgmpa( $plugins, $config );
-			}
-
-			/**
 			 * Return an instance of this class.
 			 *
 			 * @return object A single instance of this class.
@@ -124,5 +105,6 @@
 			}
 
 		}
+
 		add_action( 'plugins_loaded', array( 'loaderNew', 'get_instance' ), 1 );
 	}
