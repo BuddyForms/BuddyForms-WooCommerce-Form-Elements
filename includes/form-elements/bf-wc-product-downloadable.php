@@ -5,7 +5,7 @@ function bf_wc_downloadable($thepostid, $customfield){
     $post = get_post($thepostid);
 
 
-    echo '<div class="options_group show_if_downloadable">';
+    echo '<div class="options_group show_if_downloadable hidden">';
 
     ?>
     <div class="form-field downloadable_files">
