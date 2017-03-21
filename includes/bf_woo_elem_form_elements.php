@@ -53,19 +53,22 @@
 					$form->addElement( new Element_HTML( '<div id="woocommerce-product-data" class="form-field ">' ) );
 
 					ob_start();
-					bf_wc_product_type( $thepostid, $customfield );
+					require_once dirname( __FILE__ ) . '/includes/from-elements/bf_woo_elem_product_type.php';
+					bf_woo_elem_product_type::bf_wc_product_type( $thepostid, $customfield );
 					$get_contents = ob_get_contents();
 					ob_clean();
 					$form->addElement( new Element_HTML( $get_contents ) );
 
 					ob_start();
-					bf_wc_product_general( $thepostid, $customfield );
+					require_once dirname( __FILE__ ) . '/includes/from-elements/bf_woo_elem_product_general.php';
+					bf_woo_elem_product_general::bf_wc_product_general( $thepostid, $customfield );
 					$get_contents = ob_get_contents();
 					ob_clean();
 					$form->addElement( new Element_HTML( $get_contents ) );
 
 					ob_start();
-					bf_wc_downloadable( $thepostid, $customfield );
+					require_once dirname( __FILE__ ) . '/includes/from-elements/bf_woo_elem_product_downloadable.php';
+					bf_woo_elem_product_downloadable::bf_wc_downloadable( $thepostid, $customfield );
 					$get_contents = ob_get_contents();
 					ob_clean();
 					$form->addElement( new Element_HTML( $get_contents ) );
@@ -79,9 +82,9 @@
 					$form->addElement( new Element_HTML( '</div>' ) );
 
 					// Inventory
-
 					ob_start();
-					bf_wc_product_inventory( $thepostid, $customfield );
+					require_once dirname( __FILE__ ) . '/includes/from-elements/bf_woo_elem_product_inventory.php';
+					bf_woo_elem_product_inventory::bf_wc_product_inventory( $thepostid, $customfield );
 					$get_contents = ob_get_contents();
 					ob_clean();
 
@@ -90,33 +93,29 @@
 					// 'Shipping':
 
 					ob_start();
-					bf_wc_shipping( $thepostid, $customfield );
+					require_once dirname( __FILE__ ) . '/includes/from-elements/bf_woo_elem_product_shipping.php';
+					bf_woo_elem_product_shipping::bf_wc_shipping( $thepostid, $customfield );
 					$get_contents = ob_get_contents();
 					ob_clean();
-
 					$form->addElement( new Element_HTML( $get_contents ) );
 
 					// Linked-Products':
 
 					ob_start();
-					bf_wc_product_linked( $thepostid, $customfield );
+					require_once dirname( __FILE__ ) . '/includes/from-elements/bf_woo_elem_product_linked.php';
+					bf_woo_elem_product_linked::bf_wc_product_linked( $thepostid, $customfield );
 					$get_contents = ob_get_contents();
 					ob_clean();
-
 					$form->addElement( new Element_HTML( $get_contents ) );
-
 					break;
 
 				case 'attributes':
-
-
 					ob_start();
-					bf_wc_attrebutes_custom( $thepostid, $customfield );
+					require_once dirname( __FILE__ ) . '/includes/from-elements/bf_woo_elem_product_attribute.php';
+					bf_woo_elem_product_attribute::bf_wc_attrebutes_custom( $thepostid, $customfield );
 					$get_contents = ob_get_contents();
 					ob_clean();
-
 					$form->addElement( new Element_HTML( $get_contents ) );
-
 					break;
 
 				case 'product-gallery':
