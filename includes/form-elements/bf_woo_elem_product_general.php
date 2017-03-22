@@ -1,10 +1,10 @@
 <?php
 
-	class bf_woo_elem_product_general {
-		public static function bf_wc_product_general( $thepostid, $customfield ) {
-			?>
+class bf_woo_elem_product_general {
+	public static function bf_wc_product_general( $thepostid, $customfield ) {
+		?>
 
-			<div id="general_product_data"><?php
+		<div id="general_product_data"><?php
 
 		    if ( isset( $customfield['product_sku'] ) && $customfield['product_sku'] != 'hidden' ) {
 
@@ -107,4 +107,4 @@
 
 		    do_action( 'bf_woocommerce_product_options_general_last', $thepostid, $customfield );
 		}
-	}
+}
