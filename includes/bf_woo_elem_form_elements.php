@@ -50,21 +50,21 @@ class bf_woo_elem_form_element {
 				$form->addElement( new Element_HTML( '<div id="woocommerce-product-data" class="form-field ">' ) );
 
 				ob_start();
-				require_once BF_WOO_ELEM_INCLUDES_PATH . 'from-elements/bf_woo_elem_product_type.php';
+				require_once BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_type.php';
 				bf_woo_elem_product_type::bf_wc_product_type( $thepostid, $customfield );
 				$get_contents = ob_get_contents();
 				ob_clean();
 				$form->addElement( new Element_HTML( $get_contents ) );
 
 				ob_start();
-				require_once BF_WOO_ELEM_INCLUDES_PATH . 'from-elements/bf_woo_elem_product_general.php';
+				require_once BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_general.php';
 				bf_woo_elem_product_general::bf_wc_product_general( $thepostid, $customfield );
 				$get_contents = ob_get_contents();
 				ob_clean();
 				$form->addElement( new Element_HTML( $get_contents ) );
 
 				ob_start();
-				require_once BF_WOO_ELEM_INCLUDES_PATH . 'from-elements/bf_woo_elem_product_downloadable.php';
+				require_once BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_downloadable.php';
 				bf_woo_elem_product_downloadable::bf_wc_downloadable( $thepostid, $customfield );
 				$get_contents = ob_get_contents();
 				ob_clean();
@@ -80,7 +80,7 @@ class bf_woo_elem_form_element {
 
 				// Inventory
 				ob_start();
-				require_once BF_WOO_ELEM_INCLUDES_PATH . 'from-elements/bf_woo_elem_product_inventory.php';
+				require_once BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_inventory.php';
 				bf_woo_elem_product_inventory::bf_wc_product_inventory( $thepostid, $customfield );
 				$get_contents = ob_get_contents();
 				ob_clean();
@@ -90,7 +90,7 @@ class bf_woo_elem_form_element {
 				// 'Shipping':
 
 				ob_start();
-				require_once BF_WOO_ELEM_INCLUDES_PATH . 'from-elements/bf_woo_elem_product_shipping.php';
+				require_once BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_shipping.php';
 				bf_woo_elem_product_shipping::bf_wc_shipping( $thepostid, $customfield );
 				$get_contents = ob_get_contents();
 				ob_clean();
@@ -99,7 +99,7 @@ class bf_woo_elem_form_element {
 				// Linked-Products':
 
 				ob_start();
-				require_once BF_WOO_ELEM_INCLUDES_PATH . 'from-elements/bf_woo_elem_product_linked.php';
+				require_once BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_linked.php';
 				bf_woo_elem_product_linked::bf_wc_product_linked( $thepostid, $customfield );
 				$get_contents = ob_get_contents();
 				ob_clean();
@@ -108,7 +108,7 @@ class bf_woo_elem_form_element {
 
 			case 'attributes':
 				ob_start();
-				require_once BF_WOO_ELEM_INCLUDES_PATH . 'from-elements/bf_woo_elem_product_attribute.php';
+				require_once BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_attribute.php';
 				bf_woo_elem_product_attribute::bf_wc_attrebutes_custom( $thepostid, $customfield );
 				$get_contents = ob_get_contents();
 				ob_clean();
