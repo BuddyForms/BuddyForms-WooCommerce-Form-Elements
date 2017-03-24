@@ -28,7 +28,7 @@ class bf_woo_elem_form_elements_save {
 		$post = get_post( $post_id );
 		
 		if ( $bf_wc_save_meta == 'yes' ) {
-			BF_WC_Meta_Box_Product_Data::save( $post_id, $post );
+			WC_Meta_Box_Product_Data::save( $post_id, $post );
 		}
 		
 		if ( $bf_wc_save_gallery == 'yes' ) {
