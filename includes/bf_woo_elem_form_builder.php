@@ -8,6 +8,7 @@ class bf_woo_elem_form_builder {
 		add_filter( 'buddyforms_form_element_add_field', array( $this, 'buddyforms_woocommerce_create_new_form_builder_form_element' ), 1, 5 );
 	}
 
+
 	public function buddyforms_woocommerce_formbuilder_elements_select( $elements_select_options ) {
 		global $post;
 

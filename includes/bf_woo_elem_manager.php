@@ -39,7 +39,7 @@ class bf_woo_elem_manager {
 	public function bf_wc_fe_includes() {
 		require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_form_builder.php';
 		new bf_woo_elem_form_builder();
-		require_once BF_WOO_ELEM_INCLUDES_PATH . 'class-wc-meta-box-product-data.php';
+		require_once  WC()->plugin_path() . '/includes/admin//meta-boxes/class-wc-meta-box-product-data.php' ;
 		require_once BF_WOO_ELEM_INCLUDES_PATH . 'class-wc-meta-box-product-images.php';
 		require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_form_elements.php';
 		new bf_woo_elem_form_element();

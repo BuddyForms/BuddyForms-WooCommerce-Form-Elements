@@ -4,10 +4,9 @@
 class bf_woo_elem_form_element {
 
 	public function __construct() {
-		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_frontend_form_element' ), 1, 2 );
+		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_new_form_builder' ), 1, 1 );
 		$this->helpTip();
 	}
-
 
 	public function helpTip() {
 		if ( ! is_admin() && ! function_exists( 'wc_help_tip' ) ) {
@@ -32,6 +31,17 @@ class bf_woo_elem_form_element {
 				return '<span class="woocommerce-help-tip" data-tip="' . $tip . '"></span>';
 			}
 
+		}
+	}
+
+	public function buddyforms_woocommerce_create_new_form_builder() {
+		global $thepostid, $post;
+
+		if ( $thepostid == $post->ID ) {
+			WC_Meta_Box_Product_Data::output( $post );
+		}
+		else{
+			$thepostid = $post->ID;//TODO check that the post id is assigned to this identifier.
 		}
 	}
 
