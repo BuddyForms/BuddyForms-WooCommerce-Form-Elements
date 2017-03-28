@@ -4,7 +4,7 @@
 class bf_woo_elem_form_element {
 
 	public function __construct() {
-		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_new_form_builder' ), 1, 1 );
+		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_new_form_builder' ), 1, 2 );
 		$this->helpTip();
 	}
 
@@ -34,14 +34,23 @@ class bf_woo_elem_form_element {
 		}
 	}
 
-	public function buddyforms_woocommerce_create_new_form_builder() {
+	public function buddyforms_woocommerce_create_new_form_builder( $form, $form_args ) {
 		global $thepostid, $post;
-
-		if ( $thepostid == $post->ID ) {
-			WC_Meta_Box_Product_Data::output( $post );
+		extract( $form_args );
+		if ( ! isset( $customfield['type'] ) ) {
+			return $form;
 		}
-		else{
-			$thepostid = $post->ID;//TODO check that the post id is assigned to this identifier.
+		switch ( $customfield['type'] ) {
+			case 'woocommerce':
+				WC_Meta_Box_Product_Data::output( $post );
+				break;
+			case 'attributes':
+				require_once BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_attribute.php';
+				bf_woo_elem_product_attribute::bf_wc_attrebutes_custom( $thepostid, $customfield );
+				break;
+			case'product-gallery':
+				WC_Meta_Box_Product_Images::output( $post );
+				break;
 		}
 	}
 

@@ -39,15 +39,15 @@ class bf_woo_elem_manager {
 	public function bf_wc_fe_includes() {
 		require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_form_builder.php';
 		new bf_woo_elem_form_builder();
-		require_once  WC()->plugin_path() . '/includes/admin//meta-boxes/class-wc-meta-box-product-data.php' ;
-		require_once BF_WOO_ELEM_INCLUDES_PATH . 'class-wc-meta-box-product-images.php';
+		require_once WC()->plugin_path() . '/includes/admin/meta-boxes/class-wc-meta-box-product-data.php';
+		require_once WC()->plugin_path() . '/includes/admin/meta-boxes/class-wc-meta-box-product-images.php';
 		require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_form_elements.php';
 		new bf_woo_elem_form_element();
 		require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_form_elements_save.php';
 		new bf_woo_elem_form_elements_save();
 
 		include_once( BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_attribute.php' );
-	   //	new bf_woo_elem_product_attribute();
+		//	new bf_woo_elem_product_attribute();
 		//include_once(BF_WOO_ELEM_INCLUDES_PATH . '/orm-elements/bf-wc-product-variations.php');
 		include_once( BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_downloadable.php' );
 		//new bf_woo_elem_product_downloadable();
