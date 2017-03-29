@@ -43,7 +43,9 @@ class bf_woo_elem_form_element {
 		ob_start();
 		switch ( $customfield['type'] ) {
 			case 'woocommerce':
+				echo '<div id="woocommerce-product-data" class="postbox ">';
 				WC_Meta_Box_Product_Data::output( $post );
+				echo '</div>';
 				break;
 			case 'attributes':
 				require_once BF_WOO_ELEM_INCLUDES_PATH . 'form-elements/bf_woo_elem_product_attribute.php';
