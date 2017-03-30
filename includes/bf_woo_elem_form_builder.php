@@ -1,6 +1,15 @@
 <?php
 
-	function buddyforms_woocommerce_formbuilder_elements_select( $elements_select_options ) {
+
+class bf_woo_elem_form_builder {
+
+	public function __construct() {
+		add_filter( 'buddyforms_add_form_element_select_option', array( $this, 'buddyforms_woocommerce_formbuilder_elements_select' ), 1 );
+		add_filter( 'buddyforms_form_element_add_field', array( $this, 'buddyforms_woocommerce_create_new_form_builder_form_element' ), 1, 5 );
+	}
+
+
+	public function buddyforms_woocommerce_formbuilder_elements_select( $elements_select_options ) {
 		global $post;
 
 		if ( $post->post_type != 'buddyforms' ) {
@@ -25,10 +34,7 @@
 		return $elements_select_options;
 	}
 
-	add_filter( 'buddyforms_add_form_element_select_option', 'buddyforms_woocommerce_formbuilder_elements_select' );
-
-
-	function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fields, $form_slug, $field_type, $field_id ) {
+	public function buddyforms_woocommerce_create_new_form_builder_form_element( $form_fields, $form_slug, $field_type, $field_id ) {
 		global $post;
 
 		if ( $post->post_type != 'buddyforms' ) {
@@ -37,8 +43,8 @@
 
 		$buddyform = get_post_meta( $post->ID, '_buddyforms_options', true );
 
-//    if($buddyform['post_type'] != 'product')
-//        return;
+		//    if($buddyform['post_type'] != 'product')
+		//        return;
 
 		$field_id = (string) $field_id;
 
@@ -507,4 +513,4 @@
 		return $form_fields;
 	}
 
-	add_filter( 'buddyforms_form_element_add_field', 'buddyforms_woocommerce_create_new_form_builder_form_element', 1, 5 );
+}
