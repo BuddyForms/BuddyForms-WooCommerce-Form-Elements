@@ -22,10 +22,6 @@ class bf_woo_elem_form_builder {
 			'label'  => __( 'General Settings', 'buddyforms' ),
 			'unique' => 'unique'
 		);
-		$elements_select_options['woocommerce']['fields']['attributes']      = array(
-			'label'  => __( 'Attributes', 'buddyforms' ),
-			'unique' => 'unique'
-		);
 		$elements_select_options['woocommerce']['fields']['product-gallery'] = array(
 			'label'  => __( 'Product Gallery', 'buddyforms' ),
 			'unique' => 'unique'

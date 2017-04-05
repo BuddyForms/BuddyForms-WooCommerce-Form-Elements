@@ -50,7 +50,6 @@ if ( ! class_exists( 'bf_woo_elem' ) ) {
 		private function __construct() {
 			$this->constants();
 			$this->load_plugin_textdomain();
-			require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_override.php';
 			require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_requirements.php';
 			new bf_woo_elem_requirements();
 
