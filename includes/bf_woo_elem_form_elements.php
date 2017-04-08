@@ -3,9 +3,20 @@
 
 class bf_woo_elem_form_element {
 	
+	private $current_post_id;
+	
 	public function __construct() {
 		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_new_form_builder' ), 1, 2 );
 		$this->helpTip();
+		add_filter( 'woocommerce_product_type_query', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
+	}
+	
+	public function on_woocommerce_product_type_query( $override, $product_id ) {
+		if ( $product_id == $this->current_post_id ) {
+			$override = 'simple';
+		}
+		
+		return $override;
 	}
 	
 	public function helpTip() {
@@ -35,12 +46,23 @@ class bf_woo_elem_form_element {
 	}
 	
 	public function buddyforms_woocommerce_create_new_form_builder( $form, $form_args ) {
-		global $thepostid, $post;
+		global $post;
 		extract( $form_args );
 		if ( ! isset( $customfield['type'] ) ) {
 			return $form;
 		}
+		
+		$this->current_post_id = $post->ID;
+		
 		ob_start();
+		
+		$temp_post = clone $post;
+		if ( ! empty( $form_args['post_id'] ) ) {
+			$post = get_post( $form_args['post_id'] );
+		} else {
+			$post = get_default_post_to_edit( 'product' );
+		}
+		
 		switch ( $customfield['type'] ) {
 			case 'woocommerce':
 				echo '<div id="woocommerce-product-data" class="postbox ">';
@@ -57,6 +79,8 @@ class bf_woo_elem_form_element {
 		//Load the scripts
 		$this->add_scripts();
 		$this->add_styles();
+		
+		$post = $temp_post;
 		
 		return $form;
 	}
@@ -90,7 +114,7 @@ class bf_woo_elem_form_element {
 		wp_register_script( 'wc-shipping-zones', WC()->plugin_url() . '/assets/js/admin/wc-shipping-zones' . $suffix . '.js', array( 'jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-enhanced-select', 'wc-backbone-modal' ), WC_VERSION );
 		wp_register_script( 'wc-shipping-zone-methods', WC()->plugin_url() . '/assets/js/admin/wc-shipping-zone-methods' . $suffix . '.js', array( 'jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-backbone-modal' ), WC_VERSION );
 		wp_register_script( 'wc-shipping-classes', WC()->plugin_url() . '/assets/js/admin/wc-shipping-classes' . $suffix . '.js', array( 'jquery', 'wp-util', 'underscore', 'backbone' ), WC_VERSION );
-		wp_register_script( 'choose', WC()->plugin_url() . '/assets/js/select2/select2' . $suffix . '.js', array( 'jquery' ), '3.5.4' );
+		wp_register_script( 'choose', WC()->plugin_url() . '/assets/js/select2/select2' . $suffix . '.js', array( 'jquery' ) );
 		wp_enqueue_script( 'choose' );
 		wp_register_script( 'wc-enhanced-select', WC()->plugin_url() . '/assets/js/admin/wc-enhanced-select' . $suffix . '.js', array( 'jquery', 'choose' ), WC_VERSION );
 		wp_localize_script( 'wc-enhanced-select', 'wc_enhanced_select_params', array(
