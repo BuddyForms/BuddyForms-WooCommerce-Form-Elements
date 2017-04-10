@@ -151,7 +151,7 @@ class bf_woo_elem_form_builder {
 				if ( isset( $buddyform['form_fields'][ $field_id ]['product_sku'] ) ) {
 					$product_sku = $buddyform['form_fields'][ $field_id ]['product_sku'];
 				}
-				$form_fields['general']['product_sku'] = new Element_Select( '<b>' . __( 'SKU Field', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_sku]", array(
+				$form_fields['Inventory']['product_sku'] = new Element_Select( '<b>' . __( 'SKU Field', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_sku]", array(
 					'none'     => 'None',
 					'hidden'   => __( 'Hide', 'buddyforms' ),
 					"required" => __( 'Required', 'buddyforms' )
