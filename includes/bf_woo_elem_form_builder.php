@@ -216,7 +216,7 @@ class bf_woo_elem_form_builder {
 				//$data .= $field_id .'_product_sold_individually ';
 
 
-				$element = new Element_Checkbox( '<b>' . __( 'Manage Stock', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_manage_stock]", array( 'manage' => '<b>' . __( 'Disable stock management at product level', 'buddyforms' ) . '</b>' ), array(
+				$element = new Element_Checkbox( '<b>' . __( 'Manage Stock', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_manage_stock]", array( 'manage' => '<b>' . __( 'Hide stock management at product level and set default hidden values.', 'buddyforms' ) . '</b>' ), array(
 					'id'    => 'product_manage_stock_' . $field_id,
 					'class' => 'bf_hidden_checkbox',
 					'value' => $product_manage_stock
