@@ -86,6 +86,9 @@ jQuery(document).ready(function (data) {
 		if(manage_stock=="manage"){
 
 			jQuery("._manage_stock_field").addClass('hide_if_simple');
+
+			jQuery("._stock_field").hide();
+			jQuery("._backorders_field").hide();
 			if(general_settings_param.product_manage_stock_qty != null){
 				var amount = general_settings_param.product_manage_stock_qty;
 				jQuery("#_stock").val(amount);
