@@ -23,9 +23,14 @@ class bf_woo_elem_form_elements_save {
 	}
 
 	public function buddyforms_woocommerce_updtae_wc_post_meta( $post_id ) {
-		global $post, $bf_wc_save_gallery, $bf_wc_save_meta, $bf_product_attributes;
+		global $bf_wc_save_gallery, $bf_wc_save_meta, $bf_product_attributes;
 
-		$post = get_post( $post_id );
+		$update_post_type = array(
+			'ID'        => $post_id,
+			'post_type' => 'product'
+		);
+		$post_updated     = wp_update_post( $update_post_type, true );
+		$post             = get_post( $post_id );
 
 		if ( $bf_wc_save_meta == 'yes' ) {
 			WC_Meta_Box_Product_Data::save( $post_id, $post );
@@ -69,13 +74,7 @@ class bf_woo_elem_form_elements_save {
 		if ( get_post_status( $post_id ) == 'publish' ) {
 			;
 		}
-		$update_post_type = array(
-			'ID'        => $post_id,
-			'post_type' => 'product'
-		);
-		$post_updated     = wp_update_post( $update_post_type, true );
 		update_post_meta( $post_id, '_visibility', 'visible' );
-
 	}
 
 
