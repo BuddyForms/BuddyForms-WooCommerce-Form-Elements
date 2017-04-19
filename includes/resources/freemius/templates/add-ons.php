@@ -31,7 +31,7 @@
 	$has_addons = ( is_array( $addons ) && 0 < count( $addons ) );
 ?>
 	<div id="fs_addons" class="wrap">
-		<h2><?php printf( __fs( 'add-ons-for-x', $slug ), $fs->get_plugin_name() ) ?>asdasd</h2>
+		<h2><?php printf( __fs( 'add-ons-for-x', $slug ), $fs->get_plugin_name() ) ?></h2>
 
 		<div id="poststuff">
 			<?php if ( ! $has_addons ) : ?>
@@ -123,6 +123,17 @@
 
 			var interval = setInterval(function () {
 				// Open add-on information page.
+				<?php
+				/**
+				 * @author Vova Feldman
+				 *
+				 * This code does NOT expose an XSS vulnerability because:
+				 *  1. This page only renders for admins, so if an attacker manage to get
+				 *     admin access, they can do more harm.
+				 *  2. This code won't be rendered unless $open_addon_slug matches any of
+				 *     the plugin's add-ons slugs.
+				 */
+				?>
 				$('.fs-card[data-slug=<?php echo $open_addon_slug ?>] a').click();
 				if ($('#TB_iframeContent').length > 0) {
 					clearInterval(interval);
