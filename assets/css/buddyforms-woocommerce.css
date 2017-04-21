@@ -6,4 +6,38 @@
  * @link http://buddyforms.com/downloads/buddyforms-woocommerce-form-elements/
  * @license GPLv2 or later
  */
+.woo_elem_container {
+	width: 100%;
+	float: left;
+}
+
+.postbox {
+	position: relative;
+	min-width: 255px;
+	border: 1px solid #e5e5e5;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	background: #fff;
+	margin-bottom: 20px;
+	padding: 0;
+	line-height: 1;
+}
+
+.postbox .hndle, .stuffbox .hndle {
+	border-bottom: 1px solid #eee;
+}
+
+h2.hndle {
+	font-weight: 600;
+	color: #23282d;
+	font-size: 14px;
+	padding: 8px 12px;
+	margin: 0;
+	line-height: 1.4;
+}
+
+#woocommerce-product-data .hndle label {
+	display: inline-block;
+}
+
 
