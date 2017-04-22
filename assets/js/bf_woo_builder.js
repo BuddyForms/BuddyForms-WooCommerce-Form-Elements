@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
 			downloadable_row = field_row.find("#table_row_" + field_id + "_downloadable"),
 			virtual = field_row.find("#_virtual-0"),
 			downloadable = field_row.find("#_downloadable-0");
-		field_row.find('select[name="buddyforms_options[form_fields][' + field_id + '][product_shipping_hidden_shipping_class]"]').change(function () {
+		$('select[name="buddyforms_options[form_fields][' + field_id + '][product_type_default]"]').change(function () {
 			if (field_row.find('#product_type_hidden-0').is(':checked')) {
 				var product_type = $(this).val();
 				if (product_type === 'simple') {

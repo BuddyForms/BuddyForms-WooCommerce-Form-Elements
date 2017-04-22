@@ -1,13 +1,53 @@
 jQuery(document).ready(function ($) {
-	var product_type = $('#product-type').val();
+
+	/**
+	 * Determine wish tab will be default
+	 *
+	 * @param current_type
+	 */
+	function determine_default_tab(current_type) {
+		if (current_type === 'grouped' || current_type === 'variable' || current_type === 'external') {
+			jQuery('li.general_tab').removeClass('active');
+			jQuery('#general_product_data').hide();
+			if (general_settings_param.product_manage_stock && general_settings_param.product_manage_stock[0] && general_settings_param.product_manage_stock[0] !== undefined) {
+				jQuery('li.shipping_tab').addClass('active');
+				jQuery('#shipping_product_data').show();
+			}
+			else {
+				jQuery('li.inventory_tab').addClass('active');
+				jQuery('#inventory_product_data').show();
+			}
+			// Hide empty panels/tabs after display.
+			$( '.woocommerce_options_panel' ).each( function() {
+				var $children = $( this ).children( '.options_group' );
+
+				if ( 0 === $children.length ) {
+					return;
+				}
+
+				var $invisble = $children.filter( function() {
+					return 'none' === $( this ).css( 'display' );
+				});
+
+				// Hide panel.
+				if ( $invisble.length === $children.length ) {
+					var $id = $( this ).prop( 'id' );
+					$( '.product_data_tabs' ).find( 'li a[href="#' + $id + '"]' ).parent().hide();
+				}
+			});
+		}
+	}
+
+	var product_type = $('select#product-type').val();
 	//Set Product Type if they are hidden
 	if (general_settings_param.product_type_hidden && general_settings_param.product_type_hidden[0] &&
 		general_settings_param.product_type_hidden[0] === 'hidden') {
+		//$('h2.hndle').hide();
 		//Set the prodcut type
 		if (general_settings_param.product_type_default) {
-			$('#product-type').val(general_settings_param.product_type_default).change();
+			$('select#product-type').val(general_settings_param.product_type_default).change();
+			determine_default_tab(general_settings_param.product_type_default);
 		}
-		//$('h2.hndle').hide();
 		//Set if is virtual or downloadable
 		if (general_settings_param.product_type_options) {
 			var virtual = (general_settings_param.product_type_options['_virtual'] !== undefined);
@@ -15,14 +55,16 @@ jQuery(document).ready(function ($) {
 			jQuery('#_virtual').attr('checked', virtual).change();
 			jQuery('#_downloadable').attr('checked', downloadable).change();
 		}
+
 	}
 	else {
-		//Trigger if the product type if changed
-		$('#product-type').change(function () {
-			product_type = $(this).val();
-			console.log(product_type);
-		});
+
 	}
+
+	//Trigger if the product type if changed
+	jQuery(document).on('woocommerce-product-type-change', function (obj, select_val) {
+		console.log('mio ' + select_val);
+	});
 
 	//REGULAR PRICE
 	if (general_settings_param.product_regular_price && general_settings_param.product_regular_price[0]) {
@@ -108,7 +150,7 @@ jQuery(document).ready(function ($) {
 		}
 	}
 
-	if (general_settings_param.product_manage_stock && general_settings_param.product_manage_stock[0] && general_settings_param.product_manage_stock !== undefined) {
+	if (general_settings_param.product_manage_stock && general_settings_param.product_manage_stock[0] && general_settings_param.product_manage_stock[0] !== undefined) {
 		var manage_stock = general_settings_param.product_manage_stock[0];
 		if (manage_stock === "manage") {
 			$("._manage_stock_field").addClass('hide_if_simple');
