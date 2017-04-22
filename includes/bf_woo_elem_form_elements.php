@@ -70,11 +70,12 @@ class bf_woo_elem_form_element {
 				$title = __( 'Product gallery', 'woocommerce' );
 				break;
 		}
-		
+		$this->add_scripts();
+		$this->add_styles();
 		ob_start();
 		echo '<div id="postbox-container" class="woo_elem_container">';
 		echo '<div id="' . $id . '" class="postbox" >' . "\n";
-		echo "<h2 class='hndle'><span class='woo_element_span'>{$title}</span></h2>\n";
+		echo "<h2 class='hndle bf_woo'><span class='woo_element_span'>{$title}</span></h2>\n";
 		echo '<div class="inside">' . "\n";
 		switch ( $customfield['type'] ) {
 			case 'woocommerce':
@@ -93,8 +94,7 @@ class bf_woo_elem_form_element {
 		
 		$form->addElement( new Element_HTML( $get_contents ) );
 		//Load the scripts
-		$this->add_scripts();
-		$this->add_styles();
+		
 		
 		$post = $temp_post;
 		
@@ -102,7 +102,7 @@ class bf_woo_elem_form_element {
 	}
 	
 	public function add_general_settings_option( $option ) {
-		wp_enqueue_script( 'general_settings', BF_WOO_ELEM_JS_PATH . 'bf_woo_general_settings.js', array( "jquery" ), null, true );
+		wp_enqueue_script( 'general_settings', BF_WOO_ELEM_JS_PATH . 'x_bf_woo_general_settings.js', array( "jquery" ), null, true );
 		wp_localize_script( 'general_settings', 'general_settings_param', $option );
 	}
 	

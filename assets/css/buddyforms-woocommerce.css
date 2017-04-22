@@ -40,4 +40,8 @@ h2.hndle {
 	display: inline-block;
 }
 
+h2.hndle.bf_woo {
+	display: none;
+}
+
 
