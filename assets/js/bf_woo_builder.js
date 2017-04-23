@@ -24,11 +24,26 @@ jQuery(document).ready(function ($) {
 				}
 			}
 		});
-		$('#product_type_hidden-0').click(function () {
+		$('input[name="buddyforms_options[form_fields][' + field_id + '][product_type_hidden][]"]').click(function () {
 			if (!$(this).is(':checked')) {
 				virtual_row.removeAttr('style');
 				downloadable_row.removeAttr('style');
 			}
 		});
+
+		$('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price]"]').change(function () {
+			if ($(this).val() === 'hidden') {
+				$('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price_dates]"]').val('hidden');
+			}
+		});
+
+		$('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price_dates]"]').change(function () {
+			var sale_prices = $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price]"]').val();
+			if (sale_prices === 'hidden') {
+				alert('Sales Price need to be different to Hidden!');
+				$(this).val('hidden');
+			}
+		});
+
 	});
 });

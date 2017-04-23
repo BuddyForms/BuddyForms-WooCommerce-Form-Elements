@@ -93,9 +93,7 @@ class bf_woo_elem_form_element {
 		ob_clean();
 		
 		$form->addElement( new Element_HTML( $get_contents ) );
-		//Load the scripts
-		
-		
+
 		$post = $temp_post;
 		
 		return $form;
