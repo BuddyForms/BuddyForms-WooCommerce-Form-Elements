@@ -132,7 +132,7 @@ class bf_woo_elem_form_builder {
 						'value' => $product_type_option_value
 					) );
 					
-					if ( $product_type_hidden_checked == 'hidden' ) {
+					if ( $product_type_hidden_checked == 'hidden' || $product_type_default != 'simple' ) {
 						$element->setAttribute( 'class', 'hidden' );
 					}
 					
@@ -222,7 +222,7 @@ class bf_woo_elem_form_builder {
 					'class' => 'bf_hidden_checkbox',
 					'value' => $product_manage_stock
 				) );
-				$element->setAttribute( 'bf_hidden_checkbox', $data );
+				$element->setAttribute( 'bf_hidden_checkbox', trim($data) );
 				$form_fields['Inventory']['product_manage_stock'] = $element;
 				
 				// Stock Qty
@@ -231,12 +231,12 @@ class bf_woo_elem_form_builder {
 					array( 'default' => __( 'Hide', 'buddyforms' ) ),
 					array(
 						'id'    => 'product_manage_stock_qty_options_' . $field_id,
-						'class' => 'bf_hidden_checkbox ' . $product_manage_stock_checked,
+						'class' => trim('bf_hidden_checkbox ' . $product_manage_stock_checked),
 						'value' => $product_manage_stock_qty_options
 					)
 				);
 				$data                             = $field_id . '_product_manage_stock_qty ';
-				$element->setAttribute( 'bf_hidden_checkbox', $data );
+				$element->setAttribute( 'bf_hidden_checkbox', trim($data) );
 				$form_fields['Inventory']['product_manage_stock_qty_options'] = $element;
 				
 				// Stock Qty hidden value
@@ -256,25 +256,25 @@ class bf_woo_elem_form_builder {
 				// Backorders
 				$product_allow_backorders_options = isset( $buddyform['form_fields'][ $field_id ]['product_allow_backorders_options'] ) ? $buddyform['form_fields'][ $field_id ]['product_allow_backorders_options'] : 'false';
 				$element                          = new Element_Checkbox( '<b>' . __( 'Allow Backorders ? ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_allow_backorders_options]",
-					array( 'hidden' =>  __( 'Hide', 'buddyforms' )  ),
+					array( 'hidden' => __( 'Hide', 'buddyforms' ) ),
 					array(
 						'id'    => $field_id . '_product_allow_backorders_options',
-						'class' => 'bf_hidden_checkbox ' . $product_manage_stock_checked,
+						'class' => trim('bf_hidden_checkbox ' . $product_manage_stock_checked),
 						'value' => $product_allow_backorders_options
 					)
 				);
 				$data                             = $field_id . '_product_allow_backorders ';
-				$element->setAttribute( 'bf_hidden_checkbox', $data );
+				$element->setAttribute( 'bf_hidden_checkbox', trim($data) );
 				$form_fields['Inventory']['product_allow_backorders_options'] = $element;
 				
 				// Backorders value
 				$product_allow_backorders_checked                     = $product_allow_backorders_options == 'false' ? 'hidden' : '';
 				$product_allow_backorders                             = isset( $buddyform['form_fields'][ $field_id ]['product_allow_backorders'] ) ? $buddyform['form_fields'][ $field_id ]['product_allow_backorders'] : 'false';
-				$form_fields['Inventory']['product_allow_backorders'] = new Element_Select( '<p>' . __( 'Select hidden value: ', 'buddyforms' ) . '</p>', "buddyforms_options[form_fields][" . $field_id . "][product_allow_backorders]",
+				$form_fields['Inventory']['product_allow_backorders'] = new Element_Select( '<b>' . __( 'Select hidden value: ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_allow_backorders]",
 					array(
-						'no'     =>  __( 'Do not allow', 'buddyforms' ),
-						'notify' =>  __( 'Allow, but notify customer', 'buddyforms' ) ,
-						'yes'    =>  __( 'Allow', 'buddyforms' )
+						'no'     => __( 'Do not allow', 'buddyforms' ),
+						'notify' => __( 'Allow, but notify customer', 'buddyforms' ),
+						'yes'    => __( 'Allow', 'buddyforms' )
 					),
 					array(
 						'id'    => $field_id . '_product_allow_backorders',
@@ -286,7 +286,7 @@ class bf_woo_elem_form_builder {
 				// Stock Status
 				$product_stock_status_options = isset( $buddyform['form_fields'][ $field_id ]['product_stock_status_options'] ) ? $buddyform['form_fields'][ $field_id ]['product_stock_status_options'] : 'false';
 				$element                      = new Element_Checkbox( '<b>' . __( 'Stock Status', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_stock_status_options]",
-					array( 'hidden' =>  __( 'Hide', 'buddyforms' ) ),
+					array( 'hidden' => __( 'Hide', 'buddyforms' ) ),
 					array(
 						'id'    => $field_id . '_product_stock_status_options',
 						'class' => 'bf_hidden_checkbox',
@@ -295,16 +295,16 @@ class bf_woo_elem_form_builder {
 				);
 				$data                         = $field_id . '_product_stock_status ';
 				$data                         .= $field_id . '_product_stock_hr1 ';
-				$element->setAttribute( 'bf_hidden_checkbox', $data );
+				$element->setAttribute( 'bf_hidden_checkbox', trim($data) );
 				$form_fields['Inventory']['product_stock_status_options'] = $element;
 				
 				// Stock Status Hidden Value
 				$product_stock_status_checked                     = $product_stock_status_options == 'false' ? 'hidden' : '';
 				$product_stock_status                             = isset( $buddyform['form_fields'][ $field_id ]['product_stock_status'] ) ? $buddyform['form_fields'][ $field_id ]['product_stock_status'] : 'false';
-				$form_fields['Inventory']['product_stock_status'] = new Element_Select( '<p>' . __( 'Select hidden value: ', 'buddyforms' ) . '</p>', "buddyforms_options[form_fields][" . $field_id . "][product_stock_status]",
+				$form_fields['Inventory']['product_stock_status'] = new Element_Select( '<b>' . __( 'Select hidden value: ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_stock_status]",
 					array(
-						'instock'    =>  __( 'In stock', 'buddyforms' ),
-						'outofstock' =>  __( 'Out of stock', 'buddyforms' )
+						'instock'    => __( 'In stock', 'buddyforms' ),
+						'outofstock' => __( 'Out of stock', 'buddyforms' )
 					),
 					array(
 						'id'    => $field_id . '_product_stock_status',
@@ -337,9 +337,9 @@ class bf_woo_elem_form_builder {
 				// Sold Individually Hidden Value
 				$product_sold_individually_checked                     = $product_sold_individually_options == 'false' ? 'hidden' : '';
 				$product_sold_individually                             = isset( $buddyform['form_fields'][ $field_id ]['product_sold_individually'] ) ? $buddyform['form_fields'][ $field_id ]['product_sold_individually'] : 'false';
-				$form_fields['Inventory']['product_sold_individually'] = new Element_Select( '<p>' . __( 'Select hidden value: ', 'buddyforms' ) . '</p>', "buddyforms_options[form_fields][" . $field_id . "][product_sold_individually]",
+				$form_fields['Inventory']['product_sold_individually'] = new Element_Select( '<b>' . __( 'Select hidden value: ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_sold_individually]",
 					array(
-						'yes' =>  __( 'Yes', 'buddyforms' ),
+						'yes' => __( 'Yes', 'buddyforms' ),
 						'no'  => __( 'No', 'buddyforms' )
 					),
 					array(
@@ -429,7 +429,7 @@ class bf_woo_elem_form_builder {
 				if ( isset( $buddyform['form_fields'][ $field_id ]['product_up_sales'] ) ) {
 					$product_up_sales = $buddyform['form_fields'][ $field_id ]['product_up_sales'];
 				}
-				$form_fields['Linked - Products']['product_up_sales'] = new Element_Checkbox( '<b>' . __( 'Up - Sales', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_up_sales]", array( 'hidden' => __( 'Hide Up - Sales', 'buddyforms' ) ), array(
+				$form_fields['Linked-Products']['product_up_sales'] = new Element_Checkbox( '<b>' . __( 'Up - Sales', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_up_sales]", array( 'hidden' => __( 'Hide Up - Sales', 'buddyforms' ) ), array(
 					'id'    => 'product_up_sales_' . $field_id,
 					'value' => $product_up_sales
 				) );
@@ -438,7 +438,7 @@ class bf_woo_elem_form_builder {
 				if ( isset( $buddyform['form_fields'][ $field_id ]['product_cross_sales'] ) ) {
 					$product_cross_sales = $buddyform['form_fields'][ $field_id ]['product_cross_sales'];
 				}
-				$form_fields['Linked - Products']['product_cross_sales'] = new Element_Checkbox( '<b>' . __( 'Cross Sales', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_cross_sales]", array( 'hidden' => __( 'Hide Cross Sales', 'buddyforms' ) ), array(
+				$form_fields['Linked-Products']['product_cross_sales'] = new Element_Checkbox( '<b>' . __( 'Cross Sales', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_cross_sales]", array( 'hidden' => __( 'Hide Cross Sales', 'buddyforms' ) ), array(
 					'id'    => 'product_cross_sales_' . $field_id,
 					'value' => $product_cross_sales
 				) );
@@ -447,7 +447,7 @@ class bf_woo_elem_form_builder {
 				if ( isset( $buddyform['form_fields'][ $field_id ]['product_grouping'] ) ) {
 					$product_grouping = $buddyform['form_fields'][ $field_id ]['product_grouping'];
 				}
-				$form_fields['Linked - Products']['product_grouping'] = new Element_Checkbox( '<b>' . __( 'Grouping', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_grouping]", array( 'hidden' => __( 'Hide Grouping', 'buddyforms' ) ), array(
+				$form_fields['Linked-Products']['product_grouping'] = new Element_Checkbox( '<b>' . __( 'Grouping', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_grouping]", array( 'hidden' => __( 'Hide Grouping', 'buddyforms' ) ), array(
 					'id'    => 'product_grouping' . $field_id,
 					'value' => $product_grouping
 				) );

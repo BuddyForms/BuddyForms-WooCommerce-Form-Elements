@@ -13,6 +13,8 @@ jQuery(document).ready(function ($) {
 				if (product_type === 'simple') {
 					virtual_row.show();
 					downloadable_row.show();
+					virtual.parent().show();
+					downloadable.parent().show();
 				}
 				else {
 					virtual_row.hide();
@@ -22,6 +24,11 @@ jQuery(document).ready(function ($) {
 				}
 			}
 		});
-
+		$('#product_type_hidden-0').click(function () {
+			if (!$(this).is(':checked')) {
+				virtual_row.removeAttr('style');
+				downloadable_row.removeAttr('style');
+			}
+		});
 	});
 });
