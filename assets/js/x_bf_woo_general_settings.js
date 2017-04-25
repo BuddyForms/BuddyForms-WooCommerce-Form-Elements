@@ -162,5 +162,36 @@ jQuery(function ($) {
 			}
 		}
 	}
+	// Save attributes and update variations.
+	$( '.save_attributes').on( 'click', function() {
+
+		$( '#woocommerce-product-data' ).block({
+			message: null,
+			overlayCSS: {
+				background: '#fff',
+				opacity: 0.6
+			}
+		});
+
+		var data = {
+			post_id     : woocommerce_admin_meta_boxes.post_id,
+			product_type: $( '#product-type' ).val(),
+			data        : $( '.product_attributes' ).find( 'input, select, textarea' ).serialize(),
+			action      : 'woocommerce_save_attributes',
+			security    : woocommerce_admin_meta_boxes.save_attributes_nonce
+		};
+
+		$.post( woocommerce_admin_meta_boxes.ajax_url, data, function() {
+			// Reload variations panel.
+			var this_page = window.location.toString();
+			this_page = this_page + '?post=' + woocommerce_admin_meta_boxes.post_id + '&action=edit&';
+			var type= $('#variable_product_options_inner');
+			// Load variations panel.
+			$( '#variable_product_options' ).load( this_page + ' #variable_product_options_inner', function() {
+				$( '#variable_product_options' ).trigger( 'reload' );
+			});
+		});
+
+	});
 
 });
