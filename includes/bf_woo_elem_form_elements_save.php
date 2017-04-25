@@ -4,8 +4,9 @@ class bf_woo_elem_form_elements_save {
 
 	public function __construct() {
 		add_action( 'buddyforms_update_post_meta', array( $this, 'buddyforms_woocommerce_updtae_post_meta' ), 99, 2 );
-		add_action( 'buddyforms_after_save_post', array( $this, 'buddyforms_woocommerce_updtae_wc_post_meta' ), 99, 1 );
+		add_action( 'buddyforms_after_save_post', array( $this, 'buddyforms_woocommerce_updtae_wc_post_meta' ), 991, 1 );
 		add_action( 'buddyforms_after_save_post', array( $this, 'buddyforms_woocommerce_updtae_visibility' ), 999, 1 );
+
 	}
 
 	public function buddyforms_woocommerce_updtae_post_meta( $customfield, $post_id ) {
@@ -22,6 +23,8 @@ class bf_woo_elem_form_elements_save {
 
 	}
 
+
+
 	public function buddyforms_woocommerce_updtae_wc_post_meta( $post_id ) {
 		global $bf_wc_save_gallery, $bf_wc_save_meta, $bf_product_attributes;
 
@@ -33,11 +36,11 @@ class bf_woo_elem_form_elements_save {
 		$post             = get_post( $post_id );
 
 		if ( $bf_wc_save_meta == 'yes' ) {
-			WC_Meta_Box_Product_Data::save( $post_id, $post );
+			//WC_Meta_Box_Product_Data::save( $post_id, $post );
 		}
 
 		if ( $bf_wc_save_gallery == 'yes' ) {
-			WC_Meta_Box_Product_Images::save( $post_id, $post );
+			//WC_Meta_Box_Product_Images::save( $post_id, $post );
 		}
 
 
@@ -75,7 +78,7 @@ class bf_woo_elem_form_elements_save {
 			;
 		}
 		update_post_meta( $post_id, '_visibility', 'visible' );
+
+
 	}
-
-
 }
