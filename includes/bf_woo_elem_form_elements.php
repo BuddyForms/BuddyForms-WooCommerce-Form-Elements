@@ -9,6 +9,7 @@ class bf_woo_elem_form_element {
 		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_new_form_builder' ), 1, 2 );
 		$this->helpTip();
 		add_filter( 'woocommerce_product_type_query', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
+		add_filter( 'woocommerce_process_product_meta', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
 	}
 
 	public function helpTip() {
@@ -48,6 +49,8 @@ class bf_woo_elem_form_element {
 	public function buddyforms_woocommerce_create_new_form_builder( $form, $form_args ) {
 		global $post;
 		extract( $form_args );
+
+
 		if ( ! isset( $customfield['type'] ) ) {
 			return $form;
 		}
@@ -64,13 +67,16 @@ class bf_woo_elem_form_element {
 		$temp_post = clone $post;
 		if ( $this->current_post_id > 0 ) {
 			$post = get_post( $this->current_post_id );
+			$form->getElements()[3]->setAttribute( 'value',$post->ID );
 		} else {
 			if ( $newPost == 0 ) {
 				$post                  = get_default_post_to_edit( 'product', true );
 				$this->current_post_id = $post->ID;
+				$form->getElements()[3]->setAttribute( 'value',$post->ID );
 
 			} else {
 				$post = get_post( $newPost );
+				$form->getElements()[3]->setAttribute( 'value', $newPost );
 
 			}
 		}
