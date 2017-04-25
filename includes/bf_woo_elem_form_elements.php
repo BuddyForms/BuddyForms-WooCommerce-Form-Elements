@@ -99,16 +99,13 @@ class bf_woo_elem_form_element {
 			$this->current_post_id = $post->ID;
 		}
 		
-		switch ( $customfield['type'] ) {
-			case 'woocommerce':
-				$id    = 'woocommerce-product-data';
-				$title = __( 'Product data', 'woocommerce' );
-				break;
-			case'product-gallery':
-				$id    = 'product_images_container';
-				$title = __( 'Product gallery', 'woocommerce' );
-				break;
+		$id    = 'woocommerce-product-data';
+		$title = __( 'Product data', 'woocommerce' );
+		if ( $customfield['type'] == 'product-gallery' ) {
+			$id    = 'product_images_container';
+			$title = __( 'Product gallery', 'woocommerce' );
 		}
+		
 		$this->add_scripts( $post );
 		$this->add_styles();
 		ob_start();
