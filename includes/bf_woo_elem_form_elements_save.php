@@ -74,9 +74,9 @@ class bf_woo_elem_form_elements_save {
 
 	public function buddyforms_woocommerce_updtae_visibility( $post_id ) {
 
-		if ( get_post_status( $post_id ) == 'publish' ) {
-			;
-		}
+//		if ( get_post_status( $post_id ) == 'publish' ) {
+//			;
+//		}
 		update_post_meta( $post_id, '_visibility', 'visible' );
 		$post             = get_post( $post_id );
 		$update_post_type = array(

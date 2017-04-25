@@ -2,25 +2,26 @@
 
 
 class bf_woo_elem_form_element {
-
+	
 	private $current_post_id;
-
+	
 	public function __construct() {
 		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_new_form_builder' ), 1, 2 );
 		$this->helpTip();
 		add_filter( 'woocommerce_product_type_query', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
 		add_filter( 'woocommerce_process_product_meta', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
+		add_filter( 'buddyforms_set_post_id_for_draft', array( $this, 'post_id_for_draft' ), 10, 3 );
 	}
-
+	
 	public function helpTip() {
 		if ( ! is_admin() && ! function_exists( 'wc_help_tip' ) ) {
-
+			
 			/**
 			 * Display a WooCommerce help tip.
 			 *
 			 * @since  2.5.0
 			 *
-			 * @param  string $tip Help tip text
+			 * @param  string $tip      Help tip text
 			 * @param  bool $allow_html Allow sanitized HTML if true or escape
 			 *
 			 * @return string
@@ -31,55 +32,73 @@ class bf_woo_elem_form_element {
 				} else {
 					$tip = esc_attr( $tip );
 				}
-
+				
 				return '<span class="woocommerce-help-tip" data-tip="' . $tip . '"></span>';
 			}
-
+			
 		}
 	}
-
+	
 	public function on_woocommerce_product_type_query( $override, $product_id ) {
 		if ( $product_id == $this->current_post_id ) {
 			$override = 'simple';
 		}
-
+		
 		return $override;
 	}
-
+	
+	public function post_id_for_draft( $post_id, $args, $customfields ) {
+		if ( ! empty( $args ) && ! empty( $customfields ) && is_array( $customfields ) && empty( $post_id ) ) {
+			$exist = false;
+			foreach ( $customfields as $field_id => $field ) {
+				if ( $field['slug'] == '_woocommerce' ) {
+					$exist = true;
+					
+					break;
+				}
+			}
+			if ( $exist ) {
+				if ( ! empty( $_GET['post'] ) ) {
+					$this->current_post_id = $_GET['post'];
+				} else {
+					if ( ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) == 'xmlhttprequest' ) {
+						exit;
+					}
+				}
+				if ( empty( $this->current_post_id ) ) {
+					$post    = get_default_post_to_edit( 'product', true );
+					$post_id = $this->current_post_id = $post->ID;
+				} else {
+					$post_id = $this->current_post_id;
+				}
+			}
+		}
+		
+		return $post_id;
+	}
+	
+	/**
+	 * @param Form $form
+	 * @param array $form_args
+	 *
+	 * @return mixed
+	 */
 	public function buddyforms_woocommerce_create_new_form_builder( $form, $form_args ) {
 		global $post;
 		extract( $form_args );
-
-
+		
 		if ( ! isset( $customfield['type'] ) ) {
 			return $form;
 		}
-		$newPost = 0;
-		if ( isset( $_GET['post'] ) ) {
-			$newPost = $_GET['post'];
-		} else
-		{
-			if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-			{
-				exit;
-			}
-		}
+		
 		$temp_post = clone $post;
-		if ( $this->current_post_id > 0 ) {
-			$post = get_post( $this->current_post_id );
-			$form->getElements()[3]->setAttribute( 'value',$post->ID );
+		if ( ! empty( $form_args['post_id'] ) ) {
+			$post = get_post( $form_args['post_id'] );
 		} else {
-			if ( $newPost == 0 ) {
-				$post                  = get_default_post_to_edit( 'product', true );
-				$this->current_post_id = $post->ID;
-				$form->getElements()[3]->setAttribute( 'value',$post->ID );
-
-			} else {
-				$post = get_post( $newPost );
-				$form->getElements()[3]->setAttribute( 'value', $newPost );
-
-			}
+			$post                  = get_default_post_to_edit( 'product', true );
+			$this->current_post_id = $post->ID;
 		}
+		
 		switch ( $customfield['type'] ) {
 			case 'woocommerce':
 				$id    = 'woocommerce-product-data';
@@ -90,10 +109,9 @@ class bf_woo_elem_form_element {
 				$title = __( 'Product gallery', 'woocommerce' );
 				break;
 		}
-
-		ob_start();
 		$this->add_scripts( $post );
 		$this->add_styles();
+		ob_start();
 		echo '<div id="postbox-container" class="woo_elem_container">';
 		echo '<div id="' . $id . '" class="postbox" >' . "\n";
 		echo "<h2 class='hndle bf_woo'><span class='woo_element_span'>{$title}</span></h2>\n";
@@ -112,18 +130,18 @@ class bf_woo_elem_form_element {
 		echo "</div>\n";
 		$get_contents = ob_get_contents();
 		ob_clean();
-
+		
 		$form->addElement( new Element_HTML( $get_contents ) );
 		//Load the scripts
 		$post = $temp_post;
-
+		
 		return $form;
 	}
-
+	
 	public function add_scripts( $post ) {
 		global $wp_query;
 		require_once( ABSPATH . 'wp-admin/includes/screen.php' );
-
+		
 		$screen       = get_current_screen();
 		$screen_id    = $screen ? $screen->id : '';
 		$wc_screen_id = sanitize_title( __( 'WooCommerce', 'woocommerce' ) );
@@ -169,23 +187,23 @@ class bf_woo_elem_form_element {
 			'search_products_nonce'     => wp_create_nonce( 'search-products' ),
 			'search_customers_nonce'    => wp_create_nonce( 'search-customers' )
 		) );
-
+		
 		// Accounting
 		wp_localize_script( 'accounting', 'accounting_params', array(
 			'mon_decimal_point' => wc_get_price_decimal_separator()
 		) );
-
+		
 		// WooCommerce admin pages
-
-
+		
+		
 		wp_enqueue_script( 'woocommerce_admin' );
 		wp_enqueue_script( 'wc-enhanced-select' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'jquery-ui-autocomplete' );
-
+		
 		$locale  = localeconv();
 		$decimal = isset( $locale['decimal_point'] ) ? $locale['decimal_point'] : '.';
-
+		
 		$params = array(
 			'i18n_decimal_error'               => sprintf( __( 'Please enter in decimal (%s) format without thousand separators.', 'woocommerce' ), $decimal ),
 			'i18n_mon_decimal_error'           => sprintf( __( 'Please enter in monetary decimal (%s) format without thousand separators and currency symbols.', 'woocommerce' ), wc_get_price_decimal_separator() ),
@@ -194,10 +212,10 @@ class bf_woo_elem_form_element {
 			'decimal_point'                    => $decimal,
 			'mon_decimal_point'                => wc_get_price_decimal_separator()
 		);
-
+		
 		wp_localize_script( 'woocommerce_admin', 'woocommerce_admin', $params );
-
-
+		
+		
 		// Products
 		if ( in_array( $screen_id, array( 'edit-product' ) ) ) {
 			wp_register_script( 'woocommerce_quick-edit', WC()->plugin_url() . '/assets/js/admin/quick-edit' . $suffix . '.js', array( 'jquery', 'woocommerce_admin' ), WC_VERSION );
@@ -207,7 +225,7 @@ class bf_woo_elem_form_element {
 		wp_enqueue_media();
 		wp_register_script( 'wc-admin-product-meta-boxes', WC()->plugin_url() . '/assets/js/admin/meta-boxes-product' . $suffix . '.js', array( 'jquery' ), WC_VERSION );
 		wp_register_script( 'wc-admin-variation-meta-boxes', WC()->plugin_url() . '/assets/js/admin/meta-boxes-product-variation' . $suffix . '.js', array( 'wc-admin-meta-boxes', 'serializejson', 'media-models' ), WC_VERSION );
-
+		
 		wp_enqueue_script( 'wc-admin-product-meta-boxes' );
 		wp_enqueue_script( 'wc-admin-variation-meta-boxes' );
 		$params = array(
@@ -240,13 +258,13 @@ class bf_woo_elem_form_element {
 			'i18n_variation_count_plural'         => esc_js( __( '%qty% variations', 'woocommerce' ) ),
 			'variations_per_page'                 => absint( apply_filters( 'woocommerce_admin_meta_boxes_variations_per_page', 15 ) )
 		);
-
+		
 		wp_localize_script( 'wc-admin-variation-meta-boxes', 'woocommerce_admin_meta_boxes_variations', $params );
-
-
+		
+		
 		wp_register_script( 'wc-admin-coupon-meta-boxes', WC()->plugin_url() . '/assets/js/admin/meta-boxes-coupon' . $suffix . '.js', array( 'wc-admin-meta-boxes' ), WC_VERSION );
 		wp_enqueue_script( 'wc-admin-coupon-meta-boxes' );
-
+		
 		$post_id  = isset( $post->ID ) ? $post->ID : '';
 		$currency = '';
 		$order    = wc_get_order( $post_id );
@@ -306,37 +324,37 @@ class bf_woo_elem_form_element {
 			'i18n_product_type_alert'       => __( 'Your product has variations! Before changing the product type, it is a good idea to delete the variations to avoid errors in the stock reports.', 'woocommerce' ),
 			'i18n_delete_note'              => __( 'Are you sure you wish to delete this note? This action cannot be undone.', 'woocommerce' )
 		);
-
+		
 		wp_localize_script( 'wc-admin-meta-boxes', 'woocommerce_admin_meta_boxes', $params );
 	}
-
+	
 	public function add_styles() {
 		global $wp_scripts;
 		require_once( ABSPATH . 'wp-admin/includes/screen.php' );
 		$screen         = get_current_screen();
 		$screen_id      = $screen ? $screen->id : '';
 		$jquery_version = isset( $wp_scripts->registered['jquery-ui-core']->ver ) ? $wp_scripts->registered['jquery-ui-core']->ver : '1.11.4';
-
+		
 		// Register admin styles
 		wp_register_style( 'woocommerce_admin_menu_styles', WC()->plugin_url() . '/assets/css/menu.css', array(), WC_VERSION );
 		wp_register_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), WC_VERSION );
 		wp_register_style( 'jquery-ui-style', '//code.jquery.com/ui/' . $jquery_version . '/themes/smoothness/jquery-ui.min.css', array(), $jquery_version );
 		//wp_register_style( 'woocommerce_admin_dashboard_styles', WC()->plugin_url() . '/assets/css/dashboard.css', array(), WC_VERSION );
 		//wp_register_style( 'woocommerce_admin_print_reports_styles', WC()->plugin_url() . '/assets/css/reports-print.css', array(), WC_VERSION, 'print' );
-
+		
 		// Sitewide menu CSS
 		wp_enqueue_style( 'woocommerce_admin_menu_styles' );
-
+		
 		// Admin styles for WC pages only
 		wp_enqueue_style( 'woocommerce_admin_styles' );
 		wp_enqueue_style( 'jquery-ui-style' );
 		//wp_enqueue_style( 'wp-color-picker' );
 		//wp_enqueue_style( 'woocommerce_admin_dashboard_styles' );
-
+		
 		if ( in_array( $screen_id, array( 'woocommerce_page_wc-reports', 'toplevel_page_wc-reports' ) ) ) {
 			//wp_enqueue_style( 'woocommerce_admin_print_reports_styles' );
 		}
-
+		
 		/**
 		 * @deprecated 2.3
 		 */
@@ -344,10 +362,10 @@ class bf_woo_elem_form_element {
 			do_action( 'woocommerce_admin_css' );
 			_deprecated_function( 'The woocommerce_admin_css action', '2.3', 'admin_enqueue_scripts' );
 		}
-
+		
 		wp_enqueue_style( 'buddyforms-woocommerce', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css' );
 	}
-
+	
 	public function add_general_settings_option( $option ) {
 		wp_enqueue_script( 'general_settings', BF_WOO_ELEM_JS_PATH . 'x_bf_woo_general_settings.js', array( "jquery" ), null, true );
 		wp_localize_script( 'general_settings', 'general_settings_param', $option );
