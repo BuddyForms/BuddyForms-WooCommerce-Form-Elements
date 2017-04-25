@@ -78,6 +78,15 @@ class bf_woo_elem_form_elements_save {
 			;
 		}
 		update_post_meta( $post_id, '_visibility', 'visible' );
+		$post             = get_post( $post_id );
+		$update_post_type = array(
+			'ID'        => $post_id,
+			'post_name' => $post->post_title,
+			'post_status'=>'publish'
+		);
+		$post_updated     = wp_update_post( $update_post_type, true );
+		$post             = get_post( $post_id );
+
 
 
 	}
