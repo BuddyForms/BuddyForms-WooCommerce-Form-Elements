@@ -54,12 +54,16 @@ class bf_woo_elem_form_element {
 		$newPost = 0;
 		if ( isset( $_GET['post'] ) ) {
 			$newPost = $_GET['post'];
-		} else {
-
+		} else
+		{
+			if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+			{
+				exit;
+			}
 		}
 		$temp_post = clone $post;
-		if ( ! empty( $form_args['post_id'] ) ) {
-			$post = get_post( $form_args['post_id'] );
+		if ( $this->current_post_id > 0 ) {
+			$post = get_post( $this->current_post_id );
 		} else {
 			if ( $newPost == 0 ) {
 				$post                  = get_default_post_to_edit( 'product', true );
@@ -67,6 +71,7 @@ class bf_woo_elem_form_element {
 
 			} else {
 				$post = get_post( $newPost );
+
 			}
 		}
 		switch ( $customfield['type'] ) {
@@ -105,6 +110,7 @@ class bf_woo_elem_form_element {
 		$form->addElement( new Element_HTML( $get_contents ) );
 		//Load the scripts
 		$post = $temp_post;
+
 		return $form;
 	}
 
