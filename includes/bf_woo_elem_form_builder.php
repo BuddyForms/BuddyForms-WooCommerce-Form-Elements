@@ -222,7 +222,7 @@ class bf_woo_elem_form_builder {
 					'class' => 'bf_hidden_checkbox',
 					'value' => $product_manage_stock
 				) );
-				$element->setAttribute( 'bf_hidden_checkbox', trim($data) );
+				$element->setAttribute( 'bf_hidden_checkbox', trim( $data ) );
 				$form_fields['Inventory']['product_manage_stock'] = $element;
 				
 				// Stock Qty
@@ -231,12 +231,12 @@ class bf_woo_elem_form_builder {
 					array( 'default' => __( 'Hide', 'buddyforms' ) ),
 					array(
 						'id'    => 'product_manage_stock_qty_options_' . $field_id,
-						'class' => trim('bf_hidden_checkbox ' . $product_manage_stock_checked),
+						'class' => trim( 'bf_hidden_checkbox ' . $product_manage_stock_checked ),
 						'value' => $product_manage_stock_qty_options
 					)
 				);
 				$data                             = $field_id . '_product_manage_stock_qty ';
-				$element->setAttribute( 'bf_hidden_checkbox', trim($data) );
+				$element->setAttribute( 'bf_hidden_checkbox', trim( $data ) );
 				$form_fields['Inventory']['product_manage_stock_qty_options'] = $element;
 				
 				// Stock Qty hidden value
@@ -259,12 +259,12 @@ class bf_woo_elem_form_builder {
 					array( 'hidden' => __( 'Hide', 'buddyforms' ) ),
 					array(
 						'id'    => $field_id . '_product_allow_backorders_options',
-						'class' => trim('bf_hidden_checkbox ' . $product_manage_stock_checked),
+						'class' => trim( 'bf_hidden_checkbox ' . $product_manage_stock_checked ),
 						'value' => $product_allow_backorders_options
 					)
 				);
 				$data                             = $field_id . '_product_allow_backorders ';
-				$element->setAttribute( 'bf_hidden_checkbox', trim($data) );
+				$element->setAttribute( 'bf_hidden_checkbox', trim( $data ) );
 				$form_fields['Inventory']['product_allow_backorders_options'] = $element;
 				
 				// Backorders value
@@ -295,7 +295,7 @@ class bf_woo_elem_form_builder {
 				);
 				$data                         = $field_id . '_product_stock_status ';
 				$data                         .= $field_id . '_product_stock_hr1 ';
-				$element->setAttribute( 'bf_hidden_checkbox', trim($data) );
+				$element->setAttribute( 'bf_hidden_checkbox', trim( $data ) );
 				$form_fields['Inventory']['product_stock_status_options'] = $element;
 				
 				// Stock Status Hidden Value
@@ -413,14 +413,16 @@ class bf_woo_elem_form_builder {
 				);
 				
 				// Shipping Hidden Shipping Class
-				$tax_shipping_class                                                = WC_Shipping::instance()->get_shipping_classes();
-				$form_fields['Shipping']['product_shipping_hidden_shipping_class'] = new Element_Select( '<b>' . __( 'Shipping class: ', 'buddyforms' ) . '</b>', 'buddyforms_options[ form_fields ][' . $field_id . '][ product_shipping_hidden_shipping_class ]',
-					array_merge( $tax_shipping_class, array( ' - 1' => __( 'No shipping class', 'woocommerce' ) ) ),
+				$tax_shipping_class       = WC_Shipping::instance()->get_shipping_classes();
+				$tax_shipping_class['-1'] = __( 'No shipping class', 'woocommerce' );
+				$form_fields['Shipping']['product_shipping_hidden_shipping_class'] = new Element_Select( '<b>' . __( 'Shipping class: ', 'buddyforms' ) . '</b>',
+					"buddyforms_options[form_fields][" . $field_id . "][product_shipping_hidden_shipping_class]",
+					$tax_shipping_class,
 					array(
-						'id'       => $field_id . '_product_shipping_hidden_shipping_class',
-						'class'    => $product_shipping_hidden_checked,
-						'value'    => $product_sold_individually,
-						'selected' => isset( $buddyform['form_fields'][ $field_id ]['product_shipping_hidden_shipping_class'] ) ? $buddyform['form_fields'][ $field_id ]['product_shipping_hidden_shipping_class'] : 'false',
+						'id'    => $field_id . '_product_shipping_hidden_shipping_class',
+						'class' => $product_shipping_hidden_checked,
+						'value' => isset( $buddyform['form_fields'][ $field_id ]['product_shipping_hidden_shipping_class'] ) ?
+							$buddyform['form_fields'][ $field_id ]['product_shipping_hidden_shipping_class'] : '-1',
 					)
 				);
 				

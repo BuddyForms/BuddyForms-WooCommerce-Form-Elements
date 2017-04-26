@@ -40,8 +40,8 @@ h2.hndle {
 	display: inline-block;
 }
 
-h2.hndle.bf_woo {
-	display: none;
+span.type_box.hidden {
+	display: none !important;
 }
 
 
