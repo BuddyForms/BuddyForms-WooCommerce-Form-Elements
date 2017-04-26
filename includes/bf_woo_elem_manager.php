@@ -13,12 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class bf_woo_elem_manager {
-
-	protected static $version = '1.0.0';
+	
+	protected static $version = '1.3.5.1';
 	private static $plugin_slug = 'bf_woo_elem';
-
+	
 	public function __construct() {
 		require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_log.php';
+		new bf_woo_elem_log();
 		try {
 			$this->bf_wc_fe_includes();
 		} catch ( Exception $ex ) {
@@ -28,10 +29,10 @@ class bf_woo_elem_manager {
 				'object_subtype' => 'loading_dependency',
 				'object_name'    => $ex->getMessage(),
 			) );
-
+			
 		}
 	}
-
+	
 	public function bf_wc_fe_includes() {
 		require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_form_builder.php';
 		new bf_woo_elem_form_builder();
@@ -42,26 +43,17 @@ class bf_woo_elem_manager {
 		new bf_woo_elem_form_element();
 		require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_form_elements_save.php';
 		new bf_woo_elem_form_elements_save();
-
+		
 		if ( ! function_exists( 'woocommerce_wp_text_input' ) ) {
 			include_once( WC()->plugin_path() . '/includes/admin/wc-meta-box-functions.php' );
 		}
 	}
-
+	
 	public static function get_slug() {
 		return self::$plugin_slug;
 	}
-
+	
 	static function get_version() {
 		return self::$version;
-	}
-
-	public static function load_field_template( $part ) {
-		$template = locate_template( array( 'templates/' . $part . '.php' ) );
-		if ( ! $template ) {
-			return BF_WOO_ELEM_TEMPLATES_PATH . $part . ".php";
-		} else {
-			return $template;
-		}
 	}
 }

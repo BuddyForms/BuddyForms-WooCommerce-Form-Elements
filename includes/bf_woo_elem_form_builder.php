@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * @package WordPress
+ * @subpackage BuddyPress, Woocommerce, BuddyForms
+ * @author ThemKraft Dev Team
+ * @copyright 2017, Themekraft
+ * @link http://buddyforms.com/downloads/buddyforms-woocommerce-form-elements/
+ * @license GPLv2 or later
+ */
 
 class bf_woo_elem_form_builder {
 	
@@ -413,8 +421,8 @@ class bf_woo_elem_form_builder {
 				);
 				
 				// Shipping Hidden Shipping Class
-				$tax_shipping_class       = WC_Shipping::instance()->get_shipping_classes();
-				$tax_shipping_class['-1'] = __( 'No shipping class', 'woocommerce' );
+				$tax_shipping_class                                                = WC_Shipping::instance()->get_shipping_classes();
+				$tax_shipping_class['-1']                                          = __( 'No shipping class', 'woocommerce' );
 				$form_fields['Shipping']['product_shipping_hidden_shipping_class'] = new Element_Select( '<b>' . __( 'Shipping class: ', 'buddyforms' ) . '</b>',
 					"buddyforms_options[form_fields][" . $field_id . "][product_shipping_hidden_shipping_class]",
 					$tax_shipping_class,
