@@ -66,9 +66,8 @@ if ( ! class_exists( 'bf_woo_elem' ) ) {
 		private function constants() {
 			define( 'BF_WOO_ELEM_BASE_NAME', plugin_basename( __FILE__ ) );
 			define( 'BF_WOO_ELEM_BASE_NAMEBASE_FILE', trailingslashit( wp_normalize_path( plugin_dir_path( __FILE__ ) ) ) . 'loader.php' );
-			define( 'BF_WOO_ELEM_URL_PATH', plugin_dir_url( __FILE__ ) );
-			define( 'BF_WOO_ELEM_CSS_PATH', BF_WOO_ELEM_URL_PATH . 'assets/css/' );
-			define( 'BF_WOO_ELEM_JS_PATH', BF_WOO_ELEM_URL_PATH . 'assets/js/' );
+			define( 'BF_WOO_ELEM_CSS_PATH', plugin_dir_url( __FILE__ ) . 'assets/css/' );
+			define( 'BF_WOO_ELEM_JS_PATH', plugin_dir_url( __FILE__ ) . 'assets/js/' );
 			define( 'BF_WOO_ELEM_VIEW_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR );
 			define( 'BF_WOO_ELEM_TEMPLATES_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR );
 			define( 'BF_WOO_ELEM_INCLUDES_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR );
