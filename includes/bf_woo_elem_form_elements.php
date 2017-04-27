@@ -97,48 +97,48 @@ class bf_woo_elem_form_element {
 		if ( ! isset( $customfield['type'] ) ) {
 			return $form;
 		}
-		
-		$temp_post = clone $post;
-		if ( ! empty( $form_args['post_id'] ) ) {
-			$post = get_post( $form_args['post_id'] );
-		} else {
-			$post                  = get_default_post_to_edit( 'product', true );
-			$this->current_post_id = $post->ID;
+		if ( ($customfield['type'] == 'woocommerce' || $customfield['type'] == 'product-gallery') && is_user_logged_in() ) {
+			$temp_post = clone $post;
+			if ( ! empty( $form_args['post_id'] ) ) {
+				$post = get_post( $form_args['post_id'] );
+			} else {
+				$post                  = get_default_post_to_edit( 'product', true );
+				$this->current_post_id = $post->ID;
+			}
+			
+			$id    = 'woocommerce-product-data';
+			$title = __( 'Product data', 'woocommerce' );
+			if ( $customfield['type'] == 'product-gallery' ) {
+				$id    = 'product_images_container';
+				$title = __( 'Product gallery', 'woocommerce' );
+			}
+			
+			$this->add_scripts( $post );
+			$this->add_styles();
+			ob_start();
+			echo '<div id="postbox-container" class="woo_elem_container">';
+			echo '<div id="' . $id . '" class="postbox" >' . "\n";
+			echo "<h2 class='hndle bf_woo'><span class='woo_element_span'>{$title}</span></h2>\n";
+			echo '<div class="inside">' . "\n";
+			switch ( $customfield['type'] ) {
+				case 'woocommerce':
+					WC_Meta_Box_Product_Data::output( $post );
+					$this->add_general_settings_option( $customfield );
+					break;
+				case'product-gallery':
+					WC_Meta_Box_Product_Images::output( $post );
+					break;
+			}
+			echo "</div>\n";
+			echo "</div>\n";
+			echo "</div>\n";
+			$get_contents = ob_get_contents();
+			ob_clean();
+			
+			$form->addElement( new Element_HTML( $get_contents ) );
+			//Load the scripts
+			$post = $temp_post;
 		}
-		
-		$id    = 'woocommerce-product-data';
-		$title = __( 'Product data', 'woocommerce' );
-		if ( $customfield['type'] == 'product-gallery' ) {
-			$id    = 'product_images_container';
-			$title = __( 'Product gallery', 'woocommerce' );
-		}
-		
-		$this->add_scripts( $post );
-		$this->add_styles();
-		ob_start();
-		echo '<div id="postbox-container" class="woo_elem_container">';
-		echo '<div id="' . $id . '" class="postbox" >' . "\n";
-		echo "<h2 class='hndle bf_woo'><span class='woo_element_span'>{$title}</span></h2>\n";
-		echo '<div class="inside">' . "\n";
-		switch ( $customfield['type'] ) {
-			case 'woocommerce':
-				WC_Meta_Box_Product_Data::output( $post );
-				$this->add_general_settings_option( $customfield );
-				break;
-			case'product-gallery':
-				WC_Meta_Box_Product_Images::output( $post );
-				break;
-		}
-		echo "</div>\n";
-		echo "</div>\n";
-		echo "</div>\n";
-		$get_contents = ob_get_contents();
-		ob_clean();
-		
-		$form->addElement( new Element_HTML( $get_contents ) );
-		//Load the scripts
-		$post = $temp_post;
-		
 		return $form;
 	}
 	
