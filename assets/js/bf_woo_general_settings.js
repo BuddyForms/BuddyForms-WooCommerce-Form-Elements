@@ -132,12 +132,20 @@ jQuery(function ($) {
 		shipping_class.val('-1').change();
 	}
 
+	function remove_hidden() {
+		jQuery('#general_product_data,#inventory_product_data,#shipping_product_data,#linked_product_data,#product_attributes,#advanced_product_data,#variable_product_options').each(function(){
+			jQuery(this).removeClass('hidden');
+			jQuery(this).find('.hidden').removeClass('hidden');
+		});
+	}
+
 	//Trigger if the product type if changed
 	jQuery(document).on('woocommerce-product-type-change', function (obj, select_val) {
 		determine_when_is_required(select_val);
 		console.log('Product Type: ' + select_val);
 	});
 
+	remove_hidden();
 	determine_when_is_required(select_product_type.val());
 
 	//region General Tab
