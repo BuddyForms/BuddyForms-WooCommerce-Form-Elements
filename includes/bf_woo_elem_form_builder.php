@@ -62,7 +62,6 @@ class bf_woo_elem_form_builder {
 		//        return;
 		
 		switch ( $field_type ) {
-			
 			case 'woocommerce':
 				unset( $form_fields );
 				$form_fields['hidden']['name'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", 'WooCommerce' );
@@ -462,63 +461,41 @@ class bf_woo_elem_form_builder {
 					'value' => $product_grouping
 				) );
 				
-				break;
-			case 'attributes':
-				
-				unset( $form_fields );
-				
-				$form_fields['Attributes']['name'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", 'Attribute' );
-				$form_fields['Attributes']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_attribute' );
-				
-				$form_fields['Attributes']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
-				
-				$taxonomies           = buddyforms_taxonomies( $buddyform['post_type'] );
-				$bf_wc_attributes_tax = Array();
-				foreach ( $taxonomies as $key => $taxonomie ) {
-					if ( substr( $taxonomie, 0, 3 ) == 'pa_' ) {
-						$bf_wc_attributes_tax[ $taxonomie ] = $taxonomie;
+				//Woocommerce front tab handler
+				$implemented_tabs  = array( 'implemented_tab_id' );
+				$product_data_tabs = apply_filters( 'woocommerce_product_data_tabs', array() );
+				if ( ! empty( $product_data_tabs ) && is_array( $product_data_tabs ) && count( $product_data_tabs ) > 0 ) {
+					foreach ( $product_data_tabs as $tab_key => $tab ) {
+						if ( in_array( $tab_key, $implemented_tabs ) ) {
+							continue;
+						}
+						$tab_value = false;
+						if ( isset( $buddyform['form_fields'][ $field_id ][ $tab_key ] ) ) {
+							$tab_value = $buddyform['form_fields'][ $field_id ][ $tab_key ];
+						}
+						$form_fields['Front-Tabs-Handler'][ $tab_key ] = new Element_Checkbox( '<b>' . $tab['label'] . '</b>', "buddyforms_options[form_fields][" . $field_id . "][" . $tab_key . "]", array( 'hidden' => __( 'Remove', 'buddyforms' ) ), array(
+							'id'    => $tab_key . $field_id,
+							'value' => $tab_value
+						) );
 					}
 				}
 				
-				$bf_wc_attributes_pa = false;
-				if ( isset( $buddyform['form_fields'][ $field_id ]['_bf_wc_attributes_pa'] ) ) {
-					$bf_wc_attributes_pa = $buddyform['form_fields'][ $field_id ]['_bf_wc_attributes_pa'];
-				}
-				$form_fields['Attributes']['_bf_wc_attributes_pa'] = new Element_Checkbox( '<b>' . __( 'Attribute Taxonomies', 'buddyforms' ) . ' </b ><p ><smal > Select the Attribute Taxonomies you want to include. These are the attributes you have created under Product / Attributes </smal ></p > ', "buddyforms_options[form_fields][" . $field_id . "][_bf_wc_attributes_pa]", $bf_wc_attributes_tax, array( 'value' => $bf_wc_attributes_pa ) );
-				
-				$attr_new_custom_field = 'false';
-				if ( isset( $buddyform['form_fields'][ $field_id ]['attr_new_custom_field'] ) ) {
-					$attr_new_custom_field = $buddyform['form_fields'][ $field_id ]['attr_new_custom_field'];
-				}
-				$form_fields['Attributes']['attr_new_custom_field'] = new Element_Checkbox( '<b>' . __( 'Custom Attribute', 'buddyforms' ) . ' </b > <p ><smal > This is the same as the Custom Attributes in the Product edit Screen </smal ></p > ', "buddyforms_options[form_fields][" . $field_id . "][attr_new_custom_field]", array( 'attr_new' => '<b>' . __( 'User can create new custom fields ', 'buddyforms' ) . '</b>' ), array( 'value' => $attr_new_custom_field ) );
-				
-				
 				break;
 			case 'product - gallery':
-				
 				unset( $form_fields );
-				
-				$form_fields['Gallery']['name'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", 'Gallery' );
-				$form_fields['Gallery']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_gallery' );
-				
-				$form_fields['Gallery']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
-				
+				$form_fields['Gallery']['name']        = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", 'Gallery' );
+				$form_fields['Gallery']['slug']        = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_gallery' );
+				$form_fields['Gallery']['type']        = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
 				$description                           = isset( $buddyform['form_fields'][ $field_id ]['description'] ) ? stripslashes( $buddyform['form_fields'][ $field_id ]['description'] ) : '';
 				$form_fields['Gallery']['description'] = new Element_Textbox( '<b>' . __( 'Description', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][description]", array( 'value' => $description ) );
-				
-				
-				$required                           = isset( $buddyform['form_fields'][ $field_id ]['required'] ) ? $buddyform['form_fields'][ $field_id ]['required'] : 'false';
-				$form_fields['Gallery']['required'] = new Element_Checkbox( '<b>' . __( 'Required', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][required]", array( 'required' => '<b>' . __( 'Make this field a required field', 'buddyforms' ) . '</b>' ), array(
+				$required                              = isset( $buddyform['form_fields'][ $field_id ]['required'] ) ? $buddyform['form_fields'][ $field_id ]['required'] : 'false';
+				$form_fields['Gallery']['required']    = new Element_Checkbox( '<b>' . __( 'Required', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][required]", array( 'required' => '<b>' . __( 'Make this field a required field', 'buddyforms' ) . '</b>' ), array(
 					'value' => $required,
 					'id'    => "buddyforms_options[form_fields][" . $field_id . "][required]"
 				) );
-				
 				break;
-			
 		}
-		
 		
 		return $form_fields;
 	}
-	
 }

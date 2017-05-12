@@ -133,7 +133,7 @@ jQuery(function ($) {
 	}
 
 	function remove_hidden() {
-		jQuery('#general_product_data,#inventory_product_data,#shipping_product_data,#linked_product_data,#product_attributes,#advanced_product_data,#variable_product_options').each(function(){
+		jQuery('#general_product_data,#inventory_product_data,#shipping_product_data,#linked_product_data,#product_attributes,#advanced_product_data,#variable_product_options').each(function () {
 			jQuery(this).removeClass('hidden');
 			jQuery(this).find('.hidden').removeClass('hidden');
 		});
@@ -147,6 +147,16 @@ jQuery(function ($) {
 
 	remove_hidden();
 	determine_when_is_required(select_product_type.val());
+
+	//Remove not implemented tabs
+	if (general_settings_param.disable_tabs) {
+		jQuery.each(general_settings_param.disable_tabs, function (key, value) {
+			if (general_settings_param[value] && general_settings_param[value][0] === 'hidden') {
+				jQuery('.product_data_tabs.wc-tabs').find('.' + value + '_options.' + value + '_tab').remove();
+				jQuery('#' + value).remove();
+			}
+		});
+	}
 
 	//region General Tab
 	//SALES PRICE
