@@ -462,11 +462,11 @@ class bf_woo_elem_form_builder {
 				) );
 				
 				//Woocommerce front tab handler
-				$implemented_tabs  = array( 'implemented_tab_id' );
-				$product_data_tabs = apply_filters( 'woocommerce_product_data_tabs', array() );
+				$product_data_tabs_implemented = apply_filters( 'bf_woo_element_woo_implemented_tab', array() );
+				$product_data_tabs             = apply_filters( 'woocommerce_product_data_tabs', array() );
 				if ( ! empty( $product_data_tabs ) && is_array( $product_data_tabs ) && count( $product_data_tabs ) > 0 ) {
 					foreach ( $product_data_tabs as $tab_key => $tab ) {
-						if ( in_array( $tab_key, $implemented_tabs ) ) {
+						if ( in_array( $tab_key, $product_data_tabs_implemented ) ) {
 							continue;
 						}
 						$tab_value = false;

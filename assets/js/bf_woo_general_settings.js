@@ -152,6 +152,11 @@ jQuery(function ($) {
 	if (general_settings_param.disable_tabs) {
 		jQuery.each(general_settings_param.disable_tabs, function (key, value) {
 			if (general_settings_param[value] && general_settings_param[value][0] === 'hidden') {
+				jQuery.each(jQuery('.woo_element_span').find('#product-type').find('option'), function () {
+					if (value.indexOf(jQuery(this).val()) !== -1) {
+						jQuery(this).remove();
+					}
+				});
 				jQuery('.product_data_tabs.wc-tabs').find('.' + value + '_options.' + value + '_tab').remove();
 				jQuery('#' + value).remove();
 			}
@@ -292,7 +297,7 @@ jQuery(function ($) {
 			if (shipp_hide_parent_1 === true && shipp_hide_parent_2 === true && shipp_hide_parent_3 === true &&
 				shipp_hide_parent_4 === true && shipp_hide_parent_5 === true && shipp_hide_parent_6 === true) {
 				//Hide the entire tab
-				$('.shipping_options').addClass('hide_if_simple hide_if_variable').hide();
+				$('.shipping_options').addClass('hide_if_simple hide_if_auction hide_if_variable').hide();
 				$('#shipping_product_data').hide();
 				show_shipping_tab = false;
 			}
