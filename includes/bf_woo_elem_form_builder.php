@@ -420,8 +420,21 @@ class bf_woo_elem_form_builder {
 				);
 				
 				// Shipping Hidden Shipping Class
-				$tax_shipping_class                                                = WC_Shipping::instance()->get_shipping_classes();
-				$tax_shipping_class['-1']                                          = __( 'No shipping class', 'woocommerce' );
+				$tax_shipping_class      = array();
+				$tax_shipping_class['-1'] = __( 'No shipping class', 'woocommerce' );
+				$tax_shipping_class_term = WC_Shipping::instance()->get_shipping_classes();
+				/**
+				 * @var integer $key
+				 * @var WP_Term $shipping_class_term
+				 */
+				foreach ( $tax_shipping_class_term as $key => $shipping_class_term ) {
+					if ( is_object( $shipping_class_term ) ) {
+						$tax_shipping_class[ $shipping_class_term->term_id ] = $shipping_class_term->name;
+					}
+				}
+				if ( ! empty( $tax_shipping_class_term ) ) {
+					unset( $tax_shipping_class_term );
+				}
 				$form_fields['Shipping']['product_shipping_hidden_shipping_class'] = new Element_Select( '<b>' . __( 'Shipping class: ', 'buddyforms' ) . '</b>',
 					"buddyforms_options[form_fields][" . $field_id . "][product_shipping_hidden_shipping_class]",
 					$tax_shipping_class,
