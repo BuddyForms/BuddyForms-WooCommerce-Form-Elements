@@ -66,7 +66,7 @@ jQuery(function ($) {
 					var regular_price_opt = general_settings_param.product_regular_price[0];
 					if (regular_price_opt === "required") {
 						regular_price.attr("required", true);
-						console.log('Regular Price is required now');
+						if (general_settings_param.debug) console.log('Regular Price is required now');
 					}
 				}
 
@@ -75,7 +75,7 @@ jQuery(function ($) {
 					var sales_price_opt = general_settings_param.product_sales_price;
 					if (sales_price_opt === "required") {
 						sale_price.attr("required", true);
-						console.log('Sales Price is required now');
+						if (general_settings_param.debug) console.log('Sales Price is required now');
 					}
 				}
 
@@ -88,7 +88,7 @@ jQuery(function ($) {
 						$(".cancel_sale_schedule").hide();
 						$(".sale_schedule").hide();
 						$(".sale_price_dates_fields").show();
-						console.log('Sales Price Date is required now and showed');
+						if (general_settings_param.debug) console.log('Sales Price Date is required now and showed');
 					}
 				}
 
@@ -100,7 +100,7 @@ jQuery(function ($) {
 			var sku_option = general_settings_param.product_sku;
 			if (sku_option === "required") {
 				sku.attr("required", true);
-				console.log('SKU is required');
+				if (general_settings_param.debug) console.log('SKU is required');
 			}
 		}
 
@@ -112,7 +112,7 @@ jQuery(function ($) {
 		sale_price_dates_from.removeAttr('required');
 		sale_price_dates_to.removeAttr('required');
 		sku.removeAttr('required');
-		console.log('Set to default all required fields');
+		if (general_settings_param.debug) console.log('Set to default all required fields');
 	}
 
 	function set_default_option() {
@@ -142,7 +142,7 @@ jQuery(function ($) {
 	//Trigger if the product type if changed
 	jQuery(document).on('woocommerce-product-type-change', function (obj, select_val) {
 		determine_when_is_required(select_val);
-		console.log('Product Type: ' + select_val);
+		if (general_settings_param.debug) console.log('Product Type: ' + select_val);
 	});
 
 	remove_hidden();

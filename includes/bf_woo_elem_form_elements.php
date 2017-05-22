@@ -381,6 +381,7 @@ class bf_woo_elem_form_element {
 			}
 			$option['disable_tabs'] = $product_data_tabs;
 		}
+		$option['debug'] = SCRIPT_DEBUG;
 		wp_enqueue_script( 'general_settings', BF_WOO_ELEM_JS_PATH . 'bf_woo_general_settings.js', array( "jquery" ), null, true );
 		wp_localize_script( 'general_settings', 'general_settings_param', $option );
 	}
