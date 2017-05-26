@@ -373,13 +373,15 @@ class bf_woo_elem_form_element {
 	}
 	
 	public function add_general_settings_option( $option ) {
-		$product_data_tabs             = array_keys( apply_filters( 'woocommerce_product_data_tabs', array() ) );
+		$product_data_tabs = array_keys( apply_filters( 'woocommerce_product_data_tabs', array() ) );
 		if ( ! empty( $product_data_tabs ) ) {
 			$product_data_tabs_implemented = apply_filters( 'bf_woo_element_woo_implemented_tab', array() );
 			if ( ! empty( $product_data_tabs_implemented ) ) {
 				$product_data_tabs = array_diff( $product_data_tabs, $product_data_tabs_implemented );
 			}
-			$option['disable_tabs'] = $product_data_tabs;
+			if ( ! empty( $product_data_tabs ) ) {
+				$option['disable_tabs'] = $product_data_tabs;
+			}
 		}
 		$option['debug'] = SCRIPT_DEBUG;
 		wp_enqueue_script( 'general_settings', BF_WOO_ELEM_JS_PATH . 'bf_woo_general_settings.js', array( "jquery" ), null, true );
