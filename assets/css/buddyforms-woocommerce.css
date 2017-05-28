@@ -44,4 +44,17 @@ span.type_box.hidden {
 	display: none !important;
 }
 
+.purchase_notes_class {
+	width: 100% !important;
+}
+
+.woo_general_loader {
+	text-align: center;
+	height: 80%;
+	width: 100%;
+	position: absolute;
+	background-color: #fff;
+	z-index: 99999;
+	margin-top: 43px;
+}
 

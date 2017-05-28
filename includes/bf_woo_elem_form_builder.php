@@ -22,6 +22,7 @@ class bf_woo_elem_form_builder {
 	public function load_js_for_builder( $hook ) {
 		if ( $this->load_script ) {
 			wp_enqueue_script( 'bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array( "jquery" ), null, true );
+			wp_enqueue_style( 'bf_woo_builder', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css' );
 		}
 	}
 	
@@ -420,9 +421,9 @@ class bf_woo_elem_form_builder {
 				);
 				
 				// Shipping Hidden Shipping Class
-				$tax_shipping_class      = array();
+				$tax_shipping_class       = array();
 				$tax_shipping_class['-1'] = __( 'No shipping class', 'woocommerce' );
-				$tax_shipping_class_term = WC_Shipping::instance()->get_shipping_classes();
+				$tax_shipping_class_term  = WC_Shipping::instance()->get_shipping_classes();
 				/**
 				 * @var integer $key
 				 * @var WP_Term $shipping_class_term
@@ -473,6 +474,86 @@ class bf_woo_elem_form_builder {
 					'id'    => 'product_grouping' . $field_id,
 					'value' => $product_grouping
 				) );
+				
+				//Attributes
+				$form_fields['Attributes']['attributes_hide_tab'] = new Element_Checkbox( '<b>' . __( 'Tab Attributes', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][attributes_hide_tab]", array( 'hidden' => __( 'Hide Attributes Tab', 'buddyforms' ) ), array(
+					'id'    => 'attributes_hide_tab_' . $field_id,
+					'value' => isset( $buddyform['form_fields'][ $field_id ]['attributes_hide_tab'] ) ? $buddyform['form_fields'][ $field_id ]['attributes_hide_tab'] : 'false'
+				) );
+				
+				//Variations
+				$form_fields['Variations']['variations_hide_tab'] = new Element_Checkbox( '<b>' . __( 'Tab Variations', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][variations_hide_tab]", array( 'hidden' => __( 'Hide Variations Tab', 'buddyforms' ) ), array(
+					'id'    => 'variations_hide_tab_' . $field_id,
+					'value' => isset( $buddyform['form_fields'][ $field_id ]['variations_hide_tab'] ) ? $buddyform['form_fields'][ $field_id ]['variations_hide_tab'] : 'false'
+				) );
+				
+				//Advanced
+				//Purchase note
+				$hide_element = isset( $buddyform['form_fields'][ $field_id ]['hide_purchase_notes'] ) ? $buddyform['form_fields'][ $field_id ]['hide_purchase_notes'] : 'false';
+				$element      = new Element_Checkbox( '<b>' . __( 'Hide Purchase note: ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][hide_purchase_notes]",
+					array( 'hidden' => __( 'Hide', 'buddyforms' ) ),
+					array(
+						'id'    => $field_id . '_hide_purchase_notes',
+						'class' => 'bf_hidden_checkbox',
+						'value' => $hide_element
+					)
+				);
+				$element->setAttribute( 'bf_hidden_checkbox', $field_id.'_purchase_notes' );
+				$form_fields['Advanced']['hide_purchase_notes'] = $element;
+				$form_fields['Advanced']['purchase_notes'] = new Element_Textarea( '<b>' . __( 'Purchase note: ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][purchase_notes]", array(
+					'id'    => $field_id.'_purchase_notes',
+					'rows'  => '2',
+					'cols'  => '20',
+					'class' => ( $hide_element == 'false' ) ? 'hidden purchase_notes_class' : 'purchase_notes_class',
+					'value' => isset( $buddyform['form_fields'][ $field_id ]['purchase_notes'] ) ? $buddyform['form_fields'][ $field_id ]['purchase_notes'] : ''
+				) );
+				
+				//Menu Order
+				$hide_element = isset( $buddyform['form_fields'][ $field_id ]['hide_menu_order'] ) ? $buddyform['form_fields'][ $field_id ]['hide_menu_order'] : 'false';
+				$element      = new Element_Checkbox( '<b>' . __( 'Hide Menu order: ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][hide_menu_order]",
+					array( 'hidden' => __( 'Hide', 'buddyforms' ) ),
+					array(
+						'id'    => $field_id . '_hide_menu_order',
+						'class' => 'bf_hidden_checkbox',
+						'value' => $hide_element
+					)
+				);
+				$data         = $field_id . '_menu_order';
+				$element->setAttribute( 'bf_hidden_checkbox', $data );
+				$form_fields['Advanced']['hide_menu_order'] = $element;
+				$form_fields['Advanced']['menu_order']      = new Element_Number( '<b>' . __( 'Menu order: ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][menu_order]",
+					array(
+						'id'    => $field_id . '_menu_order',
+						'step' => '1',
+						'class' => ( $hide_element == 'false' ) ? 'hidden' : '',
+						'value' => isset( $buddyform['form_fields'][ $field_id ]['menu_order'] ) ? $buddyform['form_fields'][ $field_id ]['menu_order'] : 0
+					)
+				);
+				
+				//Enable Review Order
+				$hide_element = isset( $buddyform['form_fields'][ $field_id ]['hide_enable_review_orders'] ) ? $buddyform['form_fields'][ $field_id ]['hide_enable_review_orders'] : 'false';
+				$element      = new Element_Checkbox( '<b>' . __( 'Hide Enable reviews: ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][hide_enable_review_orders]",
+					array( 'hidden' => __( 'Hide', 'buddyforms' ) ),
+					array(
+						'id'    => $field_id . '_hide_enable_review_orders',
+						'class' => 'bf_hidden_checkbox',
+						'value' => $hide_element
+					)
+				);
+				$data         = $field_id . '_enable_review_orders';
+				$element->setAttribute( 'bf_hidden_checkbox', $data );
+				$form_fields['Advanced']['hide_enable_review_orders'] = $element;
+					$form_fields['Advanced']['enable_review_orders']      = new Element_Select( '<b>' . __( 'Enable reviews Value: ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][enable_review_orders]",
+					array(
+						'yes' => __( 'Yes', 'buddyforms' ),
+						'no'  => __( 'No', 'buddyforms' )
+					),
+					array(
+						'id'    => $field_id . '_enable_review_orders',
+						'class' => ( $hide_element == 'false' ) ? 'hidden' : '',
+						'value' => isset( $buddyform['form_fields'][ $field_id ]['enable_review_orders'] ) ? $buddyform['form_fields'][ $field_id ]['enable_review_orders'] : 'false'
+					)
+				);
 				
 				//Woocommerce front tab handler
 				$product_data_tabs_implemented = apply_filters( 'bf_woo_element_woo_implemented_tab', array() );
