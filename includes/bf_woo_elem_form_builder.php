@@ -16,6 +16,10 @@ class bf_woo_elem_form_builder {
 	public function __construct() {
 		add_filter( 'buddyforms_add_form_element_select_option', array( $this, 'buddyforms_woocommerce_formbuilder_elements_select' ), 1 );
 		add_filter( 'buddyforms_form_element_add_field', array( $this, 'buddyforms_woocommerce_create_new_form_builder_form_element' ), 1, 5 );
+		add_filter( 'buddyforms_templates',  array( $this, 'bf_woo_elem_form_builder_templates' ) );
+		add_filter( 'buddyforms_wizard_types',  array( $this, 'bf_woo_elem_form_builder_templates' ) );
+		add_filter( 'buddyforms_templates_json',  array( $this, 'bf_woo_elem_form_builder_templates_json' ) );
+
 		add_action( 'admin_footer', array( $this, 'load_js_for_builder' ) );
 	}
 	
@@ -592,4 +596,25 @@ class bf_woo_elem_form_builder {
 		
 		return $form_fields;
 	}
+
+	function bf_woo_elem_form_builder_templates( $buddyforms_templates ){
+
+
+		$buddyforms_templates['woo_product']['title'] = 'WooCommerce Product';
+		$buddyforms_templates['woo_product']['desc']  = 'Setup a "WooCommerce" Product Form. The same Elements like in the admin product edit screen will be included into the Form';
+
+		return $buddyforms_templates;
+
+	}
+
+	function bf_woo_elem_form_builder_templates_json($buddyform){
+
+		if( isset( $_POST['template'] ) && $_POST['template'] == 'woo_product' ){
+			$buddyform = '{"form_fields":{"51836a88da":{"type":"title","slug":"buddyforms_form_title","name":"Title","description":"","validation_error_message":"This field is required.","validation_minlength":"0","validation_maxlength":"","custom_class":"","generate_title":""},"27ff0af6c6":{"type":"content","slug":"buddyforms_form_content","name":"Content","description":"","validation_error_message":"This field is required.","validation_minlength":"0","validation_maxlength":"0","custom_class":"","generate_content":""},"eda8636542":{"name":"WooCommerce","slug":"_woocommerce","type":"woocommerce","product_type_default":"simple","product_regular_price":["required"],"product_sales_price":"none","product_sales_price_dates":"none","product_sku":"none","product_manage_stock_qty":"","product_allow_backorders":"no","product_stock_status":"instock","product_sold_individually":"yes","product_shipping_hidden_weight":"","product_shipping_hidden_dimension_length":"","product_shipping_hidden_dimension_width":"","product_shipping_hidden_dimension_height":"","product_shipping_hidden_shipping_class":"-1"}},"layout":{"cords":{"51836a88da":"1","27ff0af6c6":"1","eda8636542":"1"},"labels_layout":"inline","label_font_size":"","label_font_color":{"style":"auto","color":""},"label_font_style":"bold","desc_font_size":"","desc_font_color":{"color":""},"field_padding":"15","field_background_color":{"style":"auto","color":""},"field_border_color":{"style":"auto","color":""},"field_border_width":"","field_border_radius":"","field_font_size":"15","field_font_color":{"style":"auto","color":""},"field_placeholder_font_color":{"style":"auto","color":""},"field_active_background_color":{"style":"auto","color":""},"field_active_border_color":{"style":"auto","color":""},"field_active_font_color":{"style":"auto","color":""},"submit_text":"Submit","button_width":"blockmobile","button_alignment":"left","button_size":"large","button_class":"","button_border_radius":"","button_border_width":"","button_background_color":{"style":"auto","color":""},"button_font_color":{"style":"auto","color":""},"button_border_color":{"style":"auto","color":""},"button_background_color_hover":{"style":"auto","color":""},"button_font_color_hover":{"style":"auto","color":""},"button_border_color_hover":{"style":"auto","color":""},"custom_css":""},"form_type":"post","after_submit":"display_message","after_submission_page":"none","after_submission_url":"","after_submit_message_text":"Your Message has been Submitted Successfully","post_type":"product","status":"publish","comment_status":"open","singular_name":"Product","attached_page":"33","edit_link":"all","list_posts_option":"list_all_form","list_posts_style":"list","public_submit_login":"above","registration":{"activation_page":"none","activation_message_from_subject":"User Account Activation Mail","activation_message_text":"Hi [user_login],\r\n\t\t\tGreat to see you come on board! Just one small step left to make your registration complete.\r\n\t\t\t<br>\r\n\t\t\t<b>Click the link below to activate your account.<\/b>\r\n\t\t\t<br>\r\n\t\t\t[activation_link]\r\n\t\t\t<br><br>\r\n\t\t\t[blog_title]\r\n\t\t","activation_message_from_name":"[blog_title]","activation_message_from_email":"[admin_email]","new_user_role":"subscriber"},"profiles_integration":["integrate"],"profile_visibility":"any","wc_vendor_integration":["integrate"],"name":"Products","slug":"products"}';
+		}
+
+		return $buddyform;
+
+	}
 }
+
