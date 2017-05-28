@@ -373,7 +373,8 @@ class bf_woo_elem_form_element {
 	}
 	
 	public function add_general_settings_option( $option ) {
-		$product_data_tabs = array_keys( apply_filters( 'woocommerce_product_data_tabs', array() ) );
+		$product_data_tabs_unhandled   = bf_woo_elem_manager::get_unhandled_tabs();
+		$product_data_tabs = array_keys( apply_filters( 'woocommerce_product_data_tabs', array_merge( $product_data_tabs_unhandled, array() ) ) );
 		if ( ! empty( $product_data_tabs ) ) {
 			$product_data_tabs_implemented = apply_filters( 'bf_woo_element_woo_implemented_tab', array() );
 			if ( ! empty( $product_data_tabs_implemented ) ) {

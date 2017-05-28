@@ -56,4 +56,14 @@ class bf_woo_elem_manager {
 	static function get_version() {
 		return self::$version;
 	}
+	
+	/**
+	 * @return array
+	 */
+	public static function get_unhandled_tabs() {
+		return apply_filters( 'bf_woo_element_woo_unhandled_tabs', array(
+				'commission' => array( 'label' => 'WC Vendors' )
+			)
+		);
+	}
 }

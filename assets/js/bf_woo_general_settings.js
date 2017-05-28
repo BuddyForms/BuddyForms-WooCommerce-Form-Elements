@@ -173,6 +173,7 @@ jQuery(function ($) {
 					}
 				});
 				jQuery('.product_data_tabs.wc-tabs').find('.' + value + '_options.' + value + '_tab').remove();
+				jQuery('.product_data_tabs.wc-tabs').find('.' + value + '_tab').remove();
 				jQuery('#' + value).remove();
 			}
 		});
