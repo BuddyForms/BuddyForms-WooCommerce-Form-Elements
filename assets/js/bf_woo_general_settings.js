@@ -143,7 +143,7 @@ jQuery(function ($) {
 		length.val('');
 		shipping_class.val('-1').change();
 		purchase_note.val('');
-		menu_order.val('');
+		menu_order_input.val('');
 		reviews_allowed.attr('checked', false);
 	}
 
