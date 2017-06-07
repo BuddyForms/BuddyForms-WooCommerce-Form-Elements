@@ -16,7 +16,7 @@ class bf_woo_elem_form_builder {
 	public function __construct() {
 		add_filter( 'buddyforms_add_form_element_select_option', array( $this, 'buddyforms_woocommerce_formbuilder_elements_select' ), 1 );
 		add_filter( 'buddyforms_form_element_add_field', array( $this, 'buddyforms_woocommerce_create_new_form_builder_form_element' ), 1, 5 );
-		
+
 		add_action( 'admin_footer', array( $this, 'load_js_for_builder' ) );
 	}
 	
