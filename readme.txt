@@ -1,6 +1,6 @@
 === BuddyForms WooCommerce Form Elements ===
 
-Contributors: svenl77,konradS, buddyforms, themekraft
+Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
 Tested up to: 4.7.5
