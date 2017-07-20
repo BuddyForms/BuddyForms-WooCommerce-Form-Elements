@@ -221,7 +221,7 @@ class bf_woo_elem_form_element {
 					'import_products' => __( 'Import', 'woocommerce' ),
 					'export_products' => __( 'Export', 'woocommerce' ),
 				),
-				'urls' => array(
+			'urls' => array(
 					'import_products' => esc_url_raw( admin_url( 'edit.php?post_type=product&page=product_importer' ) ),
 					'export_products' => esc_url_raw( admin_url( 'edit.php?post_type=product&page=product_exporter' ) ),
 				),
