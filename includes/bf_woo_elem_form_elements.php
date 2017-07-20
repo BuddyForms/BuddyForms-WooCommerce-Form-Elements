@@ -216,7 +216,15 @@ class bf_woo_elem_form_element {
 			'i18n_country_iso_error'           => __( 'Please enter in country code with two capital letters.', 'woocommerce' ),
 			'i18_sale_less_than_regular_error' => __( 'Please enter in a value less than the regular price.', 'woocommerce' ),
 			'decimal_point'                    => $decimal,
-			'mon_decimal_point'                => wc_get_price_decimal_separator()
+			'mon_decimal_point'                => wc_get_price_decimal_separator(),
+			'strings' => array(
+					'import_products' => __( 'Import', 'woocommerce' ),
+					'export_products' => __( 'Export', 'woocommerce' ),
+				),
+				'urls' => array(
+					'import_products' => esc_url_raw( admin_url( 'edit.php?post_type=product&page=product_importer' ) ),
+					'export_products' => esc_url_raw( admin_url( 'edit.php?post_type=product&page=product_exporter' ) ),
+				),
 		);
 		
 		wp_localize_script( 'woocommerce_admin', 'woocommerce_admin', $params );
