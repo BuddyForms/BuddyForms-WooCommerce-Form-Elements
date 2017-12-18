@@ -80,7 +80,7 @@ if ( ! class_exists( 'bf_woo_elem' ) ) {
 		 */
 		public static function get_instance() {
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self;
 			}
 
