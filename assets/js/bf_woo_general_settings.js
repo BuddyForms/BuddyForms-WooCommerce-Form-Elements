@@ -148,6 +148,9 @@ jQuery(function ($) {
 		reviews_allowed.attr('checked', false).change();
 	}
 
+    set_default_option();
+    determine_default_tab();
+
 	/**
 	 * This function is to keep compatibility with bootstrap theme in the front
 	 */
@@ -416,6 +419,7 @@ jQuery(function ($) {
 
 	//endregion
 
+
 	//Set Product Type if they are hidden
 	if (general_settings_param.product_type_hidden && general_settings_param.product_type_hidden[0] &&
 		general_settings_param.product_type_hidden[0] === 'hidden') {
@@ -427,8 +431,10 @@ jQuery(function ($) {
 		if (general_settings_param.product_type_options) {
 			var virtual_val = (general_settings_param.product_type_options['_virtual'] !== undefined);
 			var downloadable_val = (general_settings_param.product_type_options['_downloadable'] !== undefined);
-			virtual.attr('checked', virtual_val).change();
-			downloadable.attr('checked', downloadable_val).change();
+			//virtual.prop('checked', virtual_val).change();
+			//downloadable.prop('checked', downloadable_val).change();
+			virtual.click();
+			downloadable.click();
 		}
 	}
 	else {
@@ -465,8 +471,8 @@ jQuery(function ($) {
 		});
 
 	});
-	set_default_option();
-	determine_default_tab();
+
+
 	if (general_settings_param.debug) console.log(tabs_hided);
 	main_container.find('.woo_general_loader').remove();
 });
