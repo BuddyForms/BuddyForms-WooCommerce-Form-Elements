@@ -90,9 +90,16 @@ class bf_woo_elem_fs {
 		
 		if ( ! isset( $bf_woo_elem_fs ) ) {
 			// Include Freemius SDK.
-			require_once dirname( __FILE__ ) . '/resources/freemius/start.php';
-			
-			$bf_woo_elem_fs = fs_dynamic_init( array(
+			if ( file_exists( dirname( dirname( __FILE__ ) ) . '/buddyforms/includes/resources/freemius/start.php' ) ) {
+				// Try to load SDK from parent plugin folder.
+				require_once dirname( dirname( __FILE__ ) ) . '/buddyforms/includes/resources/freemius/start.php';
+			} else if ( file_exists( dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php' ) ) {
+				// Try to load SDK from premium parent plugin folder.
+				require_once dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php';
+			}
+
+
+				$bf_woo_elem_fs = fs_dynamic_init( array(
 				'id'                  => '415',
 				'slug'                => 'buddyforms-woocommerce-form-elements',
 				'type'                => 'plugin',
