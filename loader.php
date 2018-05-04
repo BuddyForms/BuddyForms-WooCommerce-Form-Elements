@@ -7,6 +7,7 @@
  * Author: ThemeKraft
  * Author URI: https://profiles.wordpress.org/svenl77
  * License: GPLv2 or later
+ * Text Domain: buddyforms
  *
  * @package bf_woo_elem
  *
