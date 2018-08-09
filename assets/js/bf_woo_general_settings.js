@@ -420,6 +420,17 @@ jQuery(function ($) {
 	//endregion
 
 
+	//Set Product Tax if it is hidden
+	if(general_settings_param.product_tax_hidden && general_settings_param.product_tax_hidden[0] &&
+        general_settings_param.product_tax_hidden[0] === 'hidden'){
+		$('._tax_class_field').hide();
+        $('._tax_status_field').hide();
+
+        $('#_tax_status').val(general_settings_param.product_tax_status_default).change();
+        $('#_tax_class').val(general_settings_param.product_tax_class_default).change();
+
+	}
+
 	//Set Product Type if they are hidden
 	if (general_settings_param.product_type_hidden && general_settings_param.product_type_hidden[0] &&
 		general_settings_param.product_type_hidden[0] === 'hidden') {

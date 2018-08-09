@@ -131,7 +131,7 @@ class bf_woo_elem_form_builder {
                     $product_tax_class = wc_get_product_tax_class_options();
                     $product_tax_class_default = 'false';
                     if ( isset( $buddyform['form_fields'][ $field_id ]['product_tax_class_default'] ) ) {
-                        $product_tax_status_default = $buddyform['form_fields'][ $field_id ]['product_tax_class_default'];
+                        $product_tax_class_default = $buddyform['form_fields'][ $field_id ]['product_tax_class_default'];
                     }
                     $form_fields['general']['product_tax_class_default'] = new Element_Select( '<b>' . __( 'Tax class: ', 'buddyforms' ) . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_tax_class_default]',
                         $product_tax_class,
