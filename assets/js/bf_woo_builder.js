@@ -38,6 +38,18 @@ jQuery(document).ready(function ($) {
 				downloadable_row.removeAttr('style');
 			}
 		});
+        $('input[name="buddyforms_options[form_fields][' + field_id + '][product_tax_hidden][]"]').click(function () {
+            if (!$(this).is(':checked')) {
+                $('#table_row_'+field_id+'_product_tax_status_default').addClass('hidden');
+                $('#table_row_'+field_id+'_product_tax_class_default').addClass('hidden');
+            }
+            else{
+                $('#table_row_'+field_id+'_product_tax_status_default').removeClass('hidden');
+                $('#table_row_'+field_id+'_product_tax_class_default').removeClass('hidden');
+                $('#product_tax_status_default').removeClass('hidden');
+                $('#product_tax_class_default').removeClass('hidden');
+			}
+        });
 
 		$('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price]"]').change(function () {
 			if ($(this).val() === 'hidden') {

@@ -58,6 +58,10 @@ class bf_woo_elem_form_builder {
 		$field_id = (string) $field_id;
 		
 		$this->load_script = true;
+        if ( $this->load_script ) {
+            wp_enqueue_script( 'bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array( "jquery" ), null, true );
+            wp_enqueue_style( 'bf_woo_builder', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css' );
+        }
 
 		if( !$buddyform ){
 			$buddyform         = get_post_meta( $post->ID, '_buddyforms_options', true );
@@ -90,7 +94,57 @@ class bf_woo_elem_form_builder {
 						'default'       => 'no'
 					)
 				) );
-				
+				$is_tax_enabled = wc_tax_enabled();
+				if($is_tax_enabled){
+				    $tax_hidden = false;
+                    if ( isset( $buddyform['form_fields'][ $field_id ]['product_tax_hidden'] ) ) {
+                        $tax_hidden = $buddyform['form_fields'][ $field_id ]['product_tax_hidden'];
+                    }
+                    $element_tax = new Element_Checkbox( "<b>Product Tax Hidden</b>", "buddyforms_options[form_fields][" . $field_id . "][product_tax_hidden]", array( 'hidden' => __( 'Make the Product Tax a Hidden Field', 'buddyforms' ) ), array(
+                        'id'    => 'product_tax_hidden',
+                        'class' => 'bf_hidden_checkbox',
+                        'value' => $tax_hidden
+                    ) );
+                    $form_fields['general']['product_tax_hidden'] = $element_tax;
+                    $product_tax_hidden_checked = isset( $buddyform['form_fields'][ $field_id ]['product_tax_hidden'] ) ? '' : 'hidden';
+                    $product_tax_status_default = 'false';
+                    if ( isset( $buddyform['form_fields'][ $field_id ]['product_tax_status_default'] ) ) {
+                        $product_tax_status_default = $buddyform['form_fields'][ $field_id ]['product_tax_status_default'];
+                    }
+
+
+                    $product_tax_status = array(
+                        'taxable'  => __( 'Taxable', 'woocommerce' ),
+                        'shipping' => __( 'Shipping only', 'woocommerce' ),
+                        'none'     => _x( 'None', 'Tax status', 'woocommerce' ),
+                    );
+                    $form_fields['general']['product_tax_status_default'] = new Element_Select( '<b>' . __( 'Tax status: ', 'buddyforms' ) . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_tax_status_default]',
+                        $product_tax_status,
+                        array(
+                            'id'       => 'product_tax_status_default',
+                            'class'    => ( $product_tax_hidden_checked == 'hidden' ) ? 'hidden' : '',
+                            'value'    => $product_tax_status_default,
+                            'selected' => isset( $product_tax_status_default ) ? $product_tax_status_default : 'false',
+                        )
+                    );
+
+                    $product_tax_class = wc_get_product_tax_class_options();
+                    $product_tax_class_default = 'false';
+                    if ( isset( $buddyform['form_fields'][ $field_id ]['product_tax_class_default'] ) ) {
+                        $product_tax_class_default = $buddyform['form_fields'][ $field_id ]['product_tax_class_default'];
+                    }
+                    $form_fields['general']['product_tax_class_default'] = new Element_Select( '<b>' . __( 'Tax class: ', 'buddyforms' ) . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_tax_class_default]',
+                        $product_tax_class,
+                        array(
+                            'id'       => 'product_tax_class_default',
+                            'class'    => ( $product_tax_hidden_checked == 'hidden' ) ? 'hidden' : '',
+                            'value'    => $product_tax_class_default,
+                            'selected' => isset( $product_tax_class_default ) ? $product_tax_class_default : 'false',
+                        )
+                    );
+
+
+                }
 				$product_type_hidden = 'false';
 				if ( isset( $buddyform['form_fields'][ $field_id ]['product_type_hidden'] ) ) {
 					$product_type_hidden = $buddyform['form_fields'][ $field_id ]['product_type_hidden'];
