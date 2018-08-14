@@ -111,7 +111,7 @@ class bf_woo_elem_form_element {
 			$title = __( 'Product data', 'woocommerce' );
 			if ( $customfield['type'] == 'product-gallery' ) {
 				$id    = 'product_images_container';
-				$title = __( 'Product gallery', 'woocommerce' );
+				$title = isset( $customfield['name']) ? $customfield['name'] :  __( 'Product gallery', 'woocommerce' );
 			}
 			
 			$this->add_scripts( $post );
@@ -128,6 +128,7 @@ class bf_woo_elem_form_element {
 					break;
 				case'product-gallery':
 					WC_Meta_Box_Product_Images::output( $post );
+                    $this->add_product_gallery_option( $customfield );
 					break;
 			}
 			echo "</div>\n";
@@ -379,7 +380,12 @@ class bf_woo_elem_form_element {
 		
 		wp_enqueue_style( 'buddyforms-woocommerce', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css' );
 	}
-	
+
+	public function add_product_gallery_option($option){
+
+        wp_enqueue_script( 'product_gallery', BF_WOO_ELEM_JS_PATH . 'bf_woo_product_gallery.js', array( "jquery" ), null, true );
+        wp_localize_script( 'product_gallery', 'product_gallery_param', $option );
+    }
 	public function add_general_settings_option( $option ) {
 		$product_data_tabs_unhandled   = bf_woo_elem_manager::get_unhandled_tabs();
 		$product_data_tabs = array_keys( apply_filters( 'woocommerce_product_data_tabs', array_merge( $product_data_tabs_unhandled, array() ) ) );

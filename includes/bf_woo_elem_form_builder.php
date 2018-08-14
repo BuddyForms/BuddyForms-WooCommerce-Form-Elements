@@ -580,18 +580,37 @@ class bf_woo_elem_form_builder {
 				}
 				
 				break;
-			case 'product - gallery':
+			case 'product-gallery':
 				unset( $form_fields );
-				$form_fields['Gallery']['name']        = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", 'Gallery' );
+                $name                           = isset(  $buddyform['form_fields'][$field_id]['name'] ) ? stripcslashes( $buddyform['form_fields'][$field_id]['name'] ) :  __( 'Product gallery', 'woocommerce' );
+                $form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Label', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array(
+                    'value'    => $name,
+                    'required' => 1
+                ) );
+
+                $description                           = isset( $buddyform['form_fields'][$field_id]['description'] ) ? stripcslashes( $buddyform['form_fields'][$field_id]['description']  ) : '';
+                $form_fields['general']['description'] = new Element_Textbox( '<b>' . __( 'Description:', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][description]", array( 'value' => $description ) );
+
+                $button_text                          = isset( $buddyform['form_fields'][$field_id]['button_text'] ) ? stripcslashes( $buddyform['form_fields'][$field_id]['button_text']  ) : __( 'Add product gallery images', 'woocommerce' );
+                $form_fields['general']['button_text'] = new Element_Textbox( '<b>' . __( 'Button Text:', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][button_text]", array( 'value' => $button_text ) );
+
 				$form_fields['Gallery']['slug']        = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_gallery' );
 				$form_fields['Gallery']['type']        = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
-				$description                           = isset( $buddyform['form_fields'][ $field_id ]['description'] ) ? stripslashes( $buddyform['form_fields'][ $field_id ]['description'] ) : '';
-				$form_fields['Gallery']['description'] = new Element_Textbox( '<b>' . __( 'Description', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][description]", array( 'value' => $description ) );
+
 				$required                              = isset( $buddyform['form_fields'][ $field_id ]['required'] ) ? $buddyform['form_fields'][ $field_id ]['required'] : 'false';
 				$form_fields['Gallery']['required']    = new Element_Checkbox( '<b>' . __( 'Required', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][required]", array( 'required' => '<b>' . __( 'Make this field a required field', 'buddyforms' ) . '</b>' ), array(
 					'value' => $required,
 					'id'    => "buddyforms_options[form_fields][" . $field_id . "][required]"
 				) );
+
+                $field_slug = isset( $buddyform['form_fields'][$field_id]['slug'] ) ?  $buddyform['form_fields'][$field_id]['slug'] : '';
+                $field_slug                      = empty($field_slug ) == false ? sanitize_title( $field_slug ) : 'product-gallery';
+                $form_fields['advanced']['slug'] = new Element_Textbox( '<b>' . __( 'Slug', 'buddyforms' ) . '</b> <small>(optional)</small>', "buddyforms_options[form_fields][" . $field_id . "][slug]", array(
+                    'shortDesc' => __( 'Underscore before the slug like _name will create a hidden post meta field', 'buddyforms' ),
+                    'value'     => $field_slug,
+                    'required'  => 1,
+                    'class'     => 'slug' . $field_id
+                ) );
 				break;
 		}
 		
