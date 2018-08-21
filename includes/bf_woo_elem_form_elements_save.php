@@ -43,6 +43,8 @@ class bf_woo_elem_form_elements_save {
 			
 			if ( $this->bf_wc_save_meta ) {
 				WC_Meta_Box_Product_Data::save( $post_id, $post );
+                do_action( 'woocommerce_process_product_meta', $post_id );
+
 			}
 			
 			if ( $this->bf_wc_save_gallery ) {

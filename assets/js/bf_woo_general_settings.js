@@ -483,7 +483,7 @@ jQuery(function ($) {
 
 	});
 
-
+    $('form').trigger("reset");
 	if (general_settings_param.debug) console.log(tabs_hided);
 	main_container.find('.woo_general_loader').remove();
 });
