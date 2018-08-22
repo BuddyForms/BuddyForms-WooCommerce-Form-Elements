@@ -16,10 +16,35 @@ class bf_woo_elem_form_builder {
 	public function __construct() {
 		add_filter( 'buddyforms_add_form_element_select_option', array( $this, 'buddyforms_woocommerce_formbuilder_elements_select' ), 1 );
 		add_filter( 'buddyforms_form_element_add_field', array( $this, 'buddyforms_woocommerce_create_new_form_builder_form_element' ), 1, 5 );
-
+        add_filter( "bf_submission_column_default", array( $this, "buddyforms_woo_elem_custom_column_default" ), 10, 4 );
 		add_action( 'admin_footer', array( $this, 'load_js_for_builder' ) );
 	}
-	
+
+    public function buddyforms_woo_elem_custom_column_default( $bf_value, $item, $column_name, $field_slug ) {
+        global $buddyforms;
+        if($column_name == 'woocommerce' ){
+
+            $url    = get_permalink($item->ID);
+            $product_title = get_the_title($item->ID);
+            $result = " <a style='vertical-align: top;' target='_blank' href='" . $url . "'>$product_title</a>";
+            return $result;
+        }
+
+        if($column_name == 'product-gallery' ){
+
+            $result = '';
+            $gallery = $column_val = get_post_meta( intval($item->ID), '_product_image_gallery', true );
+            $src    = wp_get_attachment_url( $gallery );
+
+            if ( ! empty( $gallery ) && ! empty( $src ) ) {
+                $result = wp_get_attachment_image( $gallery, array( 50, 50 ), true ) . " <a style='vertical-align: top;' target='_blank' href='" . $src . "'>" . __( "Full Image", 'buddyform' ) . "</a>";
+            }
+            return $result;
+        }
+
+        return $bf_value;
+    }
+
 	public function load_js_for_builder( $hook ) {
 		if ( $this->load_script ) {
 			wp_enqueue_script( 'bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array( "jquery" ), null, true );
