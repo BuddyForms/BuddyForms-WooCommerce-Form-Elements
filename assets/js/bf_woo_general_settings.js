@@ -484,7 +484,6 @@ jQuery(function ($) {
 	});
 
     $('form').trigger("reset");
-    $("form").data("validator").settings.ignore = "#_wc_booking_cost, #_wc_booking_block_cost, #_wc_display_cost, :hidden, :disabled";
 	if (general_settings_param.debug) console.log(tabs_hided);
 	main_container.find('.woo_general_loader').remove();
 });
