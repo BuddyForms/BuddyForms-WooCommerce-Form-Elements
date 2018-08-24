@@ -220,12 +220,34 @@ class bf_woo_elem_form_builder {
 					
 					$element = new Element_Checkbox( $option['description'], "buddyforms_options[form_fields][" . $field_id . "][product_type_options][" . esc_attr( $option['id'] ) . "]", array( $option['id'] => esc_html( $option['label'] ) ), array(
 						'id'    => esc_attr( $option['id'] ),
-						'value' => $product_type_option_value
+						'value' => $product_type_option_value,
+                        'class' => $option['wrapper_class']
 					) );
 					
-					if ( $product_type_hidden_checked == 'hidden' || $product_type_default != 'simple' ) {
-						$element->setAttribute( 'class', 'hidden' );
+					if ( $product_type_hidden_checked == '' ) {
+					    $wrapper_classes ='';
+                        switch ($product_type_default) {
+                            case "booking":
+                                if (strpos($option['wrapper_class'], 'show_if_booking') === false) {
+                                    $element->setAttribute( 'class', 'hidden' );
+                                }
+                                break;
+                            case "simple":
+                                $wrapper_classes = $option['wrapper_class'];
+                                $ttt= strpos( $wrapper_classes, 'show_if_simple');
+
+                                if (strpos($option['wrapper_class'], 'show_if_simple') === false) {
+                                    $element->setAttribute( 'class', 'hidden' );
+                                }
+                                break;
+                            default:
+                               break;
+                        }
+
 					}
+					else{
+                        $element->setAttribute( 'class', 'hidden' );
+                    }
 					
 					$form_fields['general'][ $key ] = $element;
 				}
