@@ -664,6 +664,7 @@ class bf_woo_elem_form_builder {
 				$product_data_tabs_unhandled   = bf_woo_elem_manager::get_unhandled_tabs();
 				$product_data_tabs_implemented = apply_filters( 'bf_woo_element_woo_implemented_tab', array() );
 				$product_data_tabs             = apply_filters( 'woocommerce_product_data_tabs', array_merge( $product_data_tabs_unhandled, array() ) );
+                $form_fields['Front-Tabs-Handler']['product_data_tabs_implemented'] = new Element_HTML( '<h2>' . __( 'The Front Tabs Handler allow hide or show the Woocommerce Tabs that are not integrated with the BuddyForms-Wocommerce-Form-Element plugin ', 'buddyforms' ) . '</h2>' );
 				if ( ! empty( $product_data_tabs ) && is_array( $product_data_tabs ) && count( $product_data_tabs ) > 0 ) {
 					foreach ( $product_data_tabs as $tab_key => $tab ) {
 						if ( in_array( $tab_key, $product_data_tabs_implemented ) ) {
