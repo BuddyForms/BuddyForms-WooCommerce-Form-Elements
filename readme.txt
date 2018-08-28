@@ -4,7 +4,7 @@ Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
 Tested up to: 4.9
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +97,14 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 Changing local environment.
+
+= 1.4.4 28 August 2018 =
+* Ready to integrate BF Woocommerce Booking Addon.
+* Fixed the style issue related to the Image Gallery.
+* Adding the value of this fields to the admin submission list.
+* Adding a code to hide the tax fields in the front if is checked as hidden in the settings config.
+* Adding a code to handle tax options if they are enabled.
+* Adding new options to change the Gallery Title and Button text.
 
 = 1.4.3 13 April 2018 =
 * Changing local environment.

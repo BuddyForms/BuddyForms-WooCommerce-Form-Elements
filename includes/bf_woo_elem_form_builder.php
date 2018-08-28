@@ -16,13 +16,39 @@ class bf_woo_elem_form_builder {
 	public function __construct() {
 		add_filter( 'buddyforms_add_form_element_select_option', array( $this, 'buddyforms_woocommerce_formbuilder_elements_select' ), 1 );
 		add_filter( 'buddyforms_form_element_add_field', array( $this, 'buddyforms_woocommerce_create_new_form_builder_form_element' ), 1, 5 );
-
+        add_filter( "bf_submission_column_default", array( $this, "buddyforms_woo_elem_custom_column_default" ), 10, 4 );
 		add_action( 'admin_footer', array( $this, 'load_js_for_builder' ) );
 	}
-	
+
+    public function buddyforms_woo_elem_custom_column_default( $bf_value, $item, $column_name, $field_slug ) {
+        global $buddyforms;
+        if($column_name == 'woocommerce' ){
+
+            $url    = get_permalink($item->ID);
+            $product_title = get_the_title($item->ID);
+            $result = " <a style='vertical-align: top;' target='_blank' href='" . $url . "'>$product_title</a>";
+            return $result;
+        }
+
+        if($column_name == 'product-gallery' ){
+
+            $result = '';
+            $gallery = $column_val = get_post_meta( intval($item->ID), '_product_image_gallery', true );
+            $src    = wp_get_attachment_url( $gallery );
+
+            if ( ! empty( $gallery ) && ! empty( $src ) ) {
+                $result = wp_get_attachment_image( $gallery, array( 50, 50 ), true ) . " <a style='vertical-align: top;' target='_blank' href='" . $src . "'>" . __( "Full Image", 'buddyform' ) . "</a>";
+            }
+            return $result;
+        }
+
+        return $bf_value;
+    }
+
 	public function load_js_for_builder( $hook ) {
 		if ( $this->load_script ) {
 			wp_enqueue_script( 'bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array( "jquery" ), null, true );
+
 			wp_enqueue_style( 'bf_woo_builder', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css' );
 		}
 	}
@@ -58,6 +84,11 @@ class bf_woo_elem_form_builder {
 		$field_id = (string) $field_id;
 		
 		$this->load_script = true;
+        if ( $this->load_script ) {
+            wp_enqueue_script( 'bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array( "jquery" ), null, true );
+            do_action('include_bf_woo_booking_scripts');
+            wp_enqueue_style( 'bf_woo_builder', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css' );
+        }
 
 		if( !$buddyform ){
 			$buddyform         = get_post_meta( $post->ID, '_buddyforms_options', true );
@@ -90,7 +121,57 @@ class bf_woo_elem_form_builder {
 						'default'       => 'no'
 					)
 				) );
-				
+				$is_tax_enabled = wc_tax_enabled();
+				if($is_tax_enabled){
+				    $tax_hidden = false;
+                    if ( isset( $buddyform['form_fields'][ $field_id ]['product_tax_hidden'] ) ) {
+                        $tax_hidden = $buddyform['form_fields'][ $field_id ]['product_tax_hidden'];
+                    }
+                    $element_tax = new Element_Checkbox( "<b>Product Tax Hidden</b>", "buddyforms_options[form_fields][" . $field_id . "][product_tax_hidden]", array( 'hidden' => __( 'Make the Product Tax a Hidden Field', 'buddyforms' ) ), array(
+                        'id'    => 'product_tax_hidden',
+                        'class' => 'bf_hidden_checkbox',
+                        'value' => $tax_hidden
+                    ) );
+                    $form_fields['general']['product_tax_hidden'] = $element_tax;
+                    $product_tax_hidden_checked = isset( $buddyform['form_fields'][ $field_id ]['product_tax_hidden'] ) ? '' : 'hidden';
+                    $product_tax_status_default = 'false';
+                    if ( isset( $buddyform['form_fields'][ $field_id ]['product_tax_status_default'] ) ) {
+                        $product_tax_status_default = $buddyform['form_fields'][ $field_id ]['product_tax_status_default'];
+                    }
+
+
+                    $product_tax_status = array(
+                        'taxable'  => __( 'Taxable', 'woocommerce' ),
+                        'shipping' => __( 'Shipping only', 'woocommerce' ),
+                        'none'     => _x( 'None', 'Tax status', 'woocommerce' ),
+                    );
+                    $form_fields['general']['product_tax_status_default'] = new Element_Select( '<b>' . __( 'Tax status: ', 'buddyforms' ) . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_tax_status_default]',
+                        $product_tax_status,
+                        array(
+                            'id'       => 'product_tax_status_default',
+                            'class'    => ( $product_tax_hidden_checked == 'hidden' ) ? 'hidden' : '',
+                            'value'    => $product_tax_status_default,
+                            'selected' => isset( $product_tax_status_default ) ? $product_tax_status_default : 'false',
+                        )
+                    );
+
+                    $product_tax_class = wc_get_product_tax_class_options();
+                    $product_tax_class_default = 'false';
+                    if ( isset( $buddyform['form_fields'][ $field_id ]['product_tax_class_default'] ) ) {
+                        $product_tax_class_default = $buddyform['form_fields'][ $field_id ]['product_tax_class_default'];
+                    }
+                    $form_fields['general']['product_tax_class_default'] = new Element_Select( '<b>' . __( 'Tax class: ', 'buddyforms' ) . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_tax_class_default]',
+                        $product_tax_class,
+                        array(
+                            'id'       => 'product_tax_class_default',
+                            'class'    => ( $product_tax_hidden_checked == 'hidden' ) ? 'hidden' : '',
+                            'value'    => $product_tax_class_default,
+                            'selected' => isset( $product_tax_class_default ) ? $product_tax_class_default : 'false',
+                        )
+                    );
+
+
+                }
 				$product_type_hidden = 'false';
 				if ( isset( $buddyform['form_fields'][ $field_id ]['product_type_hidden'] ) ) {
 					$product_type_hidden = $buddyform['form_fields'][ $field_id ]['product_type_hidden'];
@@ -141,12 +222,34 @@ class bf_woo_elem_form_builder {
 					
 					$element = new Element_Checkbox( $option['description'], "buddyforms_options[form_fields][" . $field_id . "][product_type_options][" . esc_attr( $option['id'] ) . "]", array( $option['id'] => esc_html( $option['label'] ) ), array(
 						'id'    => esc_attr( $option['id'] ),
-						'value' => $product_type_option_value
+						'value' => $product_type_option_value,
+                        'class' => $option['wrapper_class']
 					) );
 					
-					if ( $product_type_hidden_checked == 'hidden' || $product_type_default != 'simple' ) {
-						$element->setAttribute( 'class', 'hidden' );
+					if ( $product_type_hidden_checked == '' ) {
+					    $wrapper_classes ='';
+                        switch ($product_type_default) {
+                            case "booking":
+                                if (strpos($option['wrapper_class'], 'show_if_booking') === false) {
+                                    $element->setAttribute( 'class', 'hidden' );
+                                }
+                                break;
+                            case "simple":
+                                $wrapper_classes = $option['wrapper_class'];
+                                $ttt= strpos( $wrapper_classes, 'show_if_simple');
+
+                                if (strpos($option['wrapper_class'], 'show_if_simple') === false) {
+                                    $element->setAttribute( 'class', 'hidden' );
+                                }
+                                break;
+                            default:
+                               break;
+                        }
+
 					}
+					else{
+                        $element->setAttribute( 'class', 'hidden' );
+                    }
 					
 					$form_fields['general'][ $key ] = $element;
 				}
@@ -563,6 +666,7 @@ class bf_woo_elem_form_builder {
 				$product_data_tabs_unhandled   = bf_woo_elem_manager::get_unhandled_tabs();
 				$product_data_tabs_implemented = apply_filters( 'bf_woo_element_woo_implemented_tab', array() );
 				$product_data_tabs             = apply_filters( 'woocommerce_product_data_tabs', array_merge( $product_data_tabs_unhandled, array() ) );
+                $form_fields['Front-Tabs-Handler']['product_data_tabs_implemented'] = new Element_HTML( '<h2>' . __( 'The Front Tabs Handler allow hide or show the Woocommerce Tabs that are not integrated with the BuddyForms-Wocommerce-Form-Element plugin ', 'buddyforms' ) . '</h2>' );
 				if ( ! empty( $product_data_tabs ) && is_array( $product_data_tabs ) && count( $product_data_tabs ) > 0 ) {
 					foreach ( $product_data_tabs as $tab_key => $tab ) {
 						if ( in_array( $tab_key, $product_data_tabs_implemented ) ) {
@@ -580,18 +684,37 @@ class bf_woo_elem_form_builder {
 				}
 				
 				break;
-			case 'product - gallery':
+			case 'product-gallery':
 				unset( $form_fields );
-				$form_fields['Gallery']['name']        = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", 'Gallery' );
+                $name                           = isset(  $buddyform['form_fields'][$field_id]['name'] ) ? stripcslashes( $buddyform['form_fields'][$field_id]['name'] ) :  __( 'Product gallery', 'woocommerce' );
+                $form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Label', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array(
+                    'value'    => $name,
+                    'required' => 1
+                ) );
+
+                $description                           = isset( $buddyform['form_fields'][$field_id]['description'] ) ? stripcslashes( $buddyform['form_fields'][$field_id]['description']  ) : '';
+                $form_fields['general']['description'] = new Element_Textbox( '<b>' . __( 'Description:', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][description]", array( 'value' => $description ) );
+
+                $button_text                          = isset( $buddyform['form_fields'][$field_id]['button_text'] ) ? stripcslashes( $buddyform['form_fields'][$field_id]['button_text']  ) : __( 'Add product gallery images', 'woocommerce' );
+                $form_fields['general']['button_text'] = new Element_Textbox( '<b>' . __( 'Button Text:', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][button_text]", array( 'value' => $button_text ) );
+
 				$form_fields['Gallery']['slug']        = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_gallery' );
 				$form_fields['Gallery']['type']        = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
-				$description                           = isset( $buddyform['form_fields'][ $field_id ]['description'] ) ? stripslashes( $buddyform['form_fields'][ $field_id ]['description'] ) : '';
-				$form_fields['Gallery']['description'] = new Element_Textbox( '<b>' . __( 'Description', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][description]", array( 'value' => $description ) );
+
 				$required                              = isset( $buddyform['form_fields'][ $field_id ]['required'] ) ? $buddyform['form_fields'][ $field_id ]['required'] : 'false';
 				$form_fields['Gallery']['required']    = new Element_Checkbox( '<b>' . __( 'Required', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][required]", array( 'required' => '<b>' . __( 'Make this field a required field', 'buddyforms' ) . '</b>' ), array(
 					'value' => $required,
 					'id'    => "buddyforms_options[form_fields][" . $field_id . "][required]"
 				) );
+
+                $field_slug = isset( $buddyform['form_fields'][$field_id]['slug'] ) ?  $buddyform['form_fields'][$field_id]['slug'] : '';
+                $field_slug                      = empty($field_slug ) == false ? sanitize_title( $field_slug ) : 'product-gallery';
+                $form_fields['advanced']['slug'] = new Element_Textbox( '<b>' . __( 'Slug', 'buddyforms' ) . '</b> <small>(optional)</small>', "buddyforms_options[form_fields][" . $field_id . "][slug]", array(
+                    'shortDesc' => __( 'Underscore before the slug like _name will create a hidden post meta field', 'buddyforms' ),
+                    'value'     => $field_slug,
+                    'required'  => 1,
+                    'class'     => 'slug' . $field_id
+                ) );
 				break;
 		}
 		

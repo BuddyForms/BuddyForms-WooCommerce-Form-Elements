@@ -420,21 +420,40 @@ jQuery(function ($) {
 	//endregion
 
 
+	//Set Product Tax if it is hidden
+	if(general_settings_param.product_tax_hidden && general_settings_param.product_tax_hidden[0] &&
+        general_settings_param.product_tax_hidden[0] === 'hidden'){
+		$('._tax_class_field').hide();
+        $('._tax_status_field').hide();
+
+        $('#_tax_status').val(general_settings_param.product_tax_status_default).change();
+        $('#_tax_class').val(general_settings_param.product_tax_class_default).change();
+
+	}
+
+
 	//Set Product Type if they are hidden
 	if (general_settings_param.product_type_hidden && general_settings_param.product_type_hidden[0] &&
 		general_settings_param.product_type_hidden[0] === 'hidden') {
 		//Set the prodcut type
 		if (general_settings_param.product_type_default) {
+
 			select_product_type.val(general_settings_param.product_type_default).change();
+            select_product_type.hide();
 		}
 		//Set if is virtual or downloadable
 		if (general_settings_param.product_type_options) {
 			var virtual_val = (general_settings_param.product_type_options['_virtual'] !== undefined);
 			var downloadable_val = (general_settings_param.product_type_options['_downloadable'] !== undefined);
-			//virtual.prop('checked', virtual_val).change();
-			//downloadable.prop('checked', downloadable_val).change();
-			virtual.click();
-			downloadable.click();
+
+			if(virtual_val){
+				virtual.click();
+			}
+            if(downloadable_val){
+                downloadable.click();
+            }
+
+
 		}
 	}
 	else {
@@ -472,7 +491,7 @@ jQuery(function ($) {
 
 	});
 
-
+    $('form').trigger("reset");
 	if (general_settings_param.debug) console.log(tabs_hided);
 	main_container.find('.woo_general_loader').remove();
 });
