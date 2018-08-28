@@ -445,20 +445,14 @@ jQuery(function ($) {
 		if (general_settings_param.product_type_options) {
 			var virtual_val = (general_settings_param.product_type_options['_virtual'] !== undefined);
 			var downloadable_val = (general_settings_param.product_type_options['_downloadable'] !== undefined);
-            var booking_has_persons_val = (general_settings_param.product_type_options['_wc_booking_has_persons'] !== undefined);
-            var booking_has_resources_val = (general_settings_param.product_type_options['_wc_booking_has_resources'] !== undefined);
+
 			if(virtual_val){
 				virtual.click();
 			}
             if(downloadable_val){
                 downloadable.click();
             }
-            if(booking_has_persons_val){
-            	$('#_wc_booking_has_persons').click();
-			}
-            if(booking_has_resources_val){
-                $('#_wc_booking_has_resources').click();
-            }
+
 
 		}
 	}

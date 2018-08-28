@@ -29,33 +29,22 @@ jQuery(document).ready(function ($) {
                         virtual.parent().show();
                         downloadable.parent().show();
 
-                        booking_has_person_row.hide();
-                        booking_has_resources_row.hide();
+
                         break;
                     case 'booking':
-                        booking_has_person_row.show();
-                        booking_has_resources_row.show();
-
-                        booking_has_person.parent().show();
-                        booking_has_resources.parent().show();
-
-                        booking_has_person.show();
-                        booking_has_resources.show();
-
                         virtual_row.show();
+                        virtual.parent().show();
+                        virtual.show();
                         downloadable_row.hide();
                         break;
                     default:
-                        booking_has_person_row.hide();
-                        booking_has_resources_row.hide();
                         virtual_row.hide();
                         downloadable_row.hide();
 
                 }
                 virtual.attr('checked', false).change();
                 downloadable.attr('checked', false).change();
-                booking_has_person.attr('checked', false).change();
-                booking_has_resources.attr('checked', false).change();
+
 
 			}
 		});

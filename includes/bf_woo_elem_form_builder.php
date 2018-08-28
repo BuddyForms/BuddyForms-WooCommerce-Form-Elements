@@ -48,6 +48,7 @@ class bf_woo_elem_form_builder {
 	public function load_js_for_builder( $hook ) {
 		if ( $this->load_script ) {
 			wp_enqueue_script( 'bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array( "jquery" ), null, true );
+
 			wp_enqueue_style( 'bf_woo_builder', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css' );
 		}
 	}
@@ -85,6 +86,7 @@ class bf_woo_elem_form_builder {
 		$this->load_script = true;
         if ( $this->load_script ) {
             wp_enqueue_script( 'bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array( "jquery" ), null, true );
+            do_action('include_bf_woo_booking_scripts');
             wp_enqueue_style( 'bf_woo_builder', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css' );
         }
 
