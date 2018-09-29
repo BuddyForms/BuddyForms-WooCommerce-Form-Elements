@@ -253,11 +253,16 @@ class bf_woo_elem_form_builder {
 					
 					$form_fields['general'][ $key ] = $element;
 				}
-				
+
+                $form_fields = apply_filters('bf_woo_booking_default_options',$form_fields,$product_type_default,$field_id);
+
 				$element = new Element_HTML( '<hr>' );
 				if ( $product_type_hidden_checked == 'hidden' ) {
 					$element->setAttribute( 'class', 'hidden' );
 				}
+
+
+
 				
 				$form_fields['general']['hr1'] = $element;
 				
