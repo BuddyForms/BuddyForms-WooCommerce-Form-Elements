@@ -15,10 +15,17 @@ jQuery(document).ready(function ($) {
 			booking_has_person_row = field_row.find("#table_row_" + field_id + "_wc_booking_has_persons"),
             booking_has_resources_row = field_row.find("#table_row_" + field_id + "_wc_booking_has_resources"),
 			downloadable_row = field_row.find("#table_row_" + field_id + "_downloadable"),
+            regular_price_row = field_row.find("#table_row_" + field_id + "_product_regular_price"),
+            sales_price_row = field_row.find("#table_row_" + field_id + "_product_sales_price"),
+            price_date_row = field_row.find("#table_row_" + field_id + "_product_sales_price_dates"),
 			virtual = field_row.find("#_virtual-0"),
             booking_has_person = field_row.find("#_wc_booking_has_persons-0"),
             booking_has_resources = field_row.find("#_wc_booking_has_resources-0"),
+            regular_price = field_row.find("#product_regular_price_"+field_id),
+            sale_price = field_row.find("#product_sales_price_"+field_id),
+            price_date = field_row.find("#product_sales_price_dates_"+field_id),
 			downloadable = field_row.find("#_downloadable-0");
+
 		$('select[name="buddyforms_options[form_fields][' + field_id + '][product_type_default]"]').change(function () {
 			if (field_row.find('#product_type_hidden-0').is(':checked')) {
 				var product_type = $(this).val();
@@ -29,6 +36,17 @@ jQuery(document).ready(function ($) {
                         virtual.parent().show();
                         downloadable.parent().show();
 
+                        regular_price_row.show();
+                        regular_price.show();
+
+                        sales_price_row.show();
+                        sale_price.show();
+
+                        price_date_row.show();
+                        price_date.show();
+
+
+
 
                         break;
                     case 'booking':
@@ -36,6 +54,10 @@ jQuery(document).ready(function ($) {
                         virtual.parent().show();
                         virtual.show();
                         downloadable_row.hide();
+
+                        regular_price_row.hide();
+                        sales_price_row.hide();
+                        price_date_row.hide();
                         break;
                     default:
                         virtual_row.hide();
@@ -54,6 +76,7 @@ jQuery(document).ready(function ($) {
 				downloadable_row.removeAttr('style');
                 booking_has_person_row.removeAttr('style');
                 booking_has_resources_row.removeAttr('style');
+
 			}else{
 
                 var product_type = $("#product-type").val();

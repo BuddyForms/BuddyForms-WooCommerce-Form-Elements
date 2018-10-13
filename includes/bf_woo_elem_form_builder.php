@@ -172,6 +172,10 @@ class bf_woo_elem_form_builder {
 
 
                 }
+                else{
+
+                    $form_fields['general']['wc_tax_option_disabled'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][wc_tax_option_disabled]", '_taxOptionDisabled' );
+                }
 				$product_type_hidden = 'false';
 				if ( isset( $buddyform['form_fields'][ $field_id ]['product_type_hidden'] ) ) {
 					$product_type_hidden = $buddyform['form_fields'][ $field_id ]['product_type_hidden'];
@@ -256,6 +260,67 @@ class bf_woo_elem_form_builder {
 
                 $form_fields = apply_filters('bf_woo_booking_default_options',$form_fields,$product_type_default,$field_id);
 
+                $product_regular_price = 'false';
+                if ( isset( $buddyform['form_fields'][ $field_id ]['product_regular_price'] ) ) {
+                    $product_regular_price = $buddyform['form_fields'][ $field_id ]['product_regular_price'];
+                }
+
+                $element_regular_price =  new Element_Select( '<b>' . __( 'Regular Price', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_regular_price]", array(
+                    'hidden'   => __( 'Hide', 'buddyforms' ),
+                    'none'     => __( 'Not Required', 'buddyforms' ),
+                    "required" => __( 'Required', 'buddyforms' )
+                ), array(
+                    'inline' => 1,
+                    'id'     => 'product_regular_price_' . $field_id,
+                    'value'  => $product_regular_price
+                ) );
+
+
+
+
+                $product_sales_price = 'false';
+                if ( isset( $buddyform['form_fields'][ $field_id ]['product_sales_price'] ) ) {
+                    $product_sales_price = $buddyform['form_fields'][ $field_id ]['product_sales_price'];
+                }
+
+                $element_sales_price = new Element_Select( '<b>' . __( 'Sales Price', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_sales_price]", array(
+                    'hidden'   => __( 'Hide', 'buddyforms' ),
+                    'none'     => __( 'Not Required', 'buddyforms' ),
+                    "required" => __( 'Required', 'buddyforms' )
+                ), array(
+                    'inline' => 1,
+                    'id'     => 'product_sales_price_' . $field_id,
+                    'value'  => $product_sales_price
+                ) );
+
+
+
+
+                $product_sales_price_dates = 'false';
+                if ( isset( $buddyform['form_fields'][ $field_id ]['product_sales_price_dates'] ) ) {
+                    $product_sales_price_dates = $buddyform['form_fields'][ $field_id ]['product_sales_price_dates'];
+                }
+
+                $element_price_date = new Element_Select( '<b>' . __( 'Sales Price Date', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_sales_price_dates]", array(
+                    'hidden'   => __( 'Hide', 'buddyforms' ),
+                    'none'     => __( 'Not Required', 'buddyforms' ),
+                    "required" => __( 'Required', 'buddyforms' )
+                ), array(
+                    'inline' => 1,
+                    'id'     => 'product_sales_price_dates_' . $field_id,
+                    'value'  => $product_sales_price_dates
+                ) );
+
+
+                if($product_type_default=="booking"){
+                    $element_regular_price->setAttribute( 'class', 'hidden' );
+                    $element_sales_price->setAttribute( 'class', 'hidden' );
+                    $element_price_date->setAttribute( 'class', 'hidden' );
+                }
+                $form_fields['general']['product_regular_price'] = $element_regular_price;
+                $form_fields['general']['product_sales_price'] = $element_sales_price;
+                $form_fields['general']['product_sales_price_dates'] =$element_price_date;
+
 				$element = new Element_HTML( '<hr>' );
 				if ( $product_type_hidden_checked == 'hidden' ) {
 					$element->setAttribute( 'class', 'hidden' );
@@ -278,43 +343,7 @@ class bf_woo_elem_form_builder {
 					"required" => __( 'Required', 'buddyforms' )
 				), array( 'inline' => 1, 'id' => 'product_sku_' . $field_id, 'value' => $product_sku ) );
 				
-				$product_regular_price = 'false';
-				if ( isset( $buddyform['form_fields'][ $field_id ]['product_regular_price'] ) ) {
-					$product_regular_price = $buddyform['form_fields'][ $field_id ]['product_regular_price'];
-				}
-				$form_fields['general']['product_regular_price'] = new Element_Checkbox( '<b>' . __( 'Regular Price', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_regular_price]", array( "required" => __( 'Required', 'buddyforms' ) ), array(
-					'inline' => 1,
-					'id'     => 'product_regular_price_' . $field_id,
-					'value'  => $product_regular_price
-				) );
-				
-				$product_sales_price = 'false';
-				if ( isset( $buddyform['form_fields'][ $field_id ]['product_sales_price'] ) ) {
-					$product_sales_price = $buddyform['form_fields'][ $field_id ]['product_sales_price'];
-				}
-				$form_fields['general']['product_sales_price'] = new Element_Select( '<b>' . __( 'Sales Price', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_sales_price]", array(
-					'hidden'   => __( 'Hide', 'buddyforms' ),
-					'none'     => __( 'Not Required', 'buddyforms' ),
-					"required" => __( 'Required', 'buddyforms' )
-				), array(
-					'inline' => 1,
-					'id'     => 'product_sales_price_' . $field_id,
-					'value'  => $product_sales_price
-				) );
-				
-				$product_sales_price_dates = 'false';
-				if ( isset( $buddyform['form_fields'][ $field_id ]['product_sales_price_dates'] ) ) {
-					$product_sales_price_dates = $buddyform['form_fields'][ $field_id ]['product_sales_price_dates'];
-				}
-				$form_fields['general']['product_sales_price_dates'] = new Element_Select( '<b>' . __( 'Sales Price Date', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][product_sales_price_dates]", array(
-					'hidden'   => __( 'Hide', 'buddyforms' ),
-					'none'     => __( 'Not Required', 'buddyforms' ),
-					"required" => __( 'Required', 'buddyforms' )
-				), array(
-					'inline' => 1,
-					'id'     => 'product_sales_price_dates_' . $field_id,
-					'value'  => $product_sales_price_dates
-				) );
+
 				
 				// Inventory
 				
