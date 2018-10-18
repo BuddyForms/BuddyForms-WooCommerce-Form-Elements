@@ -13,6 +13,7 @@ jQuery('#woocommerce-product-data').prepend(
 );
 jQuery(function ($) {
     $( document ).ready(function() {
+        $('form').trigger("reset");
 
         var select_product_type = jQuery('select#product-type'),
             virtual = jQuery('#_virtual'),
@@ -268,6 +269,23 @@ jQuery(function ($) {
 
                         downloadable.attr('checked', true).change();
                         downloadable.prop('checked', true);
+                        var download_limit_value = general_settings_param.download_limit;
+                        var download_expiry_value = general_settings_param.download_expiry;
+                        $("#_download_limit").val(download_limit_value);
+                        $("#_download_expiry").val(download_expiry_value);
+                        $("a.button.insert").click();
+                        var download_name_value = general_settings_param.download_name;
+                        var download_url_value = general_settings_param.download_url;
+
+
+                        jQuery('input[name="_wc_file_names[]"]').val(download_name_value);
+                        jQuery('input[name="_wc_file_urls[]"]').val(download_url_value);
+
+                        $("#_download_name").val(download_limit_value);
+                        $("#_download_expiry").val(download_expiry_value);
+
+
+
                     }
 
 
@@ -304,13 +322,15 @@ jQuery(function ($) {
             var hidde_general_tab = true;
             if (general_tab_hidden.length >0) {
 
-               $.each(general_tab_hidden,function(key,value){
+                for(var i = 0 ; i < general_tab_hidden.length; i++){
 
-                   if(value !==false){
-                       hidde_general_tab = false;
-                       return;
-                   }
-               });
+                    var option_value = general_tab_hidden[i];
+                    if(option_value !==true){
+                        hidde_general_tab = false;
+                        break;
+                    }
+
+                }
 
                if(hidde_general_tab){
                    $('.general_options').hide();
@@ -570,7 +590,7 @@ jQuery(function ($) {
 
         });
 
-        $('form').trigger("reset");
+
         if (general_settings_param.debug) console.log(tabs_hided);
         main_container.find('.woo_general_loader').remove();
     });

@@ -18,13 +18,22 @@ jQuery(document).ready(function ($) {
             regular_price_row = field_row.find("#table_row_" + field_id + "_product_regular_price"),
             sales_price_row = field_row.find("#table_row_" + field_id + "_product_sales_price"),
             price_date_row = field_row.find("#table_row_" + field_id + "_product_sales_price_dates"),
+            download_name_row = field_row.find("#table_row_" + field_id + "__download_name"),
+            download_url_row = field_row.find("#table_row_" + field_id + "__download_url"),
+            download_limit_row = field_row.find("#table_row_" + field_id + "__download_limit"),
+            download_expiry_row = field_row.find("#table_row_" + field_id + "__download_expiry"),
 			virtual = field_row.find("#_virtual-0"),
             booking_has_person = field_row.find("#_wc_booking_has_persons-0"),
             booking_has_resources = field_row.find("#_wc_booking_has_resources-0"),
             regular_price = field_row.find("#product_regular_price_"+field_id),
             sale_price = field_row.find("#product_sales_price_"+field_id),
             price_date = field_row.find("#product_sales_price_dates_"+field_id),
-			downloadable = field_row.find("#_downloadable-0");
+			downloadable = field_row.find("#_downloadable-0"),
+            download_name = field_row.find("#"+field_id+"_download_name"),
+            download_url = field_row.find("#"+field_id+"_download_url"),
+            download_limit = field_row.find("#"+field_id+"_download_limit"),
+            download_expiry = field_row.find("#"+field_id+"_download_expiry")
+        ;
 
 		$('select[name="buddyforms_options[form_fields][' + field_id + '][product_type_default]"]').change(function () {
 			if (field_row.find('#product_type_hidden-0').is(':checked')) {
@@ -118,7 +127,14 @@ jQuery(document).ready(function ($) {
 
                 }
 			}
+            virtual.attr('checked', false).change();
+            virtual.prop('checked', false);
+            downloadable.attr('checked', false).change();
+            downloadable.prop('checked', false);
+
+
 		});
+
         $('input[name="buddyforms_options[form_fields][' + field_id + '][product_tax_hidden][]"]').click(function () {
             if (!$(this).is(':checked')) {
                 $('#table_row_'+field_id+'_product_tax_status_default').addClass('hidden');
@@ -129,6 +145,27 @@ jQuery(document).ready(function ($) {
                 $('#table_row_'+field_id+'_product_tax_class_default').removeClass('hidden');
                 $('#product_tax_status_default').removeClass('hidden');
                 $('#product_tax_class_default').removeClass('hidden');
+            }
+        });
+        $('input[name="buddyforms_options[form_fields][' + field_id + '][product_type_options][_downloadable][]"]').click(function () {
+            if (!$(this).is(':checked')) {
+               download_name_row.hide();
+               download_url_row.hide();
+               download_limit_row.hide();
+               download_expiry_row.hide();
+            }
+            else{
+
+                download_name_row.show();
+                download_url_row.show();
+                download_limit_row.show();
+                download_expiry_row.show();
+
+                download_name.show();
+                download_url.show();
+                download_limit.show();
+                download_expiry.show();
+
 			}
         });
 
