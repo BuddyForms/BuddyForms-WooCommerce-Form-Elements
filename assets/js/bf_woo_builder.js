@@ -64,6 +64,12 @@ jQuery(document).ready(function ($) {
                         virtual.show();
                         downloadable_row.hide();
 
+
+                        download_name_row.hide();
+                        download_url_row.hide();
+                        download_limit_row.hide();
+                        download_expiry_row.hide();
+
                         regular_price_row.hide();
                         sales_price_row.hide();
                         price_date_row.hide();
@@ -75,9 +81,11 @@ jQuery(document).ready(function ($) {
                 }
                 virtual.attr('checked', false).change();
                 downloadable.attr('checked', false).change();
+                downloadable.prop('checked', false);
 
 
-			}
+
+            }
 		});
 		$('input[name="buddyforms_options[form_fields][' + field_id + '][product_type_hidden][]"]').click(function () {
 			if (!$(this).is(':checked')) {
@@ -102,8 +110,17 @@ jQuery(document).ready(function ($) {
 
                         booking_has_person_row.hide();
                         booking_has_resources_row.hide();
+
+                        download_name_row.show();
+                        download_url_row.show();
+                        download_limit_row.show();
+                        download_expiry_row.show();
                         break;
                     case 'booking':
+                        download_name_row.hide();
+                        download_url_row.hide();
+                        download_limit_row.hide();
+                        download_expiry_row.hide();
                         booking_has_person_row.show();
                         booking_has_resources_row.show();
 
