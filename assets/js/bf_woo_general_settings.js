@@ -52,7 +52,7 @@ jQuery(function ($) {
          *
          * @param current_type
          */
-        function determine_default_tab(current_type) {
+        function determine_default_tab() {
             var visible_tabs = jQuery('ul.wc-tabs li:visible');
             visible_tabs.removeClass('active')
                 .first()
