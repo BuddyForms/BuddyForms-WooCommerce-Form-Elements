@@ -7,12 +7,12 @@
  * @license GPLv2 or later
  */
 jQuery('#woocommerce-product-data').prepend(
-	jQuery('<div>', {
-		'class': 'woo_general_loader'
-	}).text('loading...')
+    jQuery('<div>', {
+        'class': 'woo_general_loader'
+    }).text('loading...')
 );
 jQuery(function ($) {
-    $( document ).ready(function() {
+    $(document).ready(function () {
         $('form').trigger("reset");
 
         var select_product_type = jQuery('select#product-type'),
@@ -53,20 +53,13 @@ jQuery(function ($) {
          * @param current_type
          */
         function determine_default_tab(current_type) {
-            var main_tab_set = false;
-            jQuery('ul.wc-tabs li:visible').each(function () {
-                var i, current = jQuery(this),
-                    current_classes = current.attr('class').split(" ");
-                for (i = 0; i < current_classes.length; i++) {
-                    var searched_for_tab = jQuery.inArray(current_classes[i], tabs_hided);
-                    if (searched_for_tab < 0) {
-                        current.find('a').click();
-                        main_tab_set = true;
-                        return false;
-                    }
-                }
-            });
-            if (main_tab_set === false) {
+            var visible_tabs = jQuery('ul.wc-tabs li:visible');
+            visible_tabs.removeClass('active')
+                .first()
+                .addClass('active')
+                .find('a')
+                .click();
+            if (visible_tabs.length === 0) {
                 //Hide the entire container
                 jQuery('#woocommerce-product-data').hide();
             }
@@ -140,7 +133,7 @@ jQuery(function ($) {
             stock_status.val('instock').change();
             stock.val('');
             backorders.find("option:selected").removeAttr('selected');
-            backorders.find("option[value='no']").attr('selected', 'selected');
+            backorders.find("option[value='no']").prop('selected', 'selected');
             weight.val('');
             width.val('');
             height.val('');
@@ -152,7 +145,6 @@ jQuery(function ($) {
         }
 
         set_default_option();
-        determine_default_tab();
 
         /**
          * This function is to keep compatibility with bootstrap theme in the front
@@ -196,11 +188,11 @@ jQuery(function ($) {
             var hide_general_proudct_type, hide_general_tax_field, hide_general_regular_price, hide_general_sales_price,
                 hide_general_price_date = false;
             var product_type_default = null;
-            if(general_settings_param.wc_tax_option_disabled){
+            if (general_settings_param.wc_tax_option_disabled) {
                 hide_general_tax_field = true;
 
-            }else{
-            //Set Product Tax if it is hidden
+            } else {
+                //Set Product Tax if it is hidden
                 if (general_settings_param.product_tax_hidden && general_settings_param.product_tax_hidden[0] &&
                     general_settings_param.product_tax_hidden[0] === 'hidden') {
                     hide_general_tax_field = true;
@@ -283,12 +275,7 @@ jQuery(function ($) {
 
                         $("#_download_name").val(download_limit_value);
                         $("#_download_expiry").val(download_expiry_value);
-
-
-
                     }
-
-
                 }
             }
             else {
@@ -297,51 +284,44 @@ jQuery(function ($) {
             }
 
             var general_tab_hidden_fields = new Array();
-            switch(product_type_default){
+            switch (product_type_default) {
 
                 case 'simple':
-                    general_tab_hidden_fields.push( hide_general_proudct_type);
+                    general_tab_hidden_fields.push(hide_general_proudct_type);
                     general_tab_hidden_fields.push(hide_general_tax_field);
-                    general_tab_hidden_fields.push( hide_general_regular_price);
-                    general_tab_hidden_fields.push( hide_general_sales_price);
-                    general_tab_hidden_fields.push( hide_general_price_date);
+                    general_tab_hidden_fields.push(hide_general_regular_price);
+                    general_tab_hidden_fields.push(hide_general_sales_price);
+                    general_tab_hidden_fields.push(hide_general_price_date);
                     break;
                 case 'booking':
-                    general_tab_hidden_fields.push( hide_general_proudct_type);
-                    general_tab_hidden_fields.push( hide_general_tax_field);
+                    general_tab_hidden_fields.push(hide_general_proudct_type);
+                    general_tab_hidden_fields.push(hide_general_tax_field);
                     break;
                 default:
-                     break;
-
-
+                    break;
             }
 
-
-            var general_tab_hidden = Hooks.apply_filters( 'booking_general_tab_filter', general_tab_hidden_fields,product_type_default);
+            var general_tab_hidden = Hooks.apply_filters('booking_general_tab_filter', general_tab_hidden_fields, product_type_default);
 
             var hidde_general_tab = true;
-            if (general_tab_hidden.length >0) {
+            if (general_tab_hidden.length > 0) {
 
-                for(var i = 0 ; i < general_tab_hidden.length; i++){
+                for (var i = 0; i < general_tab_hidden.length; i++) {
 
                     var option_value = general_tab_hidden[i];
-                    if(option_value !==true){
+                    if (option_value !== true) {
                         hidde_general_tab = false;
                         break;
                     }
-
                 }
 
-               if(hidde_general_tab){
-                   $('.general_options').hide();
-                   $("#general_product_data").hide();
-                   tabs_hided.push('general_tab');
-               }
+                if (hidde_general_tab) {
+                    $('.general_options').hide();
+                    $("#general_product_data").hide();
+                    tabs_hided.push('general_tab');
+                }
             }
-
-
         }
-
 
         //SKU
         if (general_settings_param.product_sku) {
@@ -377,7 +357,7 @@ jQuery(function ($) {
                         backorders.parent().hide();
                         if (general_settings_param.product_allow_backorders) {
                             backorders.find("option:selected").removeAttr('selected');
-                            backorders.find("option[value='" + general_settings_param.product_allow_backorders + "']").attr('selected', 'selected');
+                            backorders.find("option[value='" + general_settings_param.product_allow_backorders + "']").prop('selected', 'selected');
                         }
                         hide_parent_2 = true;
                     }
@@ -590,7 +570,7 @@ jQuery(function ($) {
 
         });
 
-
+        determine_default_tab();
         if (general_settings_param.debug) console.log(tabs_hided);
         main_container.find('.woo_general_loader').remove();
     });
