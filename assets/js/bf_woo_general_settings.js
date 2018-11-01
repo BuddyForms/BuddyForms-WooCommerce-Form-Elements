@@ -32,7 +32,7 @@ jQuery(document).ready(function ($) {
         height = $("input[name='_height']"),
         length = $("input[name='_length']"),
         shipping_class = $("#product_shipping_class"),
-        tabs_hided = [],
+        tabs_hided = [],//Array of classes of the tabs to be hide
         attribute_tab = $('.attribute_tab'),
         attribute_container = $('#product_attributes'),
         variations_tab = $('.variations_tab'),
@@ -48,8 +48,6 @@ jQuery(document).ready(function ($) {
 
     /**
      * Determine wish tab will be default
-     *
-     * @param current_type
      */
     function determine_default_tab() {
         var visible_tabs = jQuery('ul.wc-tabs li:visible');
@@ -62,6 +60,19 @@ jQuery(document).ready(function ($) {
             //Hide the entire container
             jQuery('#woocommerce-product-data').hide();
         }
+    }
+
+    /**
+     * Hide the tabs in the array and his container
+     * @param tabs
+     */
+    function hideTabs(tabs) {
+        jQuery.each(tabs, function (i, val) {
+            var tabLi = jQuery('.' + val),
+                tabTarget = tabLi.find('a').attr('href');
+            tabLi.hide();
+            jQuery(tabTarget).hide();
+        });
     }
 
     function determine_when_is_required(current_type) {
@@ -315,8 +326,8 @@ jQuery(document).ready(function ($) {
             }
 
             if (hidde_general_tab) {
-                $('.general_options').hide();
-                $("#general_product_data").hide();
+                jQuery('.general_options').hide();
+                jQuery("#general_product_data").hide();
                 tabs_hided.push('general_tab');
             }
         }
@@ -569,17 +580,21 @@ jQuery(document).ready(function ($) {
 
     });
 
-
     //Execute other addOns customization
     BF_Woo_Element_Hook.do_action('bf_woo_element_ready');
 
+    //Hide tabs in the array
+    hideTabs(tabs_hided);
+
     if (general_settings_param.debug) {
+        console.log(tabs_hided);
+    }
+    if (general_settings_param.debug_hidden) {
         jQuery('#woocommerce-product-data input:hidden, #woocommerce-product-data div:hidden, #woocommerce-product-data li:hidden, #woocommerce-product-data select:hidden, #woocommerce-product-data p:hidden').show();
         jQuery('span.type_box.hidden')
             .removeClass('hidden')
             .find('label:hidden, select:hidden, input:hidden').show();
-        console.log(tabs_hided);
     }
-    determine_default_tab();
     main_container.find('.woo_general_loader').remove();
+    determine_default_tab();
 });
