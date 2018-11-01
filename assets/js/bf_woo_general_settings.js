@@ -277,13 +277,12 @@ jQuery(function ($) {
                         $("#_download_expiry").val(download_expiry_value);
                     }
                 }
-            }
-            else {
+            } else {
                 hide_general_proudct_type = false;
                 $('span.type_box.hidden').removeClass('hidden');
             }
 
-            var general_tab_hidden_fields = new Array();
+            var general_tab_hidden_fields = [];
             switch (product_type_default) {
 
                 case 'simple':
@@ -301,13 +300,14 @@ jQuery(function ($) {
                     break;
             }
 
-            var general_tab_hidden = Hooks.apply_filters('booking_general_tab_filter', general_tab_hidden_fields, product_type_default);
+            var general_tab_hidden = [];
+            if (BF_Woo_Element_Hook) {
+                general_tab_hidden = BF_Woo_Element_Hook.apply_filters('booking_general_tab_filter', general_tab_hidden_fields, product_type_default);
+            }
 
             var hidde_general_tab = true;
             if (general_tab_hidden.length > 0) {
-
                 for (var i = 0; i < general_tab_hidden.length; i++) {
-
                     var option_value = general_tab_hidden[i];
                     if (option_value !== true) {
                         hidde_general_tab = false;
@@ -571,7 +571,13 @@ jQuery(function ($) {
         });
 
         determine_default_tab();
-        if (general_settings_param.debug) console.log(tabs_hided);
+        if (general_settings_param.debug) {
+            jQuery('#woocommerce-product-data input:hidden, #woocommerce-product-data div:hidden, #woocommerce-product-data li:hidden, #woocommerce-product-data select:hidden').show();
+            $('span.type_box.hidden')
+                .removeClass('hidden')
+                .find('label:hidden, select:hidden, input:hidden').show();
+            console.log(tabs_hided);
+        }
         main_container.find('.woo_general_loader').remove();
     });
 });
