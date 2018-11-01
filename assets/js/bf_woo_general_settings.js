@@ -570,14 +570,15 @@ jQuery(function ($) {
 
         });
 
-        determine_default_tab();
+
         if (general_settings_param.debug) {
             jQuery('#woocommerce-product-data input:hidden, #woocommerce-product-data div:hidden, #woocommerce-product-data li:hidden, #woocommerce-product-data select:hidden').show();
-            $('span.type_box.hidden')
+            jQuery('span.type_box.hidden')
                 .removeClass('hidden')
                 .find('label:hidden, select:hidden, input:hidden').show();
             console.log(tabs_hided);
         }
+        determine_default_tab();
         main_container.find('.woo_general_loader').remove();
     });
 });
