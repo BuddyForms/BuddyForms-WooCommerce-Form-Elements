@@ -4,7 +4,7 @@ Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
 Tested up to: 4.9
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +97,11 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 Changing local environment.
+
+= 1.4.5 5 November 2018 =
+* Preparing  to integrate with other new AddOns.
+* Fixed the downloadable option.
+* Fixed the function to hide the tabs marks to not show and select the first available.
 
 = 1.4.4 28 August 2018 =
 * Ready to integrate BF Woocommerce Booking Addon.
