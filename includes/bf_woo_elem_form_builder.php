@@ -480,7 +480,7 @@ class bf_woo_elem_form_builder
                     '<b>' . __('Enter a number: ', 'buddyforms') . ' </b>',
                     'buddyforms_options[form_fields][' . $field_id . '][product_manage_stock_qty]',
                     array(
-                        'id' => 'product_manage_stock_qty_' . $field_id,
+                        'id' => $field_id.'_product_manage_stock_qty' ,
                         'class' => $product_manage_stock_checked . ' ' . $product_manage_stock_qty_checked,
                         'value' => $product_manage_stock_qty,
                     )
