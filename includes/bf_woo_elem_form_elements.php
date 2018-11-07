@@ -162,107 +162,50 @@ class bf_woo_elem_form_element
         $screen_id = $screen ? $screen->id : '';
         $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
         // Register scripts
-        wp_register_script('woocommerce_admin', WC()->plugin_url() . '/assets/js/admin/woocommerce_admin' . $suffix . '.js', array(
-            'jquery',
-            'jquery-blockui',
-            'jquery-ui-sortable',
-            'jquery-ui-widget',
-            'jquery-ui-core',
-            'jquery-tiptip',
-        ), WC_VERSION);
-        wp_register_script('jquery-blockui', WC()->plugin_url() . '/assets/js/jquery-blockui/jquery.blockUI' . $suffix . '.js', array('jquery'), '2.70', true);
-        wp_register_script('jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip' . $suffix . '.js', array('jquery'), WC_VERSION, true);
-        wp_register_script('accounting', WC()->plugin_url() . '/assets/js/accounting/accounting' . $suffix . '.js', array('jquery'), '0.4.2');
-        wp_register_script('round', WC()->plugin_url() . '/assets/js/round/round' . $suffix . '.js', array('jquery'), WC_VERSION);
-        wp_register_script('wc-admin-meta-boxes', WC()->plugin_url() . '/assets/js/admin/meta-boxes' . $suffix . '.js', array(
-            'jquery',
-            'jquery-ui-datepicker',
-            'jquery-ui-sortable',
-            'accounting',
-            'round',
-            'plupload-all',
-            'stupidtable',
-            'jquery-tiptip',
-        ), WC_VERSION);
-        wp_register_script('zeroclipboard', WC()->plugin_url() . '/assets/js/zeroclipboard/jquery.zeroclipboard' . $suffix . '.js', array('jquery'), WC_VERSION);
-        wp_register_script('qrcode', WC()->plugin_url() . '/assets/js/jquery-qrcode/jquery.qrcode' . $suffix . '.js', array('jquery'), WC_VERSION);
-        wp_register_script('stupidtable', WC()->plugin_url() . '/assets/js/stupidtable/stupidtable' . $suffix . '.js', array('jquery'), WC_VERSION);
-        wp_register_script('serializejson', WC()->plugin_url() . '/assets/js/jquery-serializejson/jquery.serializejson' . $suffix . '.js', array('jquery'), '2.6.1');
-        wp_register_script('flot', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot' . $suffix . '.js', array('jquery'), WC_VERSION);
-        wp_register_script('flot-resize', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot.resize' . $suffix . '.js', array(
-            'jquery',
-            'flot',
-        ), WC_VERSION);
-        wp_register_script('flot-time', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot.time' . $suffix . '.js', array(
-            'jquery',
-            'flot',
-        ), WC_VERSION);
-        wp_register_script('flot-pie', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot.pie' . $suffix . '.js', array(
-            'jquery',
-            'flot',
-        ), WC_VERSION);
-        wp_register_script('flot-stack', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot.stack' . $suffix . '.js', array(
-            'jquery',
-            'flot',
-        ), WC_VERSION);
-        wp_register_script('wc-settings-tax', WC()->plugin_url() . '/assets/js/admin/settings-views-html-settings-tax' . $suffix . '.js', array(
-            'jquery',
-            'wp-util',
-            'underscore',
-            'backbone',
-            'jquery-blockui',
-        ), WC_VERSION);
-        wp_register_script('wc-backbone-modal', WC()->plugin_url() . '/assets/js/admin/backbone-modal' . $suffix . '.js', array(
-            'underscore',
-            'backbone',
-            'wp-util',
-        ), WC_VERSION);
-        wp_register_script('wc-shipping-zones', WC()->plugin_url() . '/assets/js/admin/wc-shipping-zones' . $suffix . '.js', array(
-            'jquery',
-            'wp-util',
-            'underscore',
-            'backbone',
-            'jquery-ui-sortable',
+        wp_register_script( 'woocommerce_admin', WC()->plugin_url() . '/assets/js/admin/woocommerce_admin' . $suffix . '.js', array( 'jquery', 'jquery-blockui', 'jquery-ui-sortable', 'jquery-ui-widget', 'jquery-ui-core', 'jquery-tiptip' ), WC_VERSION );
+        wp_register_script( 'jquery-blockui', WC()->plugin_url() . '/assets/js/jquery-blockui/jquery.blockUI' . $suffix . '.js', array( 'jquery' ), '2.70', true );
+        wp_register_script( 'jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip' . $suffix . '.js', array( 'jquery' ), WC_VERSION, true );
+        wp_register_script( 'round', WC()->plugin_url() . '/assets/js/round/round' . $suffix . '.js', array( 'jquery' ), WC_VERSION );
+        wp_register_script( 'wc-admin-meta-boxes', WC()->plugin_url() . '/assets/js/admin/meta-boxes' . $suffix . '.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'accounting', 'round', 'wc-enhanced-select', 'plupload-all', 'stupidtable', 'jquery-tiptip' ), WC_VERSION );
+        wp_register_script( 'zeroclipboard', WC()->plugin_url() . '/assets/js/zeroclipboard/jquery.zeroclipboard' . $suffix . '.js', array( 'jquery' ), WC_VERSION );
+        wp_register_script( 'qrcode', WC()->plugin_url() . '/assets/js/jquery-qrcode/jquery.qrcode' . $suffix . '.js', array( 'jquery' ), WC_VERSION );
+        wp_register_script( 'stupidtable', WC()->plugin_url() . '/assets/js/stupidtable/stupidtable' . $suffix . '.js', array( 'jquery' ), WC_VERSION );
+        wp_register_script( 'serializejson', WC()->plugin_url() . '/assets/js/jquery-serializejson/jquery.serializejson' . $suffix . '.js', array( 'jquery' ), '2.8.1' );
+        wp_register_script( 'flot', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot' . $suffix . '.js', array( 'jquery' ), WC_VERSION );
+        wp_register_script( 'flot-resize', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot.resize' . $suffix . '.js', array( 'jquery', 'flot' ), WC_VERSION );
+        wp_register_script( 'flot-time', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot.time' . $suffix . '.js', array( 'jquery', 'flot' ), WC_VERSION );
+        wp_register_script( 'flot-pie', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot.pie' . $suffix . '.js', array( 'jquery', 'flot' ), WC_VERSION );
+        wp_register_script( 'flot-stack', WC()->plugin_url() . '/assets/js/jquery-flot/jquery.flot.stack' . $suffix . '.js', array( 'jquery', 'flot' ), WC_VERSION );
+        wp_register_script( 'wc-settings-tax', WC()->plugin_url() . '/assets/js/admin/settings-views-html-settings-tax' . $suffix . '.js', array( 'jquery', 'wp-util', 'underscore', 'backbone', 'jquery-blockui' ), WC_VERSION );
+        wp_register_script( 'wc-backbone-modal', WC()->plugin_url() . '/assets/js/admin/backbone-modal' . $suffix . '.js', array( 'underscore', 'backbone', 'wp-util' ), WC_VERSION );
+        wp_register_script( 'wc-shipping-zones', WC()->plugin_url() . '/assets/js/admin/wc-shipping-zones' . $suffix . '.js', array( 'jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-enhanced-select', 'wc-backbone-modal' ), WC_VERSION );
+        wp_register_script( 'wc-shipping-zone-methods', WC()->plugin_url() . '/assets/js/admin/wc-shipping-zone-methods' . $suffix . '.js', array( 'jquery', 'wp-util', 'underscore', 'backbone', 'jquery-ui-sortable', 'wc-backbone-modal' ), WC_VERSION );
+        wp_register_script( 'wc-shipping-classes', WC()->plugin_url() . '/assets/js/admin/wc-shipping-classes' . $suffix . '.js', array( 'jquery', 'wp-util', 'underscore', 'backbone' ), WC_VERSION );
+        wp_register_script( 'wc-clipboard', WC()->plugin_url() . '/assets/js/admin/wc-clipboard' . $suffix . '.js', array( 'jquery' ), WC_VERSION );
+        wp_register_script( 'select2', WC()->plugin_url() . '/assets/js/select2/select2.full' . $suffix . '.js', array( 'jquery' ), '4.0.3' );
+        wp_register_script( 'selectWoo', WC()->plugin_url() . '/assets/js/selectWoo/selectWoo.full' . $suffix . '.js', array( 'jquery' ), '1.0.4' );
+        wp_register_script( 'wc-enhanced-select', WC()->plugin_url() . '/assets/js/admin/wc-enhanced-select' . $suffix . '.js', array( 'jquery', 'selectWoo' ), WC_VERSION );
+        wp_localize_script(
             'wc-enhanced-select',
-            'wc-backbone-modal',
-        ), WC_VERSION);
-        wp_register_script('wc-shipping-zone-methods', WC()->plugin_url() . '/assets/js/admin/wc-shipping-zone-methods' . $suffix . '.js', array(
-            'jquery',
-            'wp-util',
-            'underscore',
-            'backbone',
-            'jquery-ui-sortable',
-            'wc-backbone-modal',
-        ), WC_VERSION);
-        wp_register_script('wc-shipping-classes', WC()->plugin_url() . '/assets/js/admin/wc-shipping-classes' . $suffix . '.js', array(
-            'jquery',
-            'wp-util',
-            'underscore',
-            'backbone',
-        ), WC_VERSION);
-        wp_register_script('choose', WC()->plugin_url() . '/assets/js/select2/select2' . $suffix . '.js', array('jquery'));
-        wp_enqueue_script('choose');
-        wp_register_script('wc-enhanced-select', WC()->plugin_url() . '/assets/js/admin/wc-enhanced-select' . $suffix . '.js', array(
-            'jquery',
-            'choose',
-        ), WC_VERSION);
-        wp_localize_script('wc-enhanced-select', 'wc_enhanced_select_params', array(
-            'i18n_matches_1' => _x('One result is available, press enter to select it.', 'enhanced select', 'woocommerce'),
-            'i18n_matches_n' => _x('%qty% results are available, use up and down arrow keys to navigate.', 'enhanced select', 'woocommerce'),
-            'i18n_no_matches' => _x('No matches found', 'enhanced select', 'woocommerce'),
-            'i18n_ajax_error' => _x('Loading failed', 'enhanced select', 'woocommerce'),
-            'i18n_input_too_short_1' => _x('Please enter 1 or more characters', 'enhanced select', 'woocommerce'),
-            'i18n_input_too_short_n' => _x('Please enter %qty% or more characters', 'enhanced select', 'woocommerce'),
-            'i18n_input_too_long_1' => _x('Please delete 1 character', 'enhanced select', 'woocommerce'),
-            'i18n_input_too_long_n' => _x('Please delete %qty% characters', 'enhanced select', 'woocommerce'),
-            'i18n_selection_too_long_1' => _x('You can only select 1 item', 'enhanced select', 'woocommerce'),
-            'i18n_selection_too_long_n' => _x('You can only select %qty% items', 'enhanced select', 'woocommerce'),
-            'i18n_load_more' => _x('Loading more results&hellip;', 'enhanced select', 'woocommerce'),
-            'i18n_searching' => _x('Searching&hellip;', 'enhanced select', 'woocommerce'),
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'search_products_nonce' => wp_create_nonce('search-products'),
-            'search_customers_nonce' => wp_create_nonce('search-customers'),
-        ));
+            'wc_enhanced_select_params',
+            array(
+                'i18n_no_matches'           => _x( 'No matches found', 'enhanced select', 'woocommerce' ),
+                'i18n_ajax_error'           => _x( 'Loading failed', 'enhanced select', 'woocommerce' ),
+                'i18n_input_too_short_1'    => _x( 'Please enter 1 or more characters', 'enhanced select', 'woocommerce' ),
+                'i18n_input_too_short_n'    => _x( 'Please enter %qty% or more characters', 'enhanced select', 'woocommerce' ),
+                'i18n_input_too_long_1'     => _x( 'Please delete 1 character', 'enhanced select', 'woocommerce' ),
+                'i18n_input_too_long_n'     => _x( 'Please delete %qty% characters', 'enhanced select', 'woocommerce' ),
+                'i18n_selection_too_long_1' => _x( 'You can only select 1 item', 'enhanced select', 'woocommerce' ),
+                'i18n_selection_too_long_n' => _x( 'You can only select %qty% items', 'enhanced select', 'woocommerce' ),
+                'i18n_load_more'            => _x( 'Loading more results&hellip;', 'enhanced select', 'woocommerce' ),
+                'i18n_searching'            => _x( 'Searching&hellip;', 'enhanced select', 'woocommerce' ),
+                'ajax_url'                  => admin_url( 'admin-ajax.php' ),
+                'search_products_nonce'     => wp_create_nonce( 'search-products' ),
+                'search_customers_nonce'    => wp_create_nonce( 'search-customers' ),
+                'search_categories_nonce'   => wp_create_nonce( 'search-categories' ),
+            )
+        );
+
 
         // Accounting
         wp_localize_script('accounting', 'accounting_params', array(
