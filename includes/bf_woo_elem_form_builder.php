@@ -354,6 +354,22 @@ class bf_woo_elem_form_builder
                     'id' => 'product_regular_price_' . $field_id,
                     'value' => $product_regular_price,
                 ));
+                $regular_price_amount =0;
+                if (isset($buddyform['form_fields'][$field_id]['regular_price_amount'])) {
+                    $regular_price_amount = $buddyform['form_fields'][$field_id]['regular_price_amount'];
+                }
+                $element_regular_price_amount= new Element_Number(
+                    '<b>' . __('Enter Amount: ', 'buddyforms') . ' </b>',
+                    'buddyforms_options[form_fields][' . $field_id . '][regular_price_amount]',
+                    array(
+                        'id' => $field_id . '_regular_price_amount',
+                        'class' => $product_regular_price ==='hidden' ? '':'hidden',
+                        'value' => $regular_price_amount, 'min' => 0,
+
+                    )
+                );
+
+
 
 
 
@@ -373,6 +389,21 @@ class bf_woo_elem_form_builder
                     'value' => $product_sales_price,
                 ));
 
+                $sales_price_amount =0;
+                if (isset($buddyform['form_fields'][$field_id]['sales_price_amount'])) {
+                    $sales_price_amount = $buddyform['form_fields'][$field_id]['sales_price_amount'];
+                }
+                $element_sales_price_amount= new Element_Number(
+                    '<b>' . __('Enter Amount: ', 'buddyforms') . ' </b>',
+                    'buddyforms_options[form_fields][' . $field_id . '][sales_price_amount]',
+                    array(
+                        'id' => $field_id . '_sales_price_amount',
+                        'class' => $product_sales_price ==='hidden' ? '':'hidden',
+                        'value' => $sales_price_amount, 'min' => 0,
+
+                    )
+                );
+
 
 
 
@@ -380,6 +411,11 @@ class bf_woo_elem_form_builder
                 if (isset($buddyform['form_fields'][$field_id]['product_sales_price_dates'])) {
                     $product_sales_price_dates = $buddyform['form_fields'][$field_id]['product_sales_price_dates'];
                 }
+
+
+
+
+
 
                 $element_price_date = new Element_Select('<b>' . __('Sales Price Date', 'buddyforms') . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_sales_price_dates]', array(
                     'hidden' => __('Hide', 'buddyforms'),
@@ -392,14 +428,41 @@ class bf_woo_elem_form_builder
                 ));
 
 
+                $product_sales_start_date = date('Y-m-d');
+                $product_sales_end_date = date('Y-m-d');
+                if (isset($buddyform['form_fields'][$field_id]['product_sales_start_date'])) {
+                    $product_sales_start_date = $buddyform['form_fields'][$field_id]['product_sales_start_date'];
+                }
+
+                if (isset($buddyform['form_fields'][$field_id]['product_sales_end_date'])) {
+                    $product_sales_end_date = $buddyform['form_fields'][$field_id]['product_sales_end_date'];
+                }
+
+                $element_sales_price_start_date = new Element_Date('<b>' . __('Sales Start Date', 'buddyforms') . '</b>','buddyforms_options[form_fields][' . $field_id . '][product_sales_start_date]',array(
+                    'id' => 'product_sales_start_date_' . $field_id,
+                    'class' => $product_sales_price_dates === 'hidden'? '':'hidden',
+                    'value' => $product_sales_start_date,
+                ));
+
+                $element_sales_price_end_date = new Element_Date('<b>' . __('Sales End Date', 'buddyforms') . '</b>','buddyforms_options[form_fields][' . $field_id . '][product_sales_end_date]',array(
+                    'id' => 'product_sales_end_date_' . $field_id,
+                    'class' => $product_sales_price_dates === 'hidden'? '':'hidden',
+                    'value' => $product_sales_end_date,
+                ));
+
+
                 if ($product_type_default === 'booking') {
                     $element_regular_price->setAttribute('class', 'hidden');
                     $element_sales_price->setAttribute('class', 'hidden');
                     $element_price_date->setAttribute('class', 'hidden');
                 }
                 $form_fields['general']['product_regular_price'] = $element_regular_price;
+                $form_fields['general']['regular_price_amount'] = $element_regular_price_amount;
                 $form_fields['general']['product_sales_price'] = $element_sales_price;
+                $form_fields['general']['sales_price_amount'] = $element_sales_price_amount;
                 $form_fields['general']['product_sales_price_dates'] = $element_price_date;
+                $form_fields['general']['product_sales_start_date'] = $element_sales_price_start_date;
+                $form_fields['general']['product_sales_end_date'] = $element_sales_price_end_date;
 
                 $element = new Element_HTML('<hr>');
                 if ($product_type_hidden_checked === 'hidden') {
