@@ -196,7 +196,6 @@ jQuery(document).ready(function ($) {
 
         $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price]"]').change(function () {
             if ($(this).val() === 'hidden') {
-                //$('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price_dates]"]').val('hidden').change();
                 sales_price_amount_row.show();
                 sales_price_amount.show();
             }
@@ -206,11 +205,7 @@ jQuery(document).ready(function ($) {
         });
 
         $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price_dates]"]').change(function () {
-            /*var sale_prices = $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price]"]').val();
-            if (sale_prices === 'hidden') {
-                alert('Sales Price need to be different to Hidden!');
-                $(this).val('hidden');
-            }*/
+            
             if ($(this).val() === 'hidden') {
 
                 price_start_date_row.show();
