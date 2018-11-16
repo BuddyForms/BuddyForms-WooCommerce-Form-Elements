@@ -221,6 +221,9 @@ jQuery(document).ready(function ($) {
             var regularPrice = general_settings_param.product_regular_price;
             if (regularPrice === "hidden") {
                 hide_general_regular_price = true;
+                if(general_settings_param.regular_price_amount){
+                    $('#_regular_price').val(general_settings_param.regular_price_amount);
+                }
                 regular_price.hide();
                 regular_price.parent().hide();
             }
@@ -231,6 +234,9 @@ jQuery(document).ready(function ($) {
             var salesPrice = general_settings_param.product_sales_price;
             if (salesPrice === "hidden") {
                 hide_general_sales_price = true;
+                if(general_settings_param.sales_price_amount){
+                    $('#_sale_price').val(general_settings_param.sales_price_amount);
+                }
                 sale_price.hide();
                 sale_price.parent().hide();
             }
@@ -241,6 +247,11 @@ jQuery(document).ready(function ($) {
             var sales_price_date_opt = general_settings_param.product_sales_price_dates;
             if (sales_price_date_opt === "hidden") {
                 hide_general_price_date = true;
+                if(general_settings_param.product_sales_start_date &&general_settings_param.product_sales_end_date){
+                    $('#_sale_price_dates_from').val(general_settings_param.product_sales_start_date);
+                    $('#_sale_price_dates_to').val(general_settings_param.product_sales_end_date);
+                }
+
                 sale_price_dates_from.parent().hide();
                 $('.sale_schedule').parent().hide();
             }

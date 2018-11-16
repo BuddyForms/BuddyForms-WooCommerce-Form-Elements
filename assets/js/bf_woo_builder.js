@@ -16,18 +16,26 @@ jQuery(document).ready(function ($) {
             booking_has_resources_row = field_row.find("#table_row_" + field_id + "_wc_booking_has_resources"),
             downloadable_row = field_row.find("#table_row_" + field_id + "_downloadable"),
             regular_price_row = field_row.find("#table_row_" + field_id + "_product_regular_price"),
+            regular_price_amount_row = field_row.find("#table_row_" + field_id + "_regular_price_amount"),
             sales_price_row = field_row.find("#table_row_" + field_id + "_product_sales_price"),
+            sales_price_amount_row = field_row.find("#table_row_" + field_id + "_sales_price_amount"),
             price_date_row = field_row.find("#table_row_" + field_id + "_product_sales_price_dates"),
-            download_name_row = field_row.find("#table_row_" + field_id + "__download_name"),
-            download_url_row = field_row.find("#table_row_" + field_id + "__download_url"),
-            download_limit_row = field_row.find("#table_row_" + field_id + "__download_limit"),
-            download_expiry_row = field_row.find("#table_row_" + field_id + "__download_expiry"),
+            price_start_date_row = field_row.find("#table_row_" + field_id + "_product_sales_start_date"),
+            price_end_date_row = field_row.find("#table_row_" + field_id + "_product_sales_end_date"),
+            download_name_row = field_row.find("#table_row_" + field_id + "_download_name"),
+            download_url_row = field_row.find("#table_row_" + field_id + "_download_url"),
+            download_limit_row = field_row.find("#table_row_" + field_id + "_download_limit"),
+            download_expiry_row = field_row.find("#table_row_" + field_id + "_download_expiry"),
             virtual = field_row.find("#_virtual-0"),
             booking_has_person = field_row.find("#_wc_booking_has_persons-0"),
             booking_has_resources = field_row.find("#_wc_booking_has_resources-0"),
             regular_price = field_row.find("#product_regular_price_" + field_id),
+            regular_price_amount = field_row.find("#"+field_id+"_regular_price_amount"),
+            sales_price_amount = field_row.find("#"+field_id+"_sales_price_amount"),
             sale_price = field_row.find("#product_sales_price_" + field_id),
             price_date = field_row.find("#product_sales_price_dates_" + field_id),
+            price_start_date = field_row.find("#product_sales_start_date_" + field_id),
+            price_end_date = field_row.find("#product_sales_end_date_" + field_id),
             downloadable = field_row.find("#_downloadable-0"),
             download_name = field_row.find("#" + field_id + "_download_name"),
             download_url = field_row.find("#" + field_id + "_download_url"),
@@ -174,18 +182,42 @@ jQuery(document).ready(function ($) {
             }
         });
 
+        $('select[name="buddyforms_options[form_fields][' + field_id + '][product_regular_price]"]').change(function () {
+            if ($(this).val() === 'hidden') {
+
+                regular_price_amount_row.show();
+                regular_price_amount.show();
+
+            }
+            else{
+                regular_price_amount_row.hide();
+            }
+        });
+
         $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price]"]').change(function () {
             if ($(this).val() === 'hidden') {
-                $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price_dates]"]').val('hidden');
+                sales_price_amount_row.show();
+                sales_price_amount.show();
+            }
+            else{
+                sales_price_amount_row.hide();
             }
         });
 
         $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price_dates]"]').change(function () {
-            var sale_prices = $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price]"]').val();
-            if (sale_prices === 'hidden') {
-                alert('Sales Price need to be different to Hidden!');
-                $(this).val('hidden');
+            
+            if ($(this).val() === 'hidden') {
+
+                price_start_date_row.show();
+                price_end_date_row.show();
+                price_start_date.show();
+                price_end_date.show();
             }
+            else{
+                price_start_date_row.hide();
+                price_end_date_row.hide();
+            }
+
         });
 
     });
