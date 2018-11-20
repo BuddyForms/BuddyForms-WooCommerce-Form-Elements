@@ -6,7 +6,25 @@
  * @link http://buddyforms.com/downloads/buddyforms-woocommerce-form-elements/
  * @license GPLv2 or later
  */
+
+
 jQuery(document).ready(function ($) {
+
+    jQuery("form").validate();
+    jQuery.validator.addMethod("regular-price", function (value, element) {
+        var match =  /^\d+\.?\d{0,2}$/.test(value);
+        if(match){
+            return true;
+        }
+        return false;
+    }, "Please enter a number  in decimal format (.) without thousands separators and 2 decimal places.");
+    jQuery.validator.addMethod("sales-price", function (value, element) {
+        var match =  /^\d+\.?\d{0,2}$/.test(value);
+        if(match){
+            return true;
+        }
+        return false;
+    }, "Please enter a number  in decimal format (.) without thousands separators and 2 decimal places.");
     jQuery('#sortable_buddyforms_elements li.bf_woocommerce ').each(function () {
         var field_row = jQuery(this),
             field_row_id = field_row.attr('id'),
