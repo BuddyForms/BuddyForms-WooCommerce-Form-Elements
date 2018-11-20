@@ -16,9 +16,9 @@ class bf_woo_elem_form_builder
     public function __construct()
     {
         add_filter('buddyforms_add_form_element_select_option', array($this, 'buddyforms_woocommerce_formbuilder_elements_select'), 1);
-        add_filter('buddyforms_form_element_add_field', array($this, 'buddyforms_woocommerce_create_new_form_builder_form_element'), 1, 5);
+        add_filter('buddyforms_form_element_add_field', array($this, 'buddyforms_woocommerce_create_new_form_builder_form_element'), 999, 5);
         add_filter('bf_submission_column_default', array($this, 'buddyforms_woo_elem_custom_column_default'), 10, 4);
-        add_action('admin_footer', array($this, 'load_js_for_builder'));
+        add_action('admin_enqueue_scripts', array($this, 'load_js_for_builder'),9999);
     }
 
     public function buddyforms_woo_elem_custom_column_default($bf_value, $item, $column_name, $field_slug)
@@ -46,8 +46,11 @@ class bf_woo_elem_form_builder
 
     public function load_js_for_builder($hook)
     {
+
         if ($this->load_script) {
-            wp_enqueue_script('bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array('jquery'), null, true);
+            $url = BF_WOO_ELEM_JS_PATH;
+            wp_enqueue_script('bf_woo_builder',BF_WOO_ELEM_JS_PATH .'bf_woo_builder.js',array(), false,false);
+
 
             wp_enqueue_style('bf_woo_builder', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css');
         }
@@ -87,7 +90,9 @@ class bf_woo_elem_form_builder
 
         $this->load_script = true;
         if ($this->load_script) {
-            wp_enqueue_script('bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array('jquery'), null, true);
+
+            wp_enqueue_script('bf_woo_jvalidate', BF_WOO_ELEM_JS_PATH . 'jquery.validate.min.js', array('jquery'),null,true);
+            wp_enqueue_script('bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array('jquery'), null,false);
             do_action('include_bf_woo_booking_scripts');
             wp_enqueue_style('bf_woo_builder', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css');
         }
@@ -358,13 +363,14 @@ class bf_woo_elem_form_builder
                 if (isset($buddyform['form_fields'][$field_id]['regular_price_amount'])) {
                     $regular_price_amount = $buddyform['form_fields'][$field_id]['regular_price_amount'];
                 }
-                $element_regular_price_amount= new Element_Number(
+                $element_regular_price_amount= new Element_Textbox(
                     '<b>' . __('Enter Amount: ', 'buddyforms') . ' </b>',
                     'buddyforms_options[form_fields][' . $field_id . '][regular_price_amount]',
                     array(
                         'id' => $field_id . '_regular_price_amount',
                         'class' => $product_regular_price ==='hidden' ? '':'hidden',
-                        'value' => $regular_price_amount, 'min' => 0,
+                        'value' => $regular_price_amount,
+                        'data-rule-regular-price'=>'true'
 
                     )
                 );
@@ -393,13 +399,14 @@ class bf_woo_elem_form_builder
                 if (isset($buddyform['form_fields'][$field_id]['sales_price_amount'])) {
                     $sales_price_amount = $buddyform['form_fields'][$field_id]['sales_price_amount'];
                 }
-                $element_sales_price_amount= new Element_Number(
+                $element_sales_price_amount= new Element_Textbox(
                     '<b>' . __('Enter Amount: ', 'buddyforms') . ' </b>',
                     'buddyforms_options[form_fields][' . $field_id . '][sales_price_amount]',
                     array(
                         'id' => $field_id . '_sales_price_amount',
                         'class' => $product_sales_price ==='hidden' ? '':'hidden',
-                        'value' => $sales_price_amount, 'min' => 0,
+                        'value' => $sales_price_amount,
+                        'data-rule-sales-price'=>'true'
 
                     )
                 );
