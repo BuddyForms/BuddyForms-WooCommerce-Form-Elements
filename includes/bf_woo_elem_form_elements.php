@@ -54,8 +54,10 @@ class bf_woo_elem_form_element
 
     public function on_woocommerce_product_type_query($override, $product_id)
     {
-        if ($product_id === $this->current_post_id) {
-            $override = 'simple';
+        if(isset($product_id)){
+            if ($product_id === $this->current_post_id) {
+                $override = 'simple';
+            }
         }
 
         return $override;
