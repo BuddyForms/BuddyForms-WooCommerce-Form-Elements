@@ -21,7 +21,7 @@ class bf_woo_elem_form_elements_save
         add_action('buddyforms_after_save_post', array($this, 'buddyforms_woocommerce_update_wc_post_meta'), 991, 1);
     }
 
-    public function buddyforms_woocommerce_update_post_meta($customfield, $post_id)
+    public function buddyforms_woocommerce_update_post_meta($customfield, $post_id=0)
     {
         if ($customfield['type'] === 'woocommerce') {
             $this->bf_wc_save_meta = true;
@@ -31,8 +31,9 @@ class bf_woo_elem_form_elements_save
         }
     }
 
-    public function buddyforms_woocommerce_update_wc_post_meta($post_id)
+    public function buddyforms_woocommerce_update_wc_post_meta($post_id=0)
     {
+       
         if ($this->bf_wc_save_meta || $this->bf_wc_save_gallery) {
             $post = get_post($post_id);
             $update_post_type = array(
@@ -45,6 +46,7 @@ class bf_woo_elem_form_elements_save
             update_post_meta($post_id, '_visibility', 'visible');
 
             if ($this->bf_wc_save_meta) {
+                $_POST['_visibility']='visible';
                 WC_Meta_Box_Product_Data::save($post_id, $post);
                 do_action('woocommerce_process_product_meta', $post_id);
                 update_post_meta($post_id, 'woocommerce', $post_id);
