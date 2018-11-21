@@ -33,8 +33,7 @@ class bf_woo_elem_form_elements_save
 
     public function buddyforms_woocommerce_update_wc_post_meta($post_id=0)
     {
-        global $post;
-
+       
         if ($this->bf_wc_save_meta || $this->bf_wc_save_gallery) {
             $post = get_post($post_id);
             $update_post_type = array(
