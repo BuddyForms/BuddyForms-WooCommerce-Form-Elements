@@ -44,6 +44,10 @@ jQuery(document).ready(function ($) {
             download_url_row = field_row.find("#table_row_" + field_id + "_download_url"),
             download_limit_row = field_row.find("#table_row_" + field_id + "_download_limit"),
             download_expiry_row = field_row.find("#table_row_" + field_id + "_download_expiry"),
+            sku_value_row = field_row.find("#table_row_" + field_id + "_sku_value"),
+            stock_status_value_row = field_row.find("#table_row_" + field_id + "_product_stock_status"),
+            sold_individually_value_row = field_row.find("#table_row_" + field_id + "_product_sold_individually"),
+
             virtual = field_row.find("#_virtual-0"),
             booking_has_person = field_row.find("#_wc_booking_has_persons-0"),
             booking_has_resources = field_row.find("#_wc_booking_has_resources-0"),
@@ -58,7 +62,10 @@ jQuery(document).ready(function ($) {
             download_name = field_row.find("#" + field_id + "_download_name"),
             download_url = field_row.find("#" + field_id + "_download_url"),
             download_limit = field_row.find("#" + field_id + "_download_limit"),
-            download_expiry = field_row.find("#" + field_id + "_download_expiry")
+            download_expiry = field_row.find("#" + field_id + "_download_expiry"),
+            sku_value = field_row.find("#" + field_id + "_sku_value"),
+            stock_status_value = field_row.find("#" + field_id + "_product_stock_status"),
+            sold_individually_value = field_row.find("#" + field_id + "_product_sold_individually")
         ;
 
         $('select[name="buddyforms_options[form_fields][' + field_id + '][product_type_default]"]').change(function () {
@@ -197,6 +204,45 @@ jQuery(document).ready(function ($) {
                 download_limit.show();
                 download_expiry.show();
 
+            }
+        });
+
+        $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sku]"]').change(function () {
+            if ($(this).val() === 'hidden') {
+
+                sku_value_row.show();
+                sku_value.show();
+                sku_value_row.parent().show();
+
+            }
+            else{
+                sku_value_row.hide();
+            }
+        });
+
+        $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sold_individually_options]"]').change(function () {
+            if ($(this).val() === 'hidden') {
+
+                sold_individually_value_row.show();
+                sold_individually_value.show();
+                sold_individually_value.parent().show();
+
+            }
+            else{
+                sold_individually_value_row.hide();
+            }
+        });
+
+        $('select[name="buddyforms_options[form_fields][' + field_id + '][product_stock_status_options]"]').change(function () {
+            if ($(this).val() === 'hidden') {
+
+                stock_status_value_row.show();
+                stock_status_value.show();
+                stock_status_value.parent().show();
+
+            }
+            else{
+                stock_status_value_row.hide();
             }
         });
 

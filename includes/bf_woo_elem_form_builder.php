@@ -482,17 +482,34 @@ class bf_woo_elem_form_builder
                 $form_fields['general']['hr1'] = $element;
 
                 //$form_fields['general']['product_type_default_div_end'] = new Element_HTML('</div>');
-
+                //SKU
                 $product_sku = 'false';
                 if (isset($buddyform['form_fields'][$field_id]['product_sku'])) {
                     $product_sku = $buddyform['form_fields'][$field_id]['product_sku'];
                 }
                 $form_fields['Inventory']['product_sku'] = new Element_Select('<b>' . __('SKU Field', 'buddyforms') . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_sku]', array(
-                    'none' => 'None',
+                    'none' => __('Not Required', 'buddyforms'),
                     'hidden' => __('Hide', 'buddyforms'),
                     'required' => __('Required', 'buddyforms'),
                 ), array('inline' => 1, 'id' => 'product_sku_' . $field_id, 'value' => $product_sku));
 
+                $sku_value ="";
+                if (isset($buddyform['form_fields'][$field_id]['sku_value'])) {
+                    $sku_value = $buddyform['form_fields'][$field_id]['sku_value'];
+                }
+                $element_sku_value= new Element_Textbox(
+                    '<b>' . __('Enter SKU: ', 'buddyforms') . ' </b>',
+                    'buddyforms_options[form_fields][' . $field_id . '][sku_value]',
+                    array(
+                        'id' => $field_id . '_sku_value',
+                        'class' => $product_sku ==='hidden' ? '':'hidden',
+                        'value' => $sku_value,
+
+
+                    )
+                );
+
+                $form_fields['Inventory']['sku_value'] = $element_sku_value;
 
 
                 // Inventory
@@ -592,60 +609,44 @@ class bf_woo_elem_form_builder
 
                 // Stock Status
                 $product_stock_status_options = isset($buddyform['form_fields'][$field_id]['product_stock_status_options']) ? $buddyform['form_fields'][$field_id]['product_stock_status_options'] : 'false';
-                $element = new Element_Checkbox(
-                    '<b>' . __('Stock Status', 'buddyforms') . '</b>',
-                    'buddyforms_options[form_fields][' . $field_id . '][product_stock_status_options]',
-                    array('hidden' => __('Hide', 'buddyforms')),
-                    array(
-                        'id' => $field_id . '_product_stock_status_options',
-                        'class' => 'bf_hidden_checkbox',
-                        'value' => $product_stock_status_options,
-                    )
-                );
-                $data = $field_id . '_product_stock_status ';
-                $data .= $field_id . '_product_stock_hr1 ';
-                $element->setAttribute('bf_hidden_checkbox', trim($data));
-                $form_fields['Inventory']['product_stock_status_options'] = $element;
 
-                // Stock Status Hidden Value
-                $product_stock_status_checked = $product_stock_status_options === 'false' ? 'hidden' : '';
-                $product_stock_status = isset($buddyform['form_fields'][$field_id]['product_stock_status']) ? $buddyform['form_fields'][$field_id]['product_stock_status'] : 'false';
-                $form_fields['Inventory']['product_stock_status'] = new Element_Select(
-                    '<b>' . __('Select hidden value: ', 'buddyforms') . '</b>',
-                    'buddyforms_options[form_fields][' . $field_id . '][product_stock_status]',
-                    array(
-                        'instock' => __('In stock', 'buddyforms'),
-                        'outofstock' => __('Out of stock', 'buddyforms'),
-                    ),
-                    array(
-                        'id' => $field_id . '_product_stock_status',
-                        'class' => $product_stock_status_checked,
-                        'value' => $product_stock_status,
-                    )
-                );
 
-                //Add separator to keep the stripe table
-                $element = new Element_HTML('<hr>');
-                if ($product_type_hidden_checked === 'hidden') {
-                    $element->setAttribute('class', 'hidden');
+                $form_fields['Inventory']['product_stock_status_options'] = new Element_Select('<b>' . __('Stock Status Option', 'buddyforms') . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_stock_status_options]', array(
+                    'none' => __('Not Required', 'buddyforms'),
+                    'hidden' => __('Hide', 'buddyforms'),
+                    'required' => __('Required', 'buddyforms'),
+                ), array('inline' => 1, 'id' => 'product_stock_status_options' . $field_id, 'value' => $product_stock_status_options));
+
+
+                //Stock Status Value
+
+                $stock_status_value ="";
+                if (isset($buddyform['form_fields'][$field_id]['product_stock_status'])) {
+                    $stock_status_value = $buddyform['form_fields'][$field_id]['product_stock_status'];
                 }
-                $form_fields['Inventory']['product_stock_hr1'] = $element;
+                $form_fields['Inventory']['product_stock_status'] = new Element_Select('<b>' . __('Select Hidden Value', 'buddyforms') . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_stock_status]', array(
+                    'instock' => __('In Stock', 'buddyforms'),
+                    'outofstock' => __('Out of Stock', 'buddyforms'),
+                    'onbackorder' => __('On Back Order', 'buddyforms'),
+                ), array('inline' => 1, 'class' => $product_stock_status_options ==='hidden' ? '':'hidden', 'id' => $field_id . '_product_stock_status' , 'value' => $stock_status_value));
+
+
+
+
 
                 // Sold Individually
                 $product_sold_individually_options = isset($buddyform['form_fields'][$field_id]['product_sold_individually_options']) ? $buddyform['form_fields'][$field_id]['product_sold_individually_options'] : 'false';
-                $element = new Element_Checkbox(
-                    '<b>' . __('Sold Individually', 'buddyforms') . '</b>',
-                    'buddyforms_options[form_fields][' . $field_id . '][product_sold_individually_options]',
-                    array('hidden' => __('Hide', 'buddyforms')),
-                    array(
-                        'id' => $field_id . '_product_sold_individually_options',
-                        'class' => 'bf_hidden_checkbox',
-                        'value' => $product_sold_individually_options,
-                    )
-                );
-                $data = $field_id . '_product_sold_individually';
-                $element->setAttribute('bf_hidden_checkbox', $data);
-                $form_fields['Inventory']['product_sold_individually_options'] = $element;
+
+
+                $form_fields['Inventory']['product_sold_individually_options'] = new Element_Select('<b>' . __('Sold Individually', 'buddyforms') . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_sold_individually_options]', array(
+                    'none' => __('Not Required', 'buddyforms'),
+                    'hidden' => __('Hide', 'buddyforms'),
+                    'required' => __('Required', 'buddyforms'),
+                ), array('inline' => 1, 'id' => 'product_sold_individually_options' . $field_id, 'value' => $product_sold_individually_options));
+
+
+
+
 
                 // Sold Individually Hidden Value
                 $product_sold_individually_checked = $product_sold_individually_options === 'false' ? 'hidden' : '';
@@ -659,7 +660,7 @@ class bf_woo_elem_form_builder
                     ),
                     array(
                         'id' => $field_id . '_product_sold_individually',
-                        'class' => $product_sold_individually_checked,
+                        'class' => $product_sold_individually_options ==='hidden' ? '':'hidden',
                         'value' => $product_sold_individually,
                     )
                 );
