@@ -12,7 +12,20 @@ jQuery('#woocommerce-product-data').prepend(
     }).text('loading...')
 );
 jQuery(document).ready(function ($) {
+    jQuery("form").validate();
+    jQuery.validator.addMethod("sku-required", function (value, element) {
+
+
+        var current_sku_val=  jQuery("#_sku").val();
+        if (current_sku_val!= '') {
+            return true;
+        }
+
+        return false;
+    }, "This field is required.");
     $('form').trigger("reset");
+
+
 
     var select_product_type = jQuery('select#product-type'),
         virtual = jQuery('#_virtual'),
@@ -344,75 +357,105 @@ jQuery(document).ready(function ($) {
         }
     }
 
+
+    var hide_sku, hide_manage_stock, hide_stock, hide_stock_status, hide_sold_individually = false;
+
     //SKU
     if (general_settings_param.product_sku) {
         var sku_option = general_settings_param.product_sku;
-        if (sku_option === "hidden" || sku_option === "none") {
-            sku.parent().hide();
+        if (sku_option === "hidden") {
+            if(general_settings_param.sku_value){
+                jQuery("#_sku").val(general_settings_param.sku_value).change();
+            }
+
+            jQuery(".form-field._sku_field ").hide();
+            hide_sku= true;
         }
+        else if(sku_option === "required")
+        {
+
+            jQuery("#_sku").attr("data-rule-sku-required","true");
+            
+        }
+
+
     }
+
     //endregion
 
     //region Inventory tab
     //Manage stock
     if (general_settings_param.product_manage_stock && general_settings_param.product_manage_stock[0] && general_settings_param.product_manage_stock[0] !== undefined) {
-        var hide_parent_1, hide_parent_2, inev_hide_parent_1, inev_hide_parent_2, inev_hide_parent_3 = false,
+
             manage_stock_opt = general_settings_param.product_manage_stock[0];
         if (manage_stock_opt === "manage") {
             manage_stock.attr('checked', true).change();
+            manage_stock.prop('checked',true);
             //Stock Quantity
-            if (general_settings_param.product_manage_stock_qty_options && general_settings_param.product_manage_stock_qty_options[0]) {
-                var stock_qty_opt = general_settings_param.product_manage_stock_qty_options[0];
-                if (stock_qty_opt === 'default') { //Hide if have default value
-                    stock.parent().hide();
-                    if (general_settings_param.product_manage_stock_qty) {
-                        stock.val(general_settings_param.product_manage_stock_qty);
-                    }
-                    hide_parent_1 = true;
-                }
+            if (general_settings_param.product_manage_stock_qty) {
+               jQuery('#_stock').val(general_settings_param.product_manage_stock_qty);
+            }
+
+            //Stock Low Quantity
+            if (general_settings_param.product_low_stock_qty) {
+                jQuery('#_low_stock_amount').val(general_settings_param.product_low_stock_qty);
             }
             //Allow backorders
-            if (general_settings_param.product_allow_backorders_options && general_settings_param.product_allow_backorders_options[0]) {
-                var backorder_opt = general_settings_param.product_allow_backorders_options[0];
-                if (backorder_opt === 'hidden') { //Hide if have default value
-                    backorders.parent().hide();
-                    if (general_settings_param.product_allow_backorders) {
-                        backorders.find("option:selected").removeAttr('selected');
-                        backorders.find("option[value='" + general_settings_param.product_allow_backorders + "']").prop('selected', 'selected');
-                    }
-                    hide_parent_2 = true;
-                }
+            if (general_settings_param.product_allow_backorders) {
+                jQuery('#_backorders').val(general_settings_param.product_allow_backorders);
             }
-            if (manage_stock_opt === "manage" && hide_parent_1 === true && hide_parent_2 === true) {
-                manage_stock.parent().hide();
-                inev_hide_parent_1 = true;
-            }
+
+
+
+            jQuery(".form-field._manage_stock_field").removeClass("show_if_simple");
+            jQuery(".form-field._manage_stock_field").removeClass("show_if_variable");
+
+            jQuery(".form-field._manage_stock_field").hide();
+            jQuery(".form-field._stock_field").hide();
+            jQuery(".form-field._backorders_field").hide();
+            jQuery(".form-field._low_stock_amount_field").hide();
+
+            hide_manage_stock= true;
+            hide_stock_status = true;
+
         }
     }
     //Sold individually
-    if (general_settings_param.product_sold_individually_options && general_settings_param.product_sold_individually_options[0] && general_settings_param.product_sold_individually_options !== undefined) {
-        var sold_individually_opt = general_settings_param.product_sold_individually_options[0];
+    if (general_settings_param.product_sold_individually_options) {
+        var sold_individually_opt = general_settings_param.product_sold_individually_options;
         if (sold_individually_opt === "hidden") {
-            sold_individually.parent().hide();
+
             if (general_settings_param.product_sold_individually && general_settings_param.product_sold_individually === 'yes') {
                 sold_individually.attr('checked', true).change();
+                sold_individually.prop('checked', true);
             }
-            inev_hide_parent_2 = true;
+
+            jQuery(".form-field._sold_individually_field").removeClass("show_if_simple");
+            jQuery(".form-field._sold_individually_field").removeClass("show_if_variable");
+
+            jQuery(".form-field._sold_individually_field").hide();
+
+            hide_sold_individually = true;
+
         }
     }
     //Stock Status
-    if (general_settings_param.product_stock_status_options && general_settings_param.product_stock_status_options[0] && general_settings_param.product_stock_status_options !== undefined) {
-        var in_stock_opt = general_settings_param.product_stock_status_options[0];
+    if (general_settings_param.product_stock_status_options ) {
+        var in_stock_opt = general_settings_param.product_stock_status_options;
         if (in_stock_opt === "hidden") {
-            stock_status.parent().hide();
+
             if (general_settings_param.product_stock_status) {
-                stock_status.val(general_settings_param.product_stock_status).change();
+                jQuery('#_stock_status').val(general_settings_param.product_stock_status).change();
             }
-            inev_hide_parent_3 = true;
+            jQuery("._stock_status_field").removeClass("hide_if_variable");
+            jQuery("._stock_status_field").removeClass("hide_if_external");
+            jQuery("._stock_status_field").removeClass("hide_if_grouped");
+
+            jQuery('.stock_status_field.form-field._stock_status_field').hide();
         }
     }
 
-    if (inev_hide_parent_1 === true && inev_hide_parent_2 === true && inev_hide_parent_3 === true) {
+    if (hide_sku === true && hide_manage_stock === true && hide_sold_individually === true) {
         $('.inventory_options').removeClass('show_if_simple show_if_variable show_if_grouped show_if_external').hide();
         $('#inventory_product_data').hide();
         tabs_hided.push('inventory_tab');

@@ -48,6 +48,15 @@ jQuery(document).ready(function ($) {
             stock_status_value_row = field_row.find("#table_row_" + field_id + "_product_stock_status"),
             sold_individually_value_row = field_row.find("#table_row_" + field_id + "_product_sold_individually"),
 
+            product_stock_qty_row = field_row.find("#table_row_" + field_id + "_product_manage_stock_qty"),
+            product_low_stock_qty_row = field_row.find("#table_row_" + field_id + "_product_low_stock_qty"),
+            product_allow_backorders_row = field_row.find("#table_row_" + field_id + "_product_allow_backorders"),
+            product_stock_status_options_row  = field_row.find("#table_row_" + field_id + "_product_stock_status_options"),
+            product_stock_status_row  = field_row.find("#table_row_" + field_id + "_product_stock_status"),
+
+
+
+
             virtual = field_row.find("#_virtual-0"),
             booking_has_person = field_row.find("#_wc_booking_has_persons-0"),
             booking_has_resources = field_row.find("#_wc_booking_has_resources-0"),
@@ -65,7 +74,13 @@ jQuery(document).ready(function ($) {
             download_expiry = field_row.find("#" + field_id + "_download_expiry"),
             sku_value = field_row.find("#" + field_id + "_sku_value"),
             stock_status_value = field_row.find("#" + field_id + "_product_stock_status"),
-            sold_individually_value = field_row.find("#" + field_id + "_product_sold_individually")
+            sold_individually_value = field_row.find("#" + field_id + "_product_sold_individually"),
+            product_stock_qty = field_row.find("#" + field_id + "_product_manage_stock_qty"),
+            product_low_stock_qty = field_row.find("#" + field_id + "_product_low_stock_qty"),
+            product_allow_backorders = field_row.find("#" + field_id + "_product_allow_backorders"),
+            product_stock_status_options  = field_row.find("#" + field_id + "_product_stock_status_options"),
+            product_stock_status  = field_row.find("#" + field_id + "_product_stock_status")
+
         ;
 
         $('select[name="buddyforms_options[form_fields][' + field_id + '][product_type_default]"]').change(function () {
@@ -173,6 +188,47 @@ jQuery(document).ready(function ($) {
             downloadable.prop('checked', false);
 
 
+        });
+
+        $('input[name="buddyforms_options[form_fields][' + field_id + '][product_manage_stock][]"]').click(function () {
+            if ($(this).is(':checked')) {
+
+                product_stock_qty_row.show();
+                product_stock_qty.show();
+                product_stock_qty.parent().show();
+
+                product_low_stock_qty_row.show();
+                product_low_stock_qty.show();
+                product_low_stock_qty.parent();
+
+                product_allow_backorders_row.show();
+                product_allow_backorders.show();
+                product_allow_backorders.parent().show();
+
+                product_stock_status_options_row.removeAttr("style");
+                product_stock_status_options_row.hide();
+
+
+                product_stock_status_row.removeAttr("style");
+                product_stock_status_row.hide();
+
+
+
+            } else {
+                product_stock_qty_row.hide();
+                product_low_stock_qty_row.hide();
+                product_allow_backorders_row.hide();
+
+
+                product_stock_status_options_row.show();
+                product_stock_status_options.show();
+                product_stock_status_options.parent().show();
+
+
+                product_stock_status_row.show();
+                product_stock_status.show();
+                product_stock_status.parent().show();
+            }
         });
 
         $('input[name="buddyforms_options[form_fields][' + field_id + '][product_tax_hidden][]"]').click(function () {
