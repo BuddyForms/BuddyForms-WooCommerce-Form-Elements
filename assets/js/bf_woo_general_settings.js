@@ -11,18 +11,42 @@ jQuery('#woocommerce-product-data').prepend(
         'class': 'woo_general_loader'
     }).text('loading...')
 );
-jQuery(document).ready(function ($) {
-    jQuery("form").validate();
-    jQuery.validator.addMethod("sku-required", function (value, element) {
+jQuery(".bf-submit").on('click',function(event){
 
+    var validation_message = '';
+    var continue_submit = true;
+    var visible_tabs = jQuery('ul.wc-tabs li:visible');
+    visible_tabs.each(function (index, value) {
+        visible_tabs.removeClass('active');
+        jQuery(value).addClass('active').find('a').click();
 
-        var current_sku_val=  jQuery("#_sku").val();
-        if (current_sku_val!= '') {
-            return true;
+        jQuery('input,textarea,select').filter('[required]').each(function(i, requiredField){
+
+            if(jQuery(requiredField).val()=='')
+            {
+                validation_message +=jQuery(requiredField).attr('name')+" is required \n";
+                alert(validation_message);
+                continue_submit = false;
+                return false;
+
+            }
+        });
+
+        if(!continue_submit){
+            return false;
         }
 
+    });
+    if(!continue_submit){
         return false;
-    }, "This field is required.");
+    }
+
+return true;
+})
+
+jQuery(document).ready(function ($) {
+
+
     $('form').trigger("reset");
 
 
@@ -371,14 +395,9 @@ jQuery(document).ready(function ($) {
             jQuery(".form-field._sku_field ").hide();
             hide_sku= true;
         }
-        else if(sku_option === "required")
-        {
-
-            jQuery("#_sku").attr("data-rule-sku-required","true");
-            
+        else if(sku_option === "required"){
+            sku.attr("required", true);
         }
-
-
     }
 
     //endregion
