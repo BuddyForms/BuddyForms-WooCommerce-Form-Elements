@@ -120,7 +120,7 @@ class bf_woo_elem_requirements
         );
 
         // Call the tgmpa function to register the required plugins
-        tgmpa($plugins, $config);
+        bf_woo_element_tgmpa($plugins, $config);
     }
 
     private function remove_anonymous_callback_hook($tag, $class, $method)
