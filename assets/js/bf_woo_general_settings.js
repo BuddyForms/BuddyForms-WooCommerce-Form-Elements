@@ -83,10 +83,7 @@ jQuery(document).ready(function ($) {
         main_container = jQuery('#woocommerce-product-data'),
         val
     ;
-    jQuery(sku).rules("add",{required:true,messages: {
-        required: "Required Field",
 
-    }});
 
 
     /**
@@ -181,6 +178,10 @@ jQuery(document).ready(function ($) {
             var sku_option = general_settings_param.product_sku;
             if (sku_option === "required") {
                 sku.attr("required", true);
+                jQuery(sku).rules("add",{required:true,messages: {
+                    required: "Required Field",
+
+                }});
 
                 if (general_settings_param.debug) console.log('SKU is required');
             }
