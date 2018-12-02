@@ -20,12 +20,14 @@ jQuery(".bf-submit").on('click',function(event){
         visible_tabs.removeClass('active');
         jQuery(value).addClass('active').find('a').click();
 
-        jQuery('input,textarea,select').filter('[required]').each(function(i, requiredField){
+        jQuery('input,textarea,select').filter('[required]:visible').each(function(i, requiredField){
 
             if(jQuery(requiredField).val()=='')
             {
-                validation_message +=jQuery(requiredField).attr('name')+" is required \n";
-                alert(validation_message);
+
+
+                var validator = jQuery( "form" ).validate();
+                validator.form();
                 continue_submit = false;
                 return false;
 
@@ -48,7 +50,6 @@ jQuery(document).ready(function ($) {
 
 
     $('form').trigger("reset");
-
 
 
     var select_product_type = jQuery('select#product-type'),
@@ -82,6 +83,8 @@ jQuery(document).ready(function ($) {
         main_container = jQuery('#woocommerce-product-data'),
         val
     ;
+
+
 
     /**
      * Determine wish tab will be default
@@ -122,6 +125,10 @@ jQuery(document).ready(function ($) {
                     var regular_price_opt = general_settings_param.product_regular_price;
                     if (regular_price_opt === "required") {
                         regular_price.attr("required", true);
+                        $(regular_price).rules("add",{required:true,messages: {
+                            required: "Required Field",
+
+                        }});
                         if (general_settings_param.debug) console.log('Regular Price is required now');
                     }
                 }
@@ -131,6 +138,10 @@ jQuery(document).ready(function ($) {
                     var sales_price_opt = general_settings_param.product_sales_price;
                     if (sales_price_opt === "required") {
                         sale_price.attr("required", true);
+                        $(sale_price).rules("add",{required:true,messages: {
+                            required: "Required Field",
+
+                        }});
                         if (general_settings_param.debug) console.log('Sales Price is required now');
                     }
                 }
@@ -141,6 +152,17 @@ jQuery(document).ready(function ($) {
                     if (sales_price_date_opt === "required") {
                         sale_price_dates_from.attr("required", true);
                         sale_price_dates_to.attr("required", true);
+                        jQuery(sale_price_dates_from).rules("add",{required:true,messages: {
+                            required: "Required Field",
+
+                        }});
+
+                        jQuery(sale_price_dates_to).rules("add",{required:true,messages: {
+                            required: "Required Field",
+
+                        }});
+
+
                         $(".cancel_sale_schedule").hide();
                         $(".sale_schedule").hide();
                         $(".sale_price_dates_fields").show();
@@ -156,6 +178,11 @@ jQuery(document).ready(function ($) {
             var sku_option = general_settings_param.product_sku;
             if (sku_option === "required") {
                 sku.attr("required", true);
+                jQuery(sku).rules("add",{required:true,messages: {
+                    required: "Required Field",
+
+                }});
+
                 if (general_settings_param.debug) console.log('SKU is required');
             }
         }
