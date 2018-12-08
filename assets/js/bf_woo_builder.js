@@ -95,12 +95,15 @@ jQuery(document).ready(function ($) {
 
                         regular_price_row.show();
                         regular_price.show();
+                        regular_price.change();
 
                         sales_price_row.show();
                         sale_price.show();
+                        sale_price.change();
 
                         price_date_row.show();
                         price_date.show();
+                        price_date.change();
 
                         break;
                     case 'booking':
@@ -115,8 +118,18 @@ jQuery(document).ready(function ($) {
                         download_expiry_row.hide();
 
                         regular_price_row.hide();
+                        regular_price_amount_row.hide();
+
+
                         sales_price_row.hide();
+                        sales_price_amount_row.hide();
+
+
+
                         price_date_row.hide();
+                        price_start_date_row.hide();
+                        price_end_date_row.hide();
+
                         break;
                     default:
                         virtual_row.hide();
