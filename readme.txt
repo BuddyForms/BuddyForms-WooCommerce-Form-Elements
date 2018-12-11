@@ -94,13 +94,19 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 == Changelog ==
 
-
-
-Changing local environment.
-
-= 1.4.6 7 November 2018 =
+= 1.4.6 10 December 2018 =
 * Fixed the upsell and crossell option to work in the frontend.
 * Fixed the Inventory options.
+* Add prices related input when they are hidden.
+* Add a validation to avoid js errors.
+* Fixed input price in the field option.
+* Fixed the error on the process to create a product.
+* Added Inventory Tab default options and required fields.
+* Prevent form submission when are fields required.
+* Added custom rules to the required fields and css style to the error messages.
+* Move the sku required rule in the right place.
+* Fixed the downloadable fields in the back end.
+* Hide the regular price, sale price and sale date input option when change product type and the input option is selected to "hidden".
 
 = 1.4.5 5 November 2018 =
 * Preparing  to integrate with other new AddOns.

@@ -11,8 +11,46 @@ jQuery('#woocommerce-product-data').prepend(
         'class': 'woo_general_loader'
     }).text('loading...')
 );
+jQuery(".bf-submit").on('click',function(event){
+
+    var validation_message = '';
+    var continue_submit = true;
+    var visible_tabs = jQuery('ul.wc-tabs li:visible');
+    visible_tabs.each(function (index, value) {
+        visible_tabs.removeClass('active');
+        jQuery(value).addClass('active').find('a').click();
+
+        jQuery('input,textarea,select').filter('[required]:visible').each(function(i, requiredField){
+
+            if(jQuery(requiredField).val()=='')
+            {
+
+
+                var validator = jQuery( "form" ).validate();
+                validator.form();
+                continue_submit = false;
+                return false;
+
+            }
+        });
+
+        if(!continue_submit){
+            return false;
+        }
+
+    });
+    if(!continue_submit){
+        return false;
+    }
+
+return true;
+})
+
 jQuery(document).ready(function ($) {
+
+
     $('form').trigger("reset");
+
 
     var select_product_type = jQuery('select#product-type'),
         virtual = jQuery('#_virtual'),
@@ -45,6 +83,8 @@ jQuery(document).ready(function ($) {
         main_container = jQuery('#woocommerce-product-data'),
         val
     ;
+
+
 
     /**
      * Determine wish tab will be default
@@ -85,6 +125,10 @@ jQuery(document).ready(function ($) {
                     var regular_price_opt = general_settings_param.product_regular_price;
                     if (regular_price_opt === "required") {
                         regular_price.attr("required", true);
+                        $(regular_price).rules("add",{required:true,messages: {
+                            required: "Required Field",
+
+                        }});
                         if (general_settings_param.debug) console.log('Regular Price is required now');
                     }
                 }
@@ -94,6 +138,10 @@ jQuery(document).ready(function ($) {
                     var sales_price_opt = general_settings_param.product_sales_price;
                     if (sales_price_opt === "required") {
                         sale_price.attr("required", true);
+                        $(sale_price).rules("add",{required:true,messages: {
+                            required: "Required Field",
+
+                        }});
                         if (general_settings_param.debug) console.log('Sales Price is required now');
                     }
                 }
@@ -104,6 +152,17 @@ jQuery(document).ready(function ($) {
                     if (sales_price_date_opt === "required") {
                         sale_price_dates_from.attr("required", true);
                         sale_price_dates_to.attr("required", true);
+                        jQuery(sale_price_dates_from).rules("add",{required:true,messages: {
+                            required: "Required Field",
+
+                        }});
+
+                        jQuery(sale_price_dates_to).rules("add",{required:true,messages: {
+                            required: "Required Field",
+
+                        }});
+
+
                         $(".cancel_sale_schedule").hide();
                         $(".sale_schedule").hide();
                         $(".sale_price_dates_fields").show();
@@ -119,6 +178,11 @@ jQuery(document).ready(function ($) {
             var sku_option = general_settings_param.product_sku;
             if (sku_option === "required") {
                 sku.attr("required", true);
+                jQuery(sku).rules("add",{required:true,messages: {
+                    required: "Required Field",
+
+                }});
+
                 if (general_settings_param.debug) console.log('SKU is required');
             }
         }
@@ -221,6 +285,9 @@ jQuery(document).ready(function ($) {
             var regularPrice = general_settings_param.product_regular_price;
             if (regularPrice === "hidden") {
                 hide_general_regular_price = true;
+                if(general_settings_param.regular_price_amount){
+                    $('#_regular_price').val(general_settings_param.regular_price_amount);
+                }
                 regular_price.hide();
                 regular_price.parent().hide();
             }
@@ -231,6 +298,9 @@ jQuery(document).ready(function ($) {
             var salesPrice = general_settings_param.product_sales_price;
             if (salesPrice === "hidden") {
                 hide_general_sales_price = true;
+                if(general_settings_param.sales_price_amount){
+                    $('#_sale_price').val(general_settings_param.sales_price_amount);
+                }
                 sale_price.hide();
                 sale_price.parent().hide();
             }
@@ -241,6 +311,11 @@ jQuery(document).ready(function ($) {
             var sales_price_date_opt = general_settings_param.product_sales_price_dates;
             if (sales_price_date_opt === "hidden") {
                 hide_general_price_date = true;
+                if(general_settings_param.product_sales_start_date &&general_settings_param.product_sales_end_date){
+                    $('#_sale_price_dates_from').val(general_settings_param.product_sales_start_date);
+                    $('#_sale_price_dates_to').val(general_settings_param.product_sales_end_date);
+                }
+
                 sale_price_dates_from.parent().hide();
                 $('.sale_schedule').parent().hide();
             }
@@ -333,75 +408,100 @@ jQuery(document).ready(function ($) {
         }
     }
 
+
+    var hide_sku, hide_manage_stock, hide_stock, hide_stock_status, hide_sold_individually = false;
+
     //SKU
     if (general_settings_param.product_sku) {
         var sku_option = general_settings_param.product_sku;
-        if (sku_option === "hidden" || sku_option === "none") {
-            sku.parent().hide();
+        if (sku_option === "hidden") {
+            if(general_settings_param.sku_value){
+                jQuery("#_sku").val(general_settings_param.sku_value).change();
+            }
+
+            jQuery(".form-field._sku_field ").hide();
+            hide_sku= true;
+        }
+        else if(sku_option === "required"){
+            sku.attr("required", true);
         }
     }
+
     //endregion
 
     //region Inventory tab
     //Manage stock
     if (general_settings_param.product_manage_stock && general_settings_param.product_manage_stock[0] && general_settings_param.product_manage_stock[0] !== undefined) {
-        var hide_parent_1, hide_parent_2, inev_hide_parent_1, inev_hide_parent_2, inev_hide_parent_3 = false,
+
             manage_stock_opt = general_settings_param.product_manage_stock[0];
         if (manage_stock_opt === "manage") {
             manage_stock.attr('checked', true).change();
+            manage_stock.prop('checked',true);
             //Stock Quantity
-            if (general_settings_param.product_manage_stock_qty_options && general_settings_param.product_manage_stock_qty_options[0]) {
-                var stock_qty_opt = general_settings_param.product_manage_stock_qty_options[0];
-                if (stock_qty_opt === 'default') { //Hide if have default value
-                    stock.parent().hide();
-                    if (general_settings_param.product_manage_stock_qty) {
-                        stock.val(general_settings_param.product_manage_stock_qty);
-                    }
-                    hide_parent_1 = true;
-                }
+            if (general_settings_param.product_manage_stock_qty) {
+               jQuery('#_stock').val(general_settings_param.product_manage_stock_qty);
+            }
+
+            //Stock Low Quantity
+            if (general_settings_param.product_low_stock_qty) {
+                jQuery('#_low_stock_amount').val(general_settings_param.product_low_stock_qty);
             }
             //Allow backorders
-            if (general_settings_param.product_allow_backorders_options && general_settings_param.product_allow_backorders_options[0]) {
-                var backorder_opt = general_settings_param.product_allow_backorders_options[0];
-                if (backorder_opt === 'hidden') { //Hide if have default value
-                    backorders.parent().hide();
-                    if (general_settings_param.product_allow_backorders) {
-                        backorders.find("option:selected").removeAttr('selected');
-                        backorders.find("option[value='" + general_settings_param.product_allow_backorders + "']").prop('selected', 'selected');
-                    }
-                    hide_parent_2 = true;
-                }
+            if (general_settings_param.product_allow_backorders) {
+                jQuery('#_backorders').val(general_settings_param.product_allow_backorders);
             }
-            if (manage_stock_opt === "manage" && hide_parent_1 === true && hide_parent_2 === true) {
-                manage_stock.parent().hide();
-                inev_hide_parent_1 = true;
-            }
+
+
+
+            jQuery(".form-field._manage_stock_field").removeClass("show_if_simple");
+            jQuery(".form-field._manage_stock_field").removeClass("show_if_variable");
+
+            jQuery(".form-field._manage_stock_field").hide();
+            jQuery(".form-field._stock_field").hide();
+            jQuery(".form-field._backorders_field").hide();
+            jQuery(".form-field._low_stock_amount_field").hide();
+
+            hide_manage_stock= true;
+            hide_stock_status = true;
+
         }
     }
     //Sold individually
-    if (general_settings_param.product_sold_individually_options && general_settings_param.product_sold_individually_options[0] && general_settings_param.product_sold_individually_options !== undefined) {
-        var sold_individually_opt = general_settings_param.product_sold_individually_options[0];
+    if (general_settings_param.product_sold_individually_options) {
+        var sold_individually_opt = general_settings_param.product_sold_individually_options;
         if (sold_individually_opt === "hidden") {
-            sold_individually.parent().hide();
+
             if (general_settings_param.product_sold_individually && general_settings_param.product_sold_individually === 'yes') {
                 sold_individually.attr('checked', true).change();
+                sold_individually.prop('checked', true);
             }
-            inev_hide_parent_2 = true;
+
+            jQuery(".form-field._sold_individually_field").removeClass("show_if_simple");
+            jQuery(".form-field._sold_individually_field").removeClass("show_if_variable");
+
+            jQuery(".form-field._sold_individually_field").hide();
+
+            hide_sold_individually = true;
+
         }
     }
     //Stock Status
-    if (general_settings_param.product_stock_status_options && general_settings_param.product_stock_status_options[0] && general_settings_param.product_stock_status_options !== undefined) {
-        var in_stock_opt = general_settings_param.product_stock_status_options[0];
+    if (general_settings_param.product_stock_status_options ) {
+        var in_stock_opt = general_settings_param.product_stock_status_options;
         if (in_stock_opt === "hidden") {
-            stock_status.parent().hide();
+
             if (general_settings_param.product_stock_status) {
-                stock_status.val(general_settings_param.product_stock_status).change();
+                jQuery('#_stock_status').val(general_settings_param.product_stock_status).change();
             }
-            inev_hide_parent_3 = true;
+            jQuery("._stock_status_field").removeClass("hide_if_variable");
+            jQuery("._stock_status_field").removeClass("hide_if_external");
+            jQuery("._stock_status_field").removeClass("hide_if_grouped");
+
+            jQuery('.stock_status_field.form-field._stock_status_field').hide();
         }
     }
 
-    if (inev_hide_parent_1 === true && inev_hide_parent_2 === true && inev_hide_parent_3 === true) {
+    if (hide_sku === true && hide_manage_stock === true && hide_sold_individually === true) {
         $('.inventory_options').removeClass('show_if_simple show_if_variable show_if_grouped show_if_external').hide();
         $('#inventory_product_data').hide();
         tabs_hided.push('inventory_tab');
