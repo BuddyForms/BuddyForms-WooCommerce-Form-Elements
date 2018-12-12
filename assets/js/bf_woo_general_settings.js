@@ -24,10 +24,15 @@ jQuery(".bf-submit").on('click',function(event){
 
             if(jQuery(requiredField).val()=='')
             {
+                var formSlug = jQuery('input[name="form_slug"]');
+                if (formSlug.length > 0 && formSlug.val()) {
+                    var buddyformsForm = jQuery("form[id='buddyforms_form_" + formSlug.val() + "']");
+                    var validator = jQuery( buddyformsForm ).validate();
+                    validator.form();
+                }
 
 
-                var validator = jQuery( "form" ).validate();
-                validator.form();
+
                 continue_submit = false;
                 return false;
 
