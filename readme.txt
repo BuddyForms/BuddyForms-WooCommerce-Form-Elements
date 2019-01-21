@@ -3,8 +3,8 @@
 Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
-Tested up to: 4.9
-Stable tag: 1.4.6
+Tested up to: 5.0
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,9 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+= 1.4.7 21 Jan. 2019 =
+* Make sure we executed the validation rules in the right form
+* Make sure that the rules of the form will, execute when the page contains more than one form
 
 = 1.4.6 10 December 2018 =
 * Fixed the upsell and crossell option to work in the frontend.
