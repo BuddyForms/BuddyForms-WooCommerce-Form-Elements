@@ -24,13 +24,17 @@ jQuery(".bf-submit").on('click',function(event){
 
             if(jQuery(requiredField).val()=='')
             {
+                //This is to garantee that the rules of the form will
+                //execute when the page contains more than one form
 
-
-                var validator = jQuery( "form" ).validate();
-                validator.form();
+                var formSlug = jQuery('input[name="form_slug"]');
+                if (formSlug.length > 0 && formSlug.val()) {
+                    var buddyformsForm = jQuery("form[id='buddyforms_form_" + formSlug.val() + "']");
+                    var validator = jQuery( buddyformsForm ).validate();
+                    validator.form();
+                }
                 continue_submit = false;
                 return false;
-
             }
         });
 
