@@ -40,7 +40,7 @@ class bf_woo_elem_form_element {
 
 		// check if block and get out of here for now
 		// @todo Add Block Support if possible
-		if ( ! ( buddyforms_is_gutenberg_page() || is_admin() ) ) {
+		if ( ! ( buddyforms2_is_gutenberg_page() || is_admin() ) ) {
 			add_filter( 'buddyforms_create_edit_form_display_element', array(
 				$this,
 				'buddyforms_woocommerce_create_new_form_builder',
