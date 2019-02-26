@@ -134,9 +134,12 @@ jQuery(document).ready(function ($) {
                     default:
                         virtual_row.hide();
                         downloadable_row.hide();
+                        download_name_row.hide();
+                        download_url_row.hide();
+                        download_limit_row.hide();
+                        download_expiry_row.hide();
                 }
                 virtual.attr('checked', false).change();
-                downloadable.attr('checked', false).change();
                 downloadable.prop('checked', false);
             }
         });
@@ -186,18 +189,23 @@ jQuery(document).ready(function ($) {
                         virtual.show();
 
                         downloadable_row.hide();
+
+
                         break;
                     default:
                         booking_has_person_row.hide();
                         booking_has_resources_row.hide();
                         virtual_row.hide();
                         downloadable_row.hide();
+                        download_name_row.hide();
+                        download_url_row.hide();
+                        download_limit_row.hide();
+                        download_expiry_row.hide();
 
                 }
             }
             virtual.attr('checked', false).change();
             virtual.prop('checked', false);
-            downloadable.attr('checked', false).change();
             downloadable.prop('checked', false);
 
 
