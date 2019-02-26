@@ -134,14 +134,10 @@ jQuery(document).ready(function ($) {
                     default:
                         virtual_row.hide();
                         downloadable_row.hide();
-                        download_name_row.hide();
-                        download_url_row.hide();
-                        download_limit_row.hide();
-                        download_expiry_row.hide();
                 }
                 virtual.attr('checked', false).change();
+                downloadable.attr('checked', false).change();
                 downloadable.prop('checked', false);
-
             }
         });
         $('input[name="buddyforms_options[form_fields][' + field_id + '][product_type_hidden][]"]').click(function () {
@@ -196,15 +192,12 @@ jQuery(document).ready(function ($) {
                         booking_has_resources_row.hide();
                         virtual_row.hide();
                         downloadable_row.hide();
-                        download_name_row.hide();
-                        download_url_row.hide();
-                        download_limit_row.hide();
-                        download_expiry_row.hide();
 
                 }
             }
             virtual.attr('checked', false).change();
             virtual.prop('checked', false);
+            downloadable.attr('checked', false).change();
             downloadable.prop('checked', false);
 
 
