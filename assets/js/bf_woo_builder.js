@@ -149,6 +149,11 @@ jQuery(document).ready(function ($) {
                 downloadable_row.removeAttr('style');
                 booking_has_person_row.removeAttr('style');
                 booking_has_resources_row.removeAttr('style');
+                downloadable_row.hide();
+                download_name_row.hide();
+                download_url_row.hide();
+                download_limit_row.hide();
+                download_expiry_row.hide();
             } else {
                 var product_type = $("#product-type").val();
                 switch (product_type) {
@@ -165,10 +170,7 @@ jQuery(document).ready(function ($) {
                         booking_has_person_row.hide();
                         booking_has_resources_row.hide();
 
-                        download_name_row.show();
-                        download_url_row.show();
-                        download_limit_row.show();
-                        download_expiry_row.show();
+
                         break;
                     case 'booking':
                         download_name_row.hide();
