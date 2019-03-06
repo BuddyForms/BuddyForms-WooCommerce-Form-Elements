@@ -40,12 +40,11 @@ class bf_woo_elem_form_element {
 
 		// check if block and get out of here for now
 		// @todo Add Block Support if possible
-		if ( ! ( buddyforms2_is_gutenberg_page() || is_admin() ) ) {
 			add_filter( 'buddyforms_create_edit_form_display_element', array(
 				$this,
 				'buddyforms_woocommerce_create_new_form_builder',
 			), 1, 2 );
-		}
+
 			$this->helpTip();
 			add_filter( 'woocommerce_product_type_query', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
 			add_filter( 'woocommerce_process_product_meta', array(
@@ -139,9 +138,9 @@ class bf_woo_elem_form_element {
 
 			// hack to make the blocks work in WordPress 5
 			// todo: this is just a quick solution. we need real Gutenberg support!
-			if(! has_blocks($post)) {
-				return $form;
-			}
+			//if(! has_blocks($post)) {
+				//return $form;
+			//}
 
 			$temp_post = clone $post;
 			if ( ! empty( $form_args['post_id'] ) ) {
