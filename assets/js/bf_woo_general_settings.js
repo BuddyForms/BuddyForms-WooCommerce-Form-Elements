@@ -570,7 +570,7 @@ jQuery(document).ready(function ($) {
     var linked_parent_hide_1 = false, linked_parent_hide_2 = false, linked_parent_hide_3 = false;
     if (general_settings_param.product_up_sales && general_settings_param.product_up_sales[0] && general_settings_param.product_up_sales !== undefined) {
         var up_sales_opt = general_settings_param.product_up_sales[0];
-        if (up_sales_opt === "hidden") {
+        if (up_sales_opt === "hide_up_sales") {
             $("#upsell_ids").parent().remove();
             linked_parent_hide_1 = true;
         }
@@ -578,7 +578,7 @@ jQuery(document).ready(function ($) {
     //Cross Sales
     if (general_settings_param.product_cross_sales && general_settings_param.product_cross_sales[0] && general_settings_param.product_cross_sales !== undefined) {
         var crosssell_opt = general_settings_param.product_cross_sales[0];
-        if (crosssell_opt === "hidden") {
+        if (crosssell_opt === "hide_cross_sales") {
             $("#crosssell_ids").parent().remove();
             linked_parent_hide_2 = true;
         }
@@ -586,7 +586,7 @@ jQuery(document).ready(function ($) {
     //Grouped
     if (general_settings_param.product_grouping && general_settings_param.product_grouping[0] && general_settings_param.product_grouping !== undefined) {
         var grouped_opt = general_settings_param.product_grouping[0];
-        if (grouped_opt === "hidden") {
+        if (grouped_opt === "hide_grouping") {
             $("#grouped_products").parent().remove();
             linked_parent_hide_3 = true;
         }
