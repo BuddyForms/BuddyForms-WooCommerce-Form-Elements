@@ -518,7 +518,7 @@ jQuery(document).ready(function ($) {
         var shipp_hide_parent_1, shipp_hide_parent_2, shipp_hide_parent_3, shipp_hide_parent_4, shipp_hide_parent_5,
             shipp_hide_parent_6 = false,
             shipping_opt = general_settings_param.product_shipping_hidden[0];
-        if (shipping_opt === "hidden") {
+        if (shipping_opt === "hide_shipping") {
             //Hide the entire tab
             $('.shipping_options').addClass('hide_if_simple hide_if_auction hide_if_variable').hide();
             $('#shipping_product_data').hide();
