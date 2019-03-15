@@ -620,7 +620,7 @@ jQuery(document).ready(function ($) {
     //region Advance
     var hide_advance_parent1 = false, hide_advance_parent2 = false, hide_advance_parent3 = false;
     if (general_settings_param.hide_purchase_notes && general_settings_param.hide_purchase_notes[0]
-        && general_settings_param.hide_purchase_notes[0] === 'hidden') {
+        && general_settings_param.hide_purchase_notes[0] === 'hide_advanced') {
         purchase_note.parent().hide();
         hide_advance_parent1 = true;
         if (general_settings_param.purchase_notes && general_settings_param.purchase_notes !== "") {
@@ -628,7 +628,7 @@ jQuery(document).ready(function ($) {
         }
     }
     if (general_settings_param.hide_menu_order && general_settings_param.hide_menu_order[0]
-        && general_settings_param.hide_menu_order[0] === 'hidden') {
+        && general_settings_param.hide_menu_order[0] === 'hide_menu_order') {
         menu_order_input.parent().hide();
         hide_advance_parent2 = true;
         if (general_settings_param.menu_order && general_settings_param.menu_order !== "") {
@@ -636,7 +636,7 @@ jQuery(document).ready(function ($) {
         }
     }
     if (general_settings_param.hide_enable_review_orders && general_settings_param.hide_enable_review_orders[0]
-        && general_settings_param.hide_enable_review_orders[0] === 'hidden') {
+        && general_settings_param.hide_enable_review_orders[0] === 'hide_review_order') {
         reviews_allowed.parent().hide();
         hide_advance_parent3 = true;
         if (general_settings_param.enable_review_orders === 'yes') {
