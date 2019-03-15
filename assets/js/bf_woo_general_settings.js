@@ -601,7 +601,7 @@ jQuery(document).ready(function ($) {
 
     //region Attributes
     if (general_settings_param.attributes_hide_tab && general_settings_param.attributes_hide_tab[0]
-        && general_settings_param.attributes_hide_tab[0] === 'hidden') {
+        && general_settings_param.attributes_hide_tab[0] === 'hide_attributes') {
         attribute_container.hide();
         attribute_tab.hide();
         tabs_hided.push('attribute_tab');
