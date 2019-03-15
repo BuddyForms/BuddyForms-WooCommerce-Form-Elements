@@ -327,7 +327,7 @@ jQuery(document).ready(function ($) {
 
         //Set Product Type if they are hidden
         if (general_settings_param.product_type_hidden && general_settings_param.product_type_hidden[0] &&
-            general_settings_param.product_type_hidden[0] === 'hidden') {
+            general_settings_param.product_type_hidden[0] === 'hide_product_type') {
             hide_general_proudct_type = true;
             //Set the prodcut type
             if (general_settings_param.product_type_default) {
