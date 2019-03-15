@@ -601,7 +601,7 @@ jQuery(document).ready(function ($) {
 
     //region Attributes
     if (general_settings_param.attributes_hide_tab && general_settings_param.attributes_hide_tab[0]
-        && general_settings_param.attributes_hide_tab[0] === 'hidden') {
+        && general_settings_param.attributes_hide_tab[0] === 'hide_attributes') {
         attribute_container.hide();
         attribute_tab.hide();
         tabs_hided.push('attribute_tab');
@@ -610,7 +610,7 @@ jQuery(document).ready(function ($) {
 
     //region Variations
     if (general_settings_param.variations_hide_tab && general_settings_param.variations_hide_tab[0]
-        && general_settings_param.variations_hide_tab[0] === 'hidden') {
+        && general_settings_param.variations_hide_tab[0] === 'hide_variations') {
         variations_container.hide();
         variations_tab.removeClass('show_if_variable').hide();
         tabs_hided.push('variations_tab');
