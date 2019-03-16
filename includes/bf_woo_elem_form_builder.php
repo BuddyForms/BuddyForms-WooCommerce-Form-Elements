@@ -217,6 +217,10 @@ class bf_woo_elem_form_builder
                     'external' => __('External/Affiliate product', 'woocommerce'),
                     'variable' => __('Variable product', 'woocommerce'),
                 ), $product_type);
+                $is_bf_woo_booking_active = apply_filters('bf_woo_booking_dependency',false);
+                if(!$is_bf_woo_booking_active){
+                    unset($product_type_selector['booking']);
+                }
 
                 $form_fields['general']['product_type_default'] = new Element_Select(
                     '<b>' . __('Default Product Type: ', 'buddyforms') . '</b>',
