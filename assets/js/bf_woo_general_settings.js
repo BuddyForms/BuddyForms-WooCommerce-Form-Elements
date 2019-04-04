@@ -83,7 +83,7 @@ jQuery(document).ready(function ($) {
         advanced_container = jQuery('#advanced_product_data'),
         purchase_note = $('#_purchase_note'),
         menu_order_input = $('#menu_order'),
-        reviews_allowed = $('#_reviews_allowed'),
+        reviews_allowed = $('#comment_status'),
         main_container = jQuery('#woocommerce-product-data'),
         val
     ;
