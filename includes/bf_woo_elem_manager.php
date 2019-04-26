@@ -14,7 +14,7 @@ if (! defined('ABSPATH')) {
 
 class bf_woo_elem_manager
 {
-    protected static $version = '1.4.6';
+    protected static $version = '1.4.8';
 
     private static $plugin_slug = 'bf_woo_elem';
 
