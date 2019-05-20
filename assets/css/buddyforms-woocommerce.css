@@ -6,6 +6,11 @@
  * @link http://buddyforms.com/downloads/buddyforms-woocommerce-form-elements/
  * @license GPLv2 or later
  */
+.woocommerce_options_panel .description {
+    display: block !important;
+    clear: both;
+    margin-left: 0;
+}
 .woo_elem_container {
     width: 100%;
     float: left;
