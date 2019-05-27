@@ -246,7 +246,7 @@ jQuery(document).ready(function ($) {
     //Remove not implemented tabs
     if (general_settings_param.disable_tabs) {
         jQuery.each(general_settings_param.disable_tabs, function (key, value) {
-            if (general_settings_param[value] && general_settings_param[value][0] === 'hidden') {
+            if (general_settings_param[value] && general_settings_param[value][0] === 'hide_remove') {
                 jQuery.each(jQuery('.woo_element_span').find('#product-type').find('option'), function () {
                     if (value.indexOf(jQuery(this).val()) !== -1) {
                         jQuery(this).remove();
