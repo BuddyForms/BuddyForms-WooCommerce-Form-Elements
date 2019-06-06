@@ -28,6 +28,7 @@ if ( class_exists( 'Element_Price' ) ) {
 		}
 
 		public static function builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyform ) {
+			$form_fields = parent::builder_element_options($form_fields, $form_slug, $field_type, $field_id, $buddyform);
 			unset( $form_fields['advanced']['slug'] );
 			unset( $form_fields['advanced']['metabox_enabled'] );
 			$form_fields['hidden']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'regular_price' );
