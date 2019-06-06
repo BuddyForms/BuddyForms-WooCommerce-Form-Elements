@@ -1,5 +1,4 @@
 <?php
-
 /*
  * @package WordPress
  * @subpackage BuddyPress, Woocommerce, BuddyForms
@@ -37,20 +36,13 @@ class bf_woo_elem_form_element {
 	private $current_post_id;
 
 	public function __construct() {
-
 		// check if block and get out of here for now
 		// @todo Add Block Support if possible
-			add_filter( 'buddyforms_create_edit_form_display_element', array(
-				$this,
-				'buddyforms_woocommerce_create_new_form_builder',
-			), 1, 2 );
+			add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_new_form_builder', ), 1, 2 );
 
 			$this->helpTip();
 			add_filter( 'woocommerce_product_type_query', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
-			add_filter( 'woocommerce_process_product_meta', array(
-				$this,
-				'on_woocommerce_product_type_query'
-			), 10, 2 );
+			add_filter( 'woocommerce_process_product_meta', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
 			add_filter( 'buddyforms_set_post_id_for_draft', array( $this, 'post_id_for_draft' ), 10, 3 );
 
 	}
