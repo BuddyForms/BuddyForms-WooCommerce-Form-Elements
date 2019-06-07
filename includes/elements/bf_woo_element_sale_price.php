@@ -13,7 +13,7 @@ if ( class_exists( 'Element_Price' ) ) {
 
 		public static function definition() {
 			return array(
-				'sale_price' => array(
+				'_sale_price' => array(
 					'label'  => __( 'Sale Price', 'buddyforms' ),
 					'unique' => 'unique',
 				)
@@ -31,7 +31,7 @@ if ( class_exists( 'Element_Price' ) ) {
 			$form_fields = parent::builder_element_options($form_fields, $form_slug, $field_type, $field_id, $buddyform);
 			unset( $form_fields['advanced']['slug'] );
 			unset( $form_fields['advanced']['metabox_enabled'] );
-			$form_fields['hidden']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'sale_price' );
+			$form_fields['hidden']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_sale_price' );
 			$form_fields['hidden']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
 
 			return $form_fields;

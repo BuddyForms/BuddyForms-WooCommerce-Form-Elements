@@ -71,10 +71,10 @@ class bf_woo_element_handler {
 		) {
 			/** @var string $field_type */
 			switch ( $field_type ) {
-				case 'regular_price':
+				case '_regular_price':
 					$form->addElement( new bf_woo_elem_regular_price( $name, $slug, $element_attr, $customfield ) );
 					break;
-				case 'sale_price':
+				case '_sale_price':
 					$form->addElement( new bf_woo_elem_sale_price( $name, $slug, $element_attr, $customfield ) );
 					break;
 			}
@@ -105,10 +105,10 @@ class bf_woo_element_handler {
 		}
 
 		switch ( $field_type ) {
-			case 'regular_price':
+			case '_regular_price':
 				$form_fields = bf_woo_elem_regular_price::builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyform );
 				break;
-			case 'sale_price':
+			case '_sale_price':
 				$form_fields = bf_woo_elem_sale_price::builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyform );
 				break;
 		}

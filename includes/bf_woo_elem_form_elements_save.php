@@ -23,7 +23,8 @@ class bf_woo_elem_form_elements_save
 
     public function buddyforms_woocommerce_update_post_meta($customfield, $post_id=0)
     {
-        if ($customfield['type'] === 'woocommerce') {
+        if ($customfield['type'] === 'woocommerce' || $customfield['type'] === '_regular_price'
+        ||$customfield['type'] === '_sale_price') {
             $this->bf_wc_save_meta = true;
         }
         if ($customfield['type'] === 'product-gallery') {

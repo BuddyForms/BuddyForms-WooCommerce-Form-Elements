@@ -13,7 +13,7 @@ if ( class_exists( 'Element_Price' ) ) {
 
 		public static function definition() {
 			return array(
-				'regular_price' => array(
+				'_regular_price' => array(
 					'label'  => __( 'Regular Price', 'buddyforms' ),
 					'unique' => 'unique',
 				)
@@ -23,6 +23,7 @@ if ( class_exists( 'Element_Price' ) ) {
 		public function render() {
 			if ( ! empty( $this->field_options ) ) {
 				$this->_attributes["class"] .= ' bf_woo_price bf_woo_regular_price';
+                $this->_attributes["name"] = '_regular_price';
 			}
 			parent::render();
 		}
@@ -31,7 +32,7 @@ if ( class_exists( 'Element_Price' ) ) {
 			$form_fields = parent::builder_element_options($form_fields, $form_slug, $field_type, $field_id, $buddyform);
 			unset( $form_fields['advanced']['slug'] );
 			unset( $form_fields['advanced']['metabox_enabled'] );
-			$form_fields['hidden']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'regular_price' );
+			$form_fields['hidden']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_regular_price' );
 			$form_fields['hidden']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
 
 			return $form_fields;
