@@ -22,7 +22,7 @@ if ( class_exists( 'Element_Price' ) ) {
 
 		public function render() {
 			if ( ! empty( $this->field_options ) ) {
-				$this->_attributes["class"] .= ' bf_woo_price bf_woo_regular_price';
+				$this->_attributes["class"] .= 'short wc_input_price';
                 $this->_attributes["name"] = '_regular_price';
 			}
 			parent::render();
