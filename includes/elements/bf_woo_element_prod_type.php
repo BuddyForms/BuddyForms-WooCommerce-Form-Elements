@@ -21,9 +21,14 @@ if ( class_exists( 'Element_Select' ) ) {
             );
         }
         public function render() {
+            global $buddyforms;
 
             $this->_attributes["id"] = 'product-type';
             $this->_attributes["name"] = 'product-type';
+            $form_slug = $this->options['data-form'];
+            $field_id = $this->options['field_id'];
+            $form_fields = $buddyforms[$form_slug]['form_fields'];
+            $this->_attributes["value"] = isset($form_fields[$field_id]['product_type_default'])? $form_fields[$field_id]['product_type_default']: 'simple';
             $this->options = wc_get_product_types();
             parent::render();
         }

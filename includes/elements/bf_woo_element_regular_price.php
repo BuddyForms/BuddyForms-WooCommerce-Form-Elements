@@ -9,7 +9,7 @@
  */
 
 if ( class_exists( 'Element_Price' ) ) {
-	class bf_woo_elem_regular_price extends Element_Price {
+	class bf_woo_elem_regular_price extends Element_Textbox {
 
 		public static function definition() {
 			return array(
@@ -21,6 +21,8 @@ if ( class_exists( 'Element_Price' ) ) {
 		}
 
 		public function render() {
+
+            $description = $this->field_options['description'];
 			if ( ! empty( $this->field_options ) ) {
 				$this->_attributes["class"] = 'short wc_input_price';
                 $this->_attributes["name"] = '_regular_price';
@@ -28,8 +30,9 @@ if ( class_exists( 'Element_Price' ) ) {
             echo '<div class="pricing show_if_simple show_if_external">';
 
             echo '<input', $this->getAttributes(), '/>';
-
+            echo '<span class="help-inline">'.$description.'</span>';
             echo '</div>';
+            $this->shortDesc ='';
 		}
 
 		public static function builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyform ) {
