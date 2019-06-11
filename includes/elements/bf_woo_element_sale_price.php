@@ -9,7 +9,7 @@
  */
 
 if ( class_exists( 'Element_Price' ) ) {
-	class bf_woo_elem_sale_price extends Element_Price {
+	class bf_woo_elem_sale_price extends Element_Textbox {
 
 		public static function definition() {
 			return array(
@@ -22,13 +22,17 @@ if ( class_exists( 'Element_Price' ) ) {
 
 		public function render() {
 			if ( ! empty( $this->field_options ) ) {
-				$this->_attributes["class"] .= 'short wc_input_price';
+				$this->_attributes["class"] = 'short wc_input_price';
 			}
-			parent::render();
+			echo '<div class="pricing show_if_simple show_if_external">';
+
+            echo '<input', $this->getAttributes(), '/>';
+
+            echo '</div>';
 		}
 
 		public static function builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyform ) {
-			$form_fields = parent::builder_element_options($form_fields, $form_slug, $field_type, $field_id, $buddyform);
+			//$form_fields = parent::builder_element_options($form_fields, $form_slug, $field_type, $field_id, $buddyform);
 			unset( $form_fields['advanced']['slug'] );
 			unset( $form_fields['advanced']['metabox_enabled'] );
 			$form_fields['hidden']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_sale_price' );
