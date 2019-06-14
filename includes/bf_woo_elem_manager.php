@@ -36,6 +36,19 @@ class bf_woo_elem_manager
 
     public function bf_wc_fe_includes()
     {
+    	//Load fields element
+	    require_once BUDDYFORMS_INCLUDES_PATH . '/resources/pfbc/Base.php';
+		require_once BUDDYFORMS_INCLUDES_PATH . '/resources/pfbc/Element.php';
+		require_once BUDDYFORMS_INCLUDES_PATH . '/resources/pfbc/Element/Textbox.php';
+		require_once BUDDYFORMS_INCLUDES_PATH . '/resources/pfbc/Element/Price.php';
+        require_once BUDDYFORMS_INCLUDES_PATH . '/resources/pfbc/OptionElement.php';
+        require_once BUDDYFORMS_INCLUDES_PATH . '/resources/pfbc/Element/Select.php';
+        require_once BF_WOO_ELEM_INCLUDES_PATH . 'elements'.DIRECTORY_SEPARATOR.'bf_woo_element_prod_type.php';
+		require_once BF_WOO_ELEM_INCLUDES_PATH . 'elements'.DIRECTORY_SEPARATOR.'bf_woo_element_regular_price.php';
+		require_once BF_WOO_ELEM_INCLUDES_PATH . 'elements'.DIRECTORY_SEPARATOR.'bf_woo_element_sale_price.php';
+    	require_once BF_WOO_ELEM_INCLUDES_PATH . 'elements'.DIRECTORY_SEPARATOR.'bf_woo_element_handler.php';
+    	new bf_woo_element_handler();
+
         require_once BF_WOO_ELEM_INCLUDES_PATH . 'bf_woo_elem_form_builder.php';
         new bf_woo_elem_form_builder();
         do_action('buddyforms_bookeable_product_display_element');
