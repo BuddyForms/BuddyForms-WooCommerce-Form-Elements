@@ -8,7 +8,7 @@
  * @license GPLv2 or later
  */
 
-if ( class_exists( 'Element_Price' ) ) {
+if ( class_exists( 'Element_Textbox' ) ) {
 	class bf_woo_elem_sale_price extends Element_Textbox {
 
 		public static function definition() {
@@ -33,8 +33,7 @@ if ( class_exists( 'Element_Price' ) ) {
             $this->shortDesc ='';
 		}
 
-		public static function builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyform ) {
-			//$form_fields = parent::builder_element_options($form_fields, $form_slug, $field_type, $field_id, $buddyform);
+		public static function builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyforms ) {
 			unset( $form_fields['advanced']['slug'] );
 			unset( $form_fields['advanced']['metabox_enabled'] );
 			$form_fields['hidden']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", '_sale_price' );

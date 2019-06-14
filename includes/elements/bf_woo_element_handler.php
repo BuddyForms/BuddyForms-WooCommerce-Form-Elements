@@ -36,7 +36,7 @@ class bf_woo_element_handler {
 		if ( $post->post_type !== 'buddyforms' ) {
 			return $elements_select_options;
 		}
-        //require_once ('bf_woo_element_prod_type.php');
+
 		if ( ! empty( $elements_select_options['woocommerce'] ) && ! empty( $elements_select_options['woocommerce']['fields'] ) ) {
 
 			$elements_select_options['woocommerce']['fields'] = array_merge( $elements_select_options['woocommerce']['fields'], bf_woo_elem_regular_price::definition() );
@@ -85,7 +85,6 @@ class bf_woo_element_handler {
 					$form->addElement( new bf_woo_elem_sale_price( $name, $slug, $element_attr, $customfield ) );
 					break;
                 case 'product-type':
-
                     $form->addElement( new bf_woo_elem_prod_type( $name, $slug, $element_attr, $customfield ) );
                     break;
 			}
@@ -118,7 +117,6 @@ class bf_woo_element_handler {
 
 		switch ( $field_type ) {
             case 'product-type':
-
                 $form_fields = bf_woo_elem_prod_type::builder_element_options($form_fields, $form_slug, $field_type, $field_id, $buddyform );
                 break;
 			case '_regular_price':
