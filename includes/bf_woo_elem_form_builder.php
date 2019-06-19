@@ -83,7 +83,7 @@ class bf_woo_elem_form_builder
         global $post, $buddyform;
 
         if ($post->post_type !== 'buddyforms' && $post->post_type !== 'bp_group_type' ) {
-            return;
+            return $form_fields;
         }
 
         $field_id = (string) $field_id;
