@@ -28,9 +28,18 @@ if ( class_exists( 'Element_Select' ) ) {
 			$field_id                   = $this->options['field_id'];
 			$form_fields                = $buddyforms[ $form_slug ]['form_fields'];
 			$this->_attributes["value"] = isset( $form_fields[ $field_id ]['product_type_default'] ) ? $form_fields[ $field_id ]['product_type_default'] : 'simple';
-			$this->options              = wc_get_product_types();
+            $product_type_selector      = wc_get_product_types();
+			$this->options              = $product_type_selector;
 			parent::render();
 		}
+        function renderJS() {
+            $value     = $this->_attributes['product_type_default'];
+            echo 'jQuery(function() {';
+            echo 'jQuery("#product-type").val("'.$value.'");';
+             echo '});';
+
+
+        }
 
 		public static function builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyforms ) {
 			unset( $form_fields['advanced']['slug'] );
