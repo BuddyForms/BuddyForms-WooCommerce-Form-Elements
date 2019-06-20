@@ -105,16 +105,7 @@ class bf_woo_element_handler {
 	 */
 	public function bf_woo_elem_price_create_new_form_builder_form_element( $form_fields, $form_slug, $field_type, $field_id ) {
 		global $post, $buddyform;
-
-		if ( $post->post_type !== 'buddyforms' && $post->post_type !== 'bp_group_type' ) {
-			return $form_fields;
-		}
-
-		if ( ! $buddyform ) {
-			$buddyform = get_post_meta( $post->ID, '_buddyforms_options', true );
-		}
-
-
+		
 		switch ( $field_type ) {
             case 'product-type':
                 $form_fields = bf_woo_elem_prod_type::builder_element_options($form_fields, $form_slug, $field_type, $field_id, $buddyform );
