@@ -167,6 +167,7 @@ class bf_woo_elem_form_element {
 					break;
 				case 'product-gallery':
 					WC_Meta_Box_Product_Images::output( $post );
+                    echo '<span class="help-inline">'.$customfield['description'].'</span>';
 					$this->add_product_gallery_option( $customfield );
 					break;
 			}
@@ -184,7 +185,7 @@ class bf_woo_elem_form_element {
 		return $form;
 	}
 
-	public function add_scripts( $post ) {
+	public static function add_scripts( $post ) {
 		global $wp_query;
 		require_once( ABSPATH . 'wp-admin/includes/screen.php' );
 
@@ -462,7 +463,7 @@ class bf_woo_elem_form_element {
 		wp_localize_script( 'wc-admin-meta-boxes', 'woocommerce_admin_meta_boxes', $params );
 	}
 
-	public function add_styles() {
+	public static  function add_styles() {
 		global $wp_scripts;
 		require_once( ABSPATH . 'wp-admin/includes/screen.php' );
 		$screen         = get_current_screen();

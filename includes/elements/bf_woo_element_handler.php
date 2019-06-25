@@ -73,9 +73,9 @@ class bf_woo_element_handler {
 			! empty( $customfield ) &&
 			! empty( $element_attr )
 		) {
-		   $bf_woo_elem_form_element = new bf_woo_elem_form_element();
-		   $bf_woo_elem_form_element->add_scripts($post);
-		   $bf_woo_elem_form_element->add_styles();
+
+            bf_woo_elem_form_element::add_scripts($post);
+            bf_woo_elem_form_element::add_styles();
 			/** @var string $field_type */
 			switch ( $field_type ) {
 				case '_regular_price':
