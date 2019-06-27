@@ -38,13 +38,28 @@ class bf_woo_elem_form_element {
 	public function __construct() {
 		// check if block and get out of here for now
 		// @todo Add Block Support if possible
-			add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_new_form_builder', ), 1, 2 );
+		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'buddyforms_woocommerce_create_new_form_builder', ), 1, 2 );
 
-			$this->helpTip();
-			add_filter( 'woocommerce_product_type_query', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
-			add_filter( 'woocommerce_process_product_meta', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
-			add_filter( 'buddyforms_set_post_id_for_draft', array( $this, 'post_id_for_draft' ), 10, 3 );
+		$this->helpTip();
+		add_filter( 'woocommerce_product_type_query', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
+		add_filter( 'woocommerce_process_product_meta', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
+		add_filter( 'buddyforms_set_post_id_for_draft', array( $this, 'post_id_for_draft' ), 10, 3 );
+		add_filter( 'buddyforms_js_parameters', array( $this, 'buddyforms_js_parameters' ), 10, 2 );
 
+	}
+
+	public function buddyforms_js_parameters( $js_parameters, $current_form_slug ) {
+		if ( ! empty( $js_parameters ) && isset( $js_parameters[ $current_form_slug ] ) ) {
+			$fields = $js_parameters[ $current_form_slug ]['form_fields'];
+			foreach ( $fields as $field_id => $field ) {
+				switch($field['slug']){
+					case '_gallery':
+						$js_parameters[ $current_form_slug ]['form_fields'][$field_id]['slug'] = 'product_image_gallery';
+						break;
+				}
+			}
+		}
+		return $js_parameters;
 	}
 
 	public function helpTip() {
@@ -119,9 +134,7 @@ class bf_woo_elem_form_element {
 	 * @return mixed
 	 */
 	public function buddyforms_woocommerce_create_new_form_builder( $form, $form_args ) {
-		global $post;
 		extract( $form_args );
-
 
 		if ( ! isset( $customfield['type'] ) ) {
 			return $form;
@@ -134,16 +147,12 @@ class bf_woo_elem_form_element {
 				//return $form;
 			//}
 
-			$temp_post = clone $post;
 			if ( ! empty( $form_args['post_id'] ) ) {
-				$post = get_post( $form_args['post_id'] );
+				$product_post = get_post( $form_args['post_id'] );
 			} else {
-				$post                  = get_default_post_to_edit( 'product', true );
-				$this->current_post_id = $post->ID;
+				$product_post                  = get_default_post_to_edit( 'product', true );
+				$this->current_post_id = $product_post->ID;
 			}
-
-
-
 
 			$id    = 'woocommerce-product-data';
 			$title = __( 'Product data', 'woocommerce' );
@@ -152,8 +161,7 @@ class bf_woo_elem_form_element {
 				$title = isset( $customfield['name'] ) ? $customfield['name'] : __( 'Product gallery', 'woocommerce' );
 			}
 
-
-			$this->add_scripts( $post );
+			$this->add_scripts( $product_post );
 			$this->add_styles();
 			ob_start();
 			echo '<div id="postbox-container" class="woo_elem_container">';
@@ -162,11 +170,11 @@ class bf_woo_elem_form_element {
 			echo '<div class="inside">' . "\n";
 			switch ( $customfield['type'] ) {
 				case 'woocommerce':
-					WC_Meta_Box_Product_Data::output( $post );
+					WC_Meta_Box_Product_Data::output( $product_post );
 					$this->add_general_settings_option( $customfield );
 					break;
 				case 'product-gallery':
-					WC_Meta_Box_Product_Images::output( $post );
+					WC_Meta_Box_Product_Images::output( $product_post );
                     echo '<span class="help-inline">'.$customfield['description'].'</span>';
 					$this->add_product_gallery_option( $customfield );
 					break;
@@ -178,8 +186,6 @@ class bf_woo_elem_form_element {
 			ob_clean();
 
 			$form->addElement( new Element_HTML( $get_contents ) );
-			//Load the scripts
-			$post = $temp_post;
 		}
 
 		return $form;
