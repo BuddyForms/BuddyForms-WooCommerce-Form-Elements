@@ -900,11 +900,11 @@ class bf_woo_elem_form_builder
                 $button_text = isset($buddyform['form_fields'][$field_id]['button_text']) ? stripcslashes($buddyform['form_fields'][$field_id]['button_text']) : __('Add product gallery images', 'woocommerce');
                 $form_fields['general']['button_text'] = new Element_Textbox('<b>' . __('Button Text:', 'buddyforms') . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][button_text]', array('value' => $button_text));
 
-                $form_fields['Gallery']['slug'] = new Element_Hidden('buddyforms_options[form_fields][' . $field_id . '][slug]', '_gallery');
-                $form_fields['Gallery']['type'] = new Element_Hidden('buddyforms_options[form_fields][' . $field_id . '][type]', $field_type);
+                $form_fields['hidden']['slug'] = new Element_Hidden('buddyforms_options[form_fields][' . $field_id . '][slug]', '_gallery');
+                $form_fields['hidden']['type'] = new Element_Hidden('buddyforms_options[form_fields][' . $field_id . '][type]', $field_type);
 
                 $required = isset($buddyform['form_fields'][$field_id]['required']) ? $buddyform['form_fields'][$field_id]['required'] : 'false';
-                $form_fields['Gallery']['required'] = new Element_Checkbox('<b>' . __('Required', 'buddyforms') . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][required]', array('required' => '<b>' . __('Make this field a required field', 'buddyforms') . '</b>'), array(
+                $form_fields['validation']['required'] = new Element_Checkbox('<b>' . __('Required', 'buddyforms') . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][required]', array('required' => '<b>' . __('Make this field a required field', 'buddyforms') . '</b>'), array(
                     'value' => $required,
                     'id' => 'buddyforms_options[form_fields][' . $field_id . '][required]',
                 ));
