@@ -348,7 +348,7 @@ jQuery(document).ready(function ($) {
         });
 
         $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price_dates]"]').change(function () {
-            
+
             if ($(this).val() === 'hidden') {
 
                 price_start_date_row.show();
@@ -364,4 +364,26 @@ jQuery(document).ready(function ($) {
         });
 
     });
+
+    if (BuddyFormsBuilderHooks) {
+        var bFWooElementGrantedFields = ['_regular_price', '_sale_price', 'product-type'];
+        BuddyFormsBuilderHooks.addFilter('buddyforms:add_new_form_element_error_message', function (message, options) {
+            if (bFWooElementGrantedFields.includes(options.fieldType)) {
+                var existWooGeneralField = jQuery("#sortable_buddyforms_elements .bf_woocommerce");
+                if (existWooGeneralField.length > 0) {
+                    message = 'The new fields are not compatible with the Woocommerce General Setting Field, please remove it.';
+                }
+            }
+            return message;
+        });
+
+        BuddyFormsBuilderHooks.addFilter('buddyforms:add_new_form_element', function (value, options) {
+            if (bFWooElementGrantedFields.includes(options.fieldType)) {
+                var existWooGeneralField = jQuery("#sortable_buddyforms_elements .bf_woocommerce");
+                value = (existWooGeneralField.length === 0);
+            }
+            return value;
+        });
+
+    }
 });
