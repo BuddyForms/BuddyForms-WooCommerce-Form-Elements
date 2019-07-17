@@ -160,6 +160,15 @@ class bf_woo_elem_form_element {
 				$id    = 'woocommerce-product-images';
 				$title = isset( $customfield['name'] ) ? $customfield['name'] : __( 'Product gallery', 'woocommerce' );
 			}
+            $post = get_post($form_args['post_id']);
+            $update_post_type = array(
+                'ID' => $form_args['post_id'],
+                'post_name' => $post->post_title,
+                'post_type' => 'product'
+
+            );
+            wp_update_post($update_post_type, true);
+
 
 			$this->add_scripts( $product_post );
 			$this->add_styles();
@@ -170,6 +179,7 @@ class bf_woo_elem_form_element {
 			echo '<div class="inside">' . "\n";
 			switch ( $customfield['type'] ) {
 				case 'woocommerce':
+
 					WC_Meta_Box_Product_Data::output( $product_post );
 					$this->add_general_settings_option( $customfield );
 					break;
