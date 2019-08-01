@@ -43,7 +43,7 @@ class bf_woo_elem_form_element {
 		$this->helpTip();
 		add_filter( 'woocommerce_product_type_query', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
 		add_filter( 'woocommerce_process_product_meta', array( $this, 'on_woocommerce_product_type_query' ), 10, 2 );
-		add_filter( 'buddyforms_set_post_id_for_draft', array( $this, 'post_id_for_draft' ), 10, 3 );
+//		add_filter( 'buddyforms_set_post_id_for_draft', array( $this, 'post_id_for_draft' ), 10, 3 ); //remove in future versions
 		add_filter( 'buddyforms_js_parameters', array( $this, 'buddyforms_js_parameters' ), 10, 2 );
 
 	}
@@ -97,6 +97,10 @@ class bf_woo_elem_form_element {
 		return $override;
 	}
 
+	/**
+	 * @deprecated
+	 * @since 1.4.9
+	 */
 	public function post_id_for_draft( $post_id, $args, $customfields ) {
 		if ( ! empty( $args ) && ! empty( $customfields ) && is_array( $customfields ) && empty( $post_id ) ) {
 			$exist = false;
