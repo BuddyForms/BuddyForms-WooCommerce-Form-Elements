@@ -50,7 +50,7 @@ class bf_woo_elem_form_element {
 
 	public function buddyforms_js_parameters( $js_parameters, $current_form_slug ) {
 		if ( ! empty( $js_parameters ) && isset( $js_parameters[ $current_form_slug ] ) ) {
-			$fields = $js_parameters[ $current_form_slug ]['form_fields'];
+            $fields = isset($js_parameters[ $current_form_slug ]['form_fields']) ? $js_parameters[ $current_form_slug ]['form_fields']: array() ;
 			foreach ( $fields as $field_id => $field ) {
 				switch($field['slug']){
 					case '_gallery':
