@@ -37,6 +37,12 @@ class bf_woo_element_handler {
 			return $elements_select_options;
 		}
 
+		$bf_version = floatval( BUDDYFORMS_VERSION);
+        if ($bf_version  < 2.5  ) {
+            return $elements_select_options;
+        }
+
+
 		if ( ! empty( $elements_select_options['woocommerce'] ) && ! empty( $elements_select_options['woocommerce']['fields'] ) ) {
 
 			$elements_select_options['woocommerce']['fields'] = array_merge( $elements_select_options['woocommerce']['fields'], bf_woo_elem_regular_price::definition() );
