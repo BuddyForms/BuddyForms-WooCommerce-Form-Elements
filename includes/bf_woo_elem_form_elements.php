@@ -160,6 +160,14 @@ class bf_woo_elem_form_element {
 				$id    = 'woocommerce-product-images';
 				$title = isset( $customfield['name'] ) ? $customfield['name'] : __( 'Product gallery', 'woocommerce' );
 			}
+            $post = get_post($form_args['post_id']);
+            $update_post_type = array(
+                'ID' => $form_args['post_id'],
+                'post_name' => $post->post_title,
+                'post_type' => 'product'
+
+            );
+            wp_update_post($update_post_type, true);
 
 			$this->add_scripts( $product_post );
 			$this->add_styles();
@@ -395,8 +403,38 @@ class bf_woo_elem_form_element {
 		wp_localize_script( 'wc-admin-variation-meta-boxes', 'woocommerce_admin_meta_boxes_variations', $params );
 
 
-		wp_register_script( 'wc-admin-coupon-meta-boxes', WC()->plugin_url() . '/assets/js/admin/meta-boxes-coupon' . $suffix . '.js', array( 'wc-admin-meta-boxes' ), WC_VERSION );
-		wp_enqueue_script( 'wc-admin-coupon-meta-boxes' );
+        if ( in_array( str_replace( 'edit-', '', $screen_id ), wc_get_order_types( 'order-meta-boxes' ) ) ) {
+            $default_location = wc_get_customer_default_location();
+
+            wp_enqueue_script( 'wc-admin-order-meta-boxes', WC()->plugin_url() . '/assets/js/admin/meta-boxes-order' . $suffix . '.js', array( 'wc-admin-meta-boxes', 'wc-backbone-modal', 'selectWoo', 'wc-clipboard' ), WC_VERSION );
+            wp_localize_script(
+                'wc-admin-order-meta-boxes',
+                'woocommerce_admin_meta_boxes_order',
+                array(
+                    'countries'              => wp_json_encode( array_merge( WC()->countries->get_allowed_country_states(), WC()->countries->get_shipping_country_states() ) ),
+                    'i18n_select_state_text' => esc_attr__( 'Select an option&hellip;', 'woocommerce' ),
+                    'default_country'        => isset( $default_location['country'] ) ? $default_location['country'] : '',
+                    'default_state'          => isset( $default_location['state'] ) ? $default_location['state'] : '',
+                    'placeholder_name'       => esc_attr__( 'Name (required)', 'woocommerce' ),
+                    'placeholder_value'      => esc_attr__( 'Value (required)', 'woocommerce' ),
+                )
+            );
+        }
+
+        if ( in_array( $screen_id, array( 'shop_coupon', 'edit-shop_coupon' ) ) ) {
+            wp_enqueue_script( 'wc-admin-coupon-meta-boxes', WC()->plugin_url() . '/assets/js/admin/meta-boxes-coupon' . $suffix . '.js', array( 'wc-admin-meta-boxes' ), WC_VERSION );
+            wp_localize_script(
+                'wc-admin-coupon-meta-boxes',
+                'woocommerce_admin_meta_boxes_coupon',
+                array(
+                    'generate_button_text' => esc_html__( 'Generate coupon code', 'woocommerce' ),
+                    'characters'           => apply_filters( 'woocommerce_coupon_code_generator_characters', 'ABCDEFGHJKMNPQRSTUVWXYZ23456789' ),
+                    'char_length'          => apply_filters( 'woocommerce_coupon_code_generator_character_length', 8 ),
+                    'prefix'               => apply_filters( 'woocommerce_coupon_code_generator_prefix', '' ),
+                    'suffix'               => apply_filters( 'woocommerce_coupon_code_generator_suffix', '' ),
+                )
+            );
+        }
 
 		$post_id  = isset( $post->ID ) ? $post->ID : '';
 		$currency = '';
