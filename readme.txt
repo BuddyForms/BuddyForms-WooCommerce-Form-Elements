@@ -3,8 +3,8 @@
 Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
-Tested up to: 5.0
-Stable tag: 1.4.8
+Tested up to: 5.2
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,12 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+= 1.5.0 27 Aug 2019 =
+* Adding the new Price field.
+* Added Regular and Sale Price extending form BF Price field.
+* Fix the gallery field validation.
+* Update the code to make it compatible with the last version of Woocommerce.
+
 = 1.4.8 26 Apr. 2019 =
 * Fixed the behavior of not saving shipping fields.
 * Fix: Simple Product Downloadable options remains visible if you change the product type
