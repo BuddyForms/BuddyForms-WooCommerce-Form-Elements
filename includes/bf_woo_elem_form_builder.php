@@ -89,12 +89,15 @@ class bf_woo_elem_form_builder
         $field_id = (string) $field_id;
 
         $this->load_script = true;
-        if ($this->load_script) {
-
+       if ($this->load_script) {
+            wp_enqueue_script( 'jquery-ui-datepicker1', BF_WOO_ELEM_JS_PATH . 'jquery.datetimepicker.full.js', array('jquery'),null,true);
             wp_enqueue_script('bf_woo_jvalidate', BF_WOO_ELEM_JS_PATH . 'jquery.validate.min.js', array('jquery'),null,true);
-            wp_enqueue_script('bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array('jquery'), null,false);
+            wp_enqueue_script('bf_woo_builder', BF_WOO_ELEM_JS_PATH . 'bf_woo_builder.js', array('jquery','jquery-ui-datepicker1'), null,false);
             do_action('include_bf_woo_booking_scripts');
             wp_enqueue_style('bf_woo_builder', BF_WOO_ELEM_CSS_PATH . 'buddyforms-woocommerce.css');
+            wp_enqueue_style('jquery-ui-datepicker2', BF_WOO_ELEM_CSS_PATH . 'jquery.datetimepicker.min.css');
+            $param_builder = array('field_id'=>$field_id);
+            wp_localize_script( 'bf_woo_builder', 'bf_woo_elem_builder', $param_builder );
         }
 
         if (! $buddyform) {
@@ -445,16 +448,18 @@ class bf_woo_elem_form_builder
                     $product_sales_end_date = $buddyform['form_fields'][$field_id]['product_sales_end_date'];
                 }
 
-                $element_sales_price_start_date = new Element_Date('<b>' . __('Sales Start Date', 'buddyforms') . '</b>','buddyforms_options[form_fields][' . $field_id . '][product_sales_start_date]',array(
+                $element_sales_price_start_date = new Element_Textbox('<b>' . __('Sales Start Date', 'buddyforms') . '</b>','buddyforms_options[form_fields][' . $field_id . '][product_sales_start_date]',array(
                     'id' => 'product_sales_start_date_' . $field_id,
-                    'class' => $product_sales_price_dates === 'hidden'? '':'hidden',
+                    'class' => $product_sales_price_dates === 'hidden'? 'bf_datetimepicker':'hidden',
                     'value' => $product_sales_start_date,
+
                 ));
 
-                $element_sales_price_end_date = new Element_Date('<b>' . __('Sales End Date', 'buddyforms') . '</b>','buddyforms_options[form_fields][' . $field_id . '][product_sales_end_date]',array(
+                $element_sales_price_end_date = new Element_Textbox('<b>' . __('Sales End Date', 'buddyforms') . '</b>','buddyforms_options[form_fields][' . $field_id . '][product_sales_end_date]',array(
                     'id' => 'product_sales_end_date_' . $field_id,
-                    'class' => $product_sales_price_dates === 'hidden'? '':'hidden',
+                    'class' => $product_sales_price_dates === 'hidden'? 'bf_datetimepicker':'hidden',
                     'value' => $product_sales_end_date,
+
                 ));
 
 
@@ -468,6 +473,9 @@ class bf_woo_elem_form_builder
                 $form_fields['general']['product_sales_price'] = $element_sales_price;
                 $form_fields['general']['sales_price_amount'] = $element_sales_price_amount;
                 $form_fields['general']['product_sales_price_dates'] = $element_price_date;
+
+
+
                 $form_fields['general']['product_sales_start_date'] = $element_sales_price_start_date;
                 $form_fields['general']['product_sales_end_date'] = $element_sales_price_end_date;
 

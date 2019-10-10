@@ -9,6 +9,30 @@
 
 
 jQuery(document).ready(function ($) {
+    $('a').click(function(){
+
+       var general_selected = jQuery('li[aria-controls="general-woocommerce-"'+bf_woo_elem_builder.field_id+']').attr('aria-selected');
+       if(general_selected==="true"){
+           var dateElements = jQuery('input.bf_datetimepicker');
+           if (dateElements && dateElements.length > 0) {
+               jQuery.each(dateElements, function (i, element) {
+
+                   var id = jQuery(element).attr('id');
+
+                   var dateTimePickerConfig = {
+                       dateFormat: 'mm/dd/yy',
+                       timeFormat: 'hh:mm tt',
+                       timepicker:false,
+
+                   };
+
+
+                   jQuery('#'+id).datetimepicker(dateTimePickerConfig);
+
+               });
+           }
+       }
+    })
 
     jQuery("form").validate();
     jQuery.validator.addMethod("regular-price", function (value, element) {
