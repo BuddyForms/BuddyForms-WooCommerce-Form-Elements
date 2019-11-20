@@ -214,7 +214,7 @@ class bf_woo_elem_form_builder
 
                 $product_type = apply_filters('default_product_type', 'simple');
 
-                $product_type_selector = apply_filters('product_type_selector', array(
+                $product_type_selector = apply_filters('bf_woo_element_product_type_array', array(
                     'simple' => __('Simple product', 'woocommerce'),
                     'grouped' => __('Grouped product', 'woocommerce'),
                     'external' => __('External/Affiliate product', 'woocommerce'),
