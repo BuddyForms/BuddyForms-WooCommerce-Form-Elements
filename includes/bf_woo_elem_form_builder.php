@@ -918,7 +918,7 @@ class bf_woo_elem_form_builder
                 ));
 
                 $field_slug = isset($buddyform['form_fields'][$field_id]['slug']) ? $buddyform['form_fields'][$field_id]['slug'] : '';
-                $field_slug = empty($field_slug) === false ? sanitize_title($field_slug) : 'product-gallery';
+                $field_slug = empty($field_slug) === false ? buddyforms_sanitize_slug($field_slug) : 'product-gallery';
                 $form_fields['advanced']['slug'] = new Element_Textbox('<b>' . __('Slug', 'buddyforms') . '</b> <small>(optional)</small>', 'buddyforms_options[form_fields][' . $field_id . '][slug]', array(
                     'shortDesc' => __('Underscore before the slug like _name will create a hidden post meta field', 'buddyforms'),
                     'value' => $field_slug,
