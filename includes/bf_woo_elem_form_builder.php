@@ -60,9 +60,9 @@ class bf_woo_elem_form_builder
     {
         global $post;
 
-        if ($post->post_type !== 'buddyforms') {
-            return;
-        }
+	    if ( empty( $post ) || $post->post_type !== 'buddyforms' ) {
+		    return $elements_select_options;
+	    }
 
         $elements_select_options['woocommerce']['label'] = 'WooCommerce';
         $elements_select_options['woocommerce']['class'] = 'bf_show_if_f_type_post';
@@ -82,9 +82,9 @@ class bf_woo_elem_form_builder
     {
         global $post, $buddyform;
 
-        if ($post->post_type !== 'buddyforms' && $post->post_type !== 'bp_group_type' ) {
-            return $form_fields;
-        }
+	    if ( empty( $post ) || ( $post->post_type !== 'buddyforms' && $post->post_type !== 'bp_group_type' ) ) {
+		    return $form_fields;
+	    }
 
         $field_id = (string) $field_id;
 
