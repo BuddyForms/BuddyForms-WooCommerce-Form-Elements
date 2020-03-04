@@ -60,9 +60,9 @@ class bf_woo_elem_form_builder
     {
         global $post;
 
-        if ($post->post_type !== 'buddyforms') {
-            return;
-        }
+	    if ( empty( $post ) || $post->post_type !== 'buddyforms' ) {
+		    return $elements_select_options;
+	    }
 
         $elements_select_options['woocommerce']['label'] = 'WooCommerce';
         $elements_select_options['woocommerce']['class'] = 'bf_show_if_f_type_post';
@@ -82,9 +82,9 @@ class bf_woo_elem_form_builder
     {
         global $post, $buddyform;
 
-        if ($post->post_type !== 'buddyforms' && $post->post_type !== 'bp_group_type' ) {
-            return $form_fields;
-        }
+	    if ( empty( $post ) || ( $post->post_type !== 'buddyforms' && $post->post_type !== 'bp_group_type' ) ) {
+		    return $form_fields;
+	    }
 
         $field_id = (string) $field_id;
 
@@ -918,7 +918,7 @@ class bf_woo_elem_form_builder
                 ));
 
                 $field_slug = isset($buddyform['form_fields'][$field_id]['slug']) ? $buddyform['form_fields'][$field_id]['slug'] : '';
-                $field_slug = empty($field_slug) === false ? sanitize_title($field_slug) : 'product-gallery';
+                $field_slug = empty($field_slug) === false ? buddyforms_sanitize_slug($field_slug) : 'product-gallery';
                 $form_fields['advanced']['slug'] = new Element_Textbox('<b>' . __('Slug', 'buddyforms') . '</b> <small>(optional)</small>', 'buddyforms_options[form_fields][' . $field_id . '][slug]', array(
                     'shortDesc' => __('Underscore before the slug like _name will create a hidden post meta field', 'buddyforms'),
                     'value' => $field_slug,
