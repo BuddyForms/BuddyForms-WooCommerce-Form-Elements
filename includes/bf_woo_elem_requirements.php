@@ -54,7 +54,7 @@ class bf_woo_elem_requirements
         if (! is_admin()) {
             return;
         }
-        add_action('tgmpa_register', array($this, 'setup_and_check'));
+        add_action('bf_woo_element_tgmpa_register', array($this, 'setup_and_check'));
         add_action('in_admin_footer', array($this, 'remove_woo_footer'));
     }
 

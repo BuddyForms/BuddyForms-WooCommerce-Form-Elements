@@ -9,6 +9,30 @@
 
 
 jQuery(document).ready(function ($) {
+    $('a').click(function(){
+
+       var general_selected = jQuery('li[aria-controls="general-woocommerce-"'+bf_woo_elem_builder.field_id+']').attr('aria-selected');
+       if(general_selected==="true"){
+           var dateElements = jQuery('input.bf_datetimepicker');
+           if (dateElements && dateElements.length > 0) {
+               jQuery.each(dateElements, function (i, element) {
+
+                   var id = jQuery(element).attr('id');
+
+                   var dateTimePickerConfig = {
+                       dateFormat: 'mm/dd/yy',
+                       timeFormat: 'hh:mm tt',
+                       timepicker:false,
+
+                   };
+
+
+                   jQuery('#'+id).datetimepicker(dateTimePickerConfig);
+
+               });
+           }
+       }
+    })
 
     jQuery("form").validate();
     jQuery.validator.addMethod("regular-price", function (value, element) {
@@ -134,9 +158,12 @@ jQuery(document).ready(function ($) {
                     default:
                         virtual_row.hide();
                         downloadable_row.hide();
+                        download_name_row.hide();
+                        download_url_row.hide();
+                        download_limit_row.hide();
+                        download_expiry_row.hide();
                 }
                 virtual.attr('checked', false).change();
-                downloadable.attr('checked', false).change();
                 downloadable.prop('checked', false);
             }
         });
@@ -146,6 +173,11 @@ jQuery(document).ready(function ($) {
                 downloadable_row.removeAttr('style');
                 booking_has_person_row.removeAttr('style');
                 booking_has_resources_row.removeAttr('style');
+                downloadable_row.hide();
+                download_name_row.hide();
+                download_url_row.hide();
+                download_limit_row.hide();
+                download_expiry_row.hide();
             } else {
                 var product_type = $("#product-type").val();
                 switch (product_type) {
@@ -162,10 +194,7 @@ jQuery(document).ready(function ($) {
                         booking_has_person_row.hide();
                         booking_has_resources_row.hide();
 
-                        download_name_row.show();
-                        download_url_row.show();
-                        download_limit_row.show();
-                        download_expiry_row.show();
+
                         break;
                     case 'booking':
                         download_name_row.hide();
@@ -186,18 +215,23 @@ jQuery(document).ready(function ($) {
                         virtual.show();
 
                         downloadable_row.hide();
+
+
                         break;
                     default:
                         booking_has_person_row.hide();
                         booking_has_resources_row.hide();
                         virtual_row.hide();
                         downloadable_row.hide();
+                        download_name_row.hide();
+                        download_url_row.hide();
+                        download_limit_row.hide();
+                        download_expiry_row.hide();
 
                 }
             }
             virtual.attr('checked', false).change();
             virtual.prop('checked', false);
-            downloadable.attr('checked', false).change();
             downloadable.prop('checked', false);
 
 
@@ -338,7 +372,7 @@ jQuery(document).ready(function ($) {
         });
 
         $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sales_price_dates]"]').change(function () {
-            
+
             if ($(this).val() === 'hidden') {
 
                 price_start_date_row.show();
@@ -354,4 +388,26 @@ jQuery(document).ready(function ($) {
         });
 
     });
+
+    if (BuddyFormsBuilderHooks) {
+        var bFWooElementGrantedFields = ['_regular_price', '_sale_price', 'product-type'];
+        BuddyFormsBuilderHooks.addFilter('buddyforms:add_new_form_element_error_message', function (message, options) {
+            if (bFWooElementGrantedFields.includes(options.fieldType)) {
+                var existWooGeneralField = jQuery("#sortable_buddyforms_elements .bf_woocommerce");
+                if (existWooGeneralField.length > 0) {
+                    message = 'The new fields are not compatible with the Woocommerce General Setting Field, please remove it.';
+                }
+            }
+            return message;
+        });
+
+        BuddyFormsBuilderHooks.addFilter('buddyforms:add_new_form_element', function (value, options) {
+            if (bFWooElementGrantedFields.includes(options.fieldType)) {
+                var existWooGeneralField = jQuery("#sortable_buddyforms_elements .bf_woocommerce");
+                value = (existWooGeneralField.length === 0);
+            }
+            return value;
+        });
+
+    }
 });

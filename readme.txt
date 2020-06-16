@@ -3,8 +3,8 @@
 Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
-Tested up to: 5.0
-Stable tag: 1.4.7
+Tested up to: 5.2
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,35 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+= 1.5.2 - 16 Jun 2020 =
+* Fixed to the issue related to create product always with the status publish.
+* Fixed json parse error, clean html tags from the json string.
+
+= 1.5.1 - 28 Jan 2020 =
+* Fix woocommerce field style issue.
+
+= 1.5.0 27 Aug 2019 =
+* Adding the new Price field.
+* Added Regular and Sale Price extending form BF Price field.
+* Fix the gallery field validation.
+* Update the code to make it compatible with the last version of Woocommerce.
+
+= 1.4.8 26 Apr. 2019 =
+* Fixed the behavior of not saving shipping fields.
+* Fix: Simple Product Downloadable options remains visible if you change the product type
+* Fix: Several Tabs inside the WooCommerce Form doesn't have options
+* Fix: WooCommerce Fields are not displayed in the Forms
+* Fix: Hide shipping fields option isn't hiding the proper fields
+* Fix: Hide fields for Advanced section aren't working
+* Fix: Product Type Hidden checkbox doesn't hide the Product Data
+* Fix: Hide options for Linked Products sections aren't working
+* Fix: Hide Variations Tab option is not working
+* Fix: Hide Attributes Tab option isn't hiding
+* Fix: Issue with the review allowed checkbox( the last woocommerce update change the id attribute from review_allowed to comment_status)
+* Fix: Remove the product type selector filter and replace it for a hard coded array
+* Fix: Required Product Gallery section on Form type post is not working as expected
+* Fix: Avoid return and exit the function when the post type is bp_group_type
+
 = 1.4.7 21 Jan. 2019 =
 * Make sure we executed the validation rules in the right form
 * Make sure that the rules of the form will, execute when the page contains more than one form

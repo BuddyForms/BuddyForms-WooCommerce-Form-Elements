@@ -83,7 +83,7 @@ jQuery(document).ready(function ($) {
         advanced_container = jQuery('#advanced_product_data'),
         purchase_note = $('#_purchase_note'),
         menu_order_input = $('#menu_order'),
-        reviews_allowed = $('#_reviews_allowed'),
+        reviews_allowed = $('#comment_status'),
         main_container = jQuery('#woocommerce-product-data'),
         val
     ;
@@ -246,7 +246,7 @@ jQuery(document).ready(function ($) {
     //Remove not implemented tabs
     if (general_settings_param.disable_tabs) {
         jQuery.each(general_settings_param.disable_tabs, function (key, value) {
-            if (general_settings_param[value] && general_settings_param[value][0] === 'hidden') {
+            if (general_settings_param[value] && general_settings_param[value][0] === 'hide_remove') {
                 jQuery.each(jQuery('.woo_element_span').find('#product-type').find('option'), function () {
                     if (value.indexOf(jQuery(this).val()) !== -1) {
                         jQuery(this).remove();
@@ -327,7 +327,7 @@ jQuery(document).ready(function ($) {
 
         //Set Product Type if they are hidden
         if (general_settings_param.product_type_hidden && general_settings_param.product_type_hidden[0] &&
-            general_settings_param.product_type_hidden[0] === 'hidden') {
+            general_settings_param.product_type_hidden[0] === 'hide_product_type') {
             hide_general_proudct_type = true;
             //Set the prodcut type
             if (general_settings_param.product_type_default) {
@@ -518,7 +518,7 @@ jQuery(document).ready(function ($) {
         var shipp_hide_parent_1, shipp_hide_parent_2, shipp_hide_parent_3, shipp_hide_parent_4, shipp_hide_parent_5,
             shipp_hide_parent_6 = false,
             shipping_opt = general_settings_param.product_shipping_hidden[0];
-        if (shipping_opt === "hidden") {
+        if (shipping_opt === "hide_shipping") {
             //Hide the entire tab
             $('.shipping_options').addClass('hide_if_simple hide_if_auction hide_if_variable').hide();
             $('#shipping_product_data').hide();
@@ -570,7 +570,7 @@ jQuery(document).ready(function ($) {
     var linked_parent_hide_1 = false, linked_parent_hide_2 = false, linked_parent_hide_3 = false;
     if (general_settings_param.product_up_sales && general_settings_param.product_up_sales[0] && general_settings_param.product_up_sales !== undefined) {
         var up_sales_opt = general_settings_param.product_up_sales[0];
-        if (up_sales_opt === "hidden") {
+        if (up_sales_opt === "hide_up_sales") {
             $("#upsell_ids").parent().remove();
             linked_parent_hide_1 = true;
         }
@@ -578,7 +578,7 @@ jQuery(document).ready(function ($) {
     //Cross Sales
     if (general_settings_param.product_cross_sales && general_settings_param.product_cross_sales[0] && general_settings_param.product_cross_sales !== undefined) {
         var crosssell_opt = general_settings_param.product_cross_sales[0];
-        if (crosssell_opt === "hidden") {
+        if (crosssell_opt === "hide_cross_sales") {
             $("#crosssell_ids").parent().remove();
             linked_parent_hide_2 = true;
         }
@@ -586,7 +586,7 @@ jQuery(document).ready(function ($) {
     //Grouped
     if (general_settings_param.product_grouping && general_settings_param.product_grouping[0] && general_settings_param.product_grouping !== undefined) {
         var grouped_opt = general_settings_param.product_grouping[0];
-        if (grouped_opt === "hidden") {
+        if (grouped_opt === "hide_grouping") {
             $("#grouped_products").parent().remove();
             linked_parent_hide_3 = true;
         }
@@ -601,7 +601,7 @@ jQuery(document).ready(function ($) {
 
     //region Attributes
     if (general_settings_param.attributes_hide_tab && general_settings_param.attributes_hide_tab[0]
-        && general_settings_param.attributes_hide_tab[0] === 'hidden') {
+        && general_settings_param.attributes_hide_tab[0] === 'hide_attributes') {
         attribute_container.hide();
         attribute_tab.hide();
         tabs_hided.push('attribute_tab');
@@ -610,7 +610,7 @@ jQuery(document).ready(function ($) {
 
     //region Variations
     if (general_settings_param.variations_hide_tab && general_settings_param.variations_hide_tab[0]
-        && general_settings_param.variations_hide_tab[0] === 'hidden') {
+        && general_settings_param.variations_hide_tab[0] === 'hide_variations') {
         variations_container.hide();
         variations_tab.removeClass('show_if_variable').hide();
         tabs_hided.push('variations_tab');
@@ -620,7 +620,7 @@ jQuery(document).ready(function ($) {
     //region Advance
     var hide_advance_parent1 = false, hide_advance_parent2 = false, hide_advance_parent3 = false;
     if (general_settings_param.hide_purchase_notes && general_settings_param.hide_purchase_notes[0]
-        && general_settings_param.hide_purchase_notes[0] === 'hidden') {
+        && general_settings_param.hide_purchase_notes[0] === 'hide_advanced') {
         purchase_note.parent().hide();
         hide_advance_parent1 = true;
         if (general_settings_param.purchase_notes && general_settings_param.purchase_notes !== "") {
@@ -628,7 +628,7 @@ jQuery(document).ready(function ($) {
         }
     }
     if (general_settings_param.hide_menu_order && general_settings_param.hide_menu_order[0]
-        && general_settings_param.hide_menu_order[0] === 'hidden') {
+        && general_settings_param.hide_menu_order[0] === 'hide_menu_order') {
         menu_order_input.parent().hide();
         hide_advance_parent2 = true;
         if (general_settings_param.menu_order && general_settings_param.menu_order !== "") {
@@ -636,7 +636,7 @@ jQuery(document).ready(function ($) {
         }
     }
     if (general_settings_param.hide_enable_review_orders && general_settings_param.hide_enable_review_orders[0]
-        && general_settings_param.hide_enable_review_orders[0] === 'hidden') {
+        && general_settings_param.hide_enable_review_orders[0] === 'hide_review_order') {
         reviews_allowed.parent().hide();
         hide_advance_parent3 = true;
         if (general_settings_param.enable_review_orders === 'yes') {

@@ -48,6 +48,10 @@
     "phpcs-setup": "./vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
     "phpcbf-setup": "./vendor/bin/phpcbf --config-set installed_paths vendor/wp-coding-standards/wpcs",
     "post-install-cmd": "composer phpcs-setup && composer phpcbf-setup",
-    "post-update-cmd": "composer phpcs-setup && composer phpcbf-setup"
+    "post-update-cmd": "composer phpcs-setup && composer phpcbf-setup",
+    "package": "sh .tk/package.sh loader",
+    "wp-release": "sh .tk/wp_release.sh",
+    "beta-release": "sh .tk/full-deploy.sh loader 415 false beta",
+    "full-release": "sh .tk/full-deploy.sh loader 415 false released"
   }
 }
