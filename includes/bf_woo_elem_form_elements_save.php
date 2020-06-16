@@ -37,11 +37,21 @@ class bf_woo_elem_form_elements_save
 
         if ($this->bf_wc_save_meta || $this->bf_wc_save_gallery) {
             $post = get_post($post_id);
+
+            $form_slug = buddyforms_get_form_slug_by_post_id($post_id);
+            $post_status = 'publish';
+            if(!empty($form_slug)){
+            	global $buddyforms;
+            	if(!empty($buddyforms) && !empty($buddyforms[$form_slug])){
+            		$post_status = !empty($buddyforms[$form_slug]['status'])? $buddyforms[$form_slug]['status'] : 'publish';
+	            }
+            }
+
             $update_post_type = array(
                 'ID' => $post_id,
                 'post_name' => $post->post_title,
                 'post_type' => 'product',
-                'post_status' => 'publish',
+                'post_status' => $post_status,
             );
             wp_update_post($update_post_type, true);
             update_post_meta($post_id, '_visibility', 'visible');

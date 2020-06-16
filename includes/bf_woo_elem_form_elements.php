@@ -201,6 +201,7 @@ class bf_woo_elem_form_element {
 
 	public static function add_scripts( $post ) {
 		global $wp_query;
+        ob_start();
 		require_once( ABSPATH . 'wp-admin/includes/screen.php' );
 
 		$screen    = get_current_screen();
@@ -505,6 +506,8 @@ class bf_woo_elem_form_element {
 		);
 
 		wp_localize_script( 'wc-admin-meta-boxes', 'woocommerce_admin_meta_boxes', $params );
+        ob_clean();
+
 	}
 
 	public static  function add_styles() {

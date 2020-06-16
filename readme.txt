@@ -4,7 +4,7 @@ Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
 Tested up to: 5.2
-Stable tag: 1.5.0
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,13 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+= 1.5.2 - 16 Jun 2020 =
+* Fixed to the issue related to create product always with the status publish.
+* Fixed json parse error, clean html tags from the json string.
+
+= 1.5.1 - 28 Jan 2020 =
+* Fix woocommerce field style issue.
+
 = 1.5.0 27 Aug 2019 =
 * Adding the new Price field.
 * Added Regular and Sale Price extending form BF Price field.
