@@ -197,7 +197,7 @@ class bf_woo_elem_form_builder
                 foreach ($product_type_options as $key => $option) {
                     $data .= $field_id . '_' . $key . ' ';
                 }
-                $element = new Element_Checkbox('<b>Product Type Hidden</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_type_hidden]', array('hide_product_type' => __('Make the Product Type a Hidden Field', 'buddyforms')), array(
+                $element = new Element_Checkbox('<b>Product Data Hidden</b>', 'buddyforms_options[form_fields][' . $field_id . '][product_type_hidden]', array('hide_product_type' => __('Hide the Product Data Fields', 'buddyforms')), array(
                     'id' => 'product_type_hidden',
                     'class' => 'bf_hidden_checkbox',
                     'value' => $product_type_hidden,
@@ -264,87 +264,6 @@ class bf_woo_elem_form_builder
 
                     $form_fields['general'][$key] = $element;
                 }
-
-                $download_limit = '';
-                if (isset($buddyform['form_fields'][$field_id]['download_limit'])) {
-                    $download_limit = $buddyform['form_fields'][$field_id]['download_limit'];
-                }
-
-                $element_download_limit = new Element_Number(
-                    '<b>' . __('Download Limit: ', 'buddyforms') . ' </b>',
-                    'buddyforms_options[form_fields][' . $field_id . '][download_limit]',
-                    array(
-                        'id' => $field_id . '_download_limit',
-                        'class' => '',
-                        'placeholder' => 'Ilimited',
-                        'value' => $download_limit, 'min' => 0,
-                        'shortDesc' => 'Leave blank for an unlimited number of downloads.',
-                    )
-                );
-
-                $download_expiry = '';
-                if (isset($buddyform['form_fields'][$field_id]['download_expiry'])) {
-                    $download_expiry = $buddyform['form_fields'][$field_id]['download_expiry'];
-                }
-
-                $element_download_expiry = new Element_Number(
-                    '<b>' . __('Download Expiry: ', 'buddyforms') . ' </b>',
-                    'buddyforms_options[form_fields][' . $field_id . '][download_expiry]',
-                    array(
-                        'id' => $field_id . '_download_expiry',
-                        'class' => '',
-                        'placeholder' => 'Never',
-                        'value' => $download_expiry, 'min' => 0,
-                        'shortDesc' => 'Enter the number of days that must pass before a download link expires or leave it blank.',
-                    )
-                );
-
-                $download_name = '';
-                if (isset($buddyform['form_fields'][$field_id]['download_name'])) {
-                    $download_name = $buddyform['form_fields'][$field_id]['download_name'];
-                }
-
-                $element_download_name = new Element_Textbox(
-                    '<b>' . __('Download Name: ', 'buddyforms') . ' </b>',
-                    'buddyforms_options[form_fields][' . $field_id . '][download_name]',
-                    array(
-                        'id' => $field_id . '_download_name',
-                        'class' => '',
-                        'placeholder' => 'File Name',
-                        'value' => $download_name,
-                        'shortDesc' => 'This is the name of the download shown to the client.',
-                    )
-                );
-
-                $download_url = '';
-                if (isset($buddyform['form_fields'][$field_id]['download_url'])) {
-                    $download_url = $buddyform['form_fields'][$field_id]['download_url'];
-                }
-
-                $element_download_url = new Element_Textbox(
-                    '<b>' . __('File URL: ', 'buddyforms') . ' </b>',
-                    'buddyforms_options[form_fields][' . $field_id . '][download_url]',
-                    array(
-                        'id' => $field_id . '_download_url',
-                        'class' => '',
-                        'placeholder' => 'http://',
-                        'value' => $download_url,
-                        'shortDesc' => 'This is the URL or absolute path of the file to which clients will have access. The URLs written here should be encoded.',
-                    )
-                );
-
-                $product_type_option_downloadable = isset($buddyform['form_fields'][$field_id]['product_type_options']['_downloadable'][0]) ? $buddyform['form_fields'][$field_id]['product_type_options']['_downloadable'][0] : '';
-                if ($product_type_option_downloadable !== '_downloadable') {
-                    $element_download_name->setAttribute('class', 'hidden');
-                    $element_download_url->setAttribute('class', 'hidden');
-                    $element_download_limit->setAttribute('class', 'hidden');
-                    $element_download_expiry->setAttribute('class', 'hidden');
-                }
-
-                $form_fields['general']['_download_name'] = $element_download_name;
-                $form_fields['general']['_download_url'] = $element_download_url;
-                $form_fields['general']['_download_limit'] = $element_download_limit;
-                $form_fields['general']['_download_expiry'] = $element_download_expiry;
 
                 $form_fields = apply_filters('bf_woo_booking_default_options', $form_fields, $product_type_default, $field_id);
 

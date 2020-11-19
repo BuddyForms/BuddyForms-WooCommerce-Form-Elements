@@ -64,10 +64,6 @@ jQuery(document).ready(function ($) {
             price_date_row = field_row.find("#table_row_" + field_id + "_product_sales_price_dates"),
             price_start_date_row = field_row.find("#table_row_" + field_id + "_product_sales_start_date"),
             price_end_date_row = field_row.find("#table_row_" + field_id + "_product_sales_end_date"),
-            download_name_row = field_row.find("#table_row_" + field_id + "__download_name"),
-            download_url_row = field_row.find("#table_row_" + field_id + "__download_url"),
-            download_limit_row = field_row.find("#table_row_" + field_id + "__download_limit"),
-            download_expiry_row = field_row.find("#table_row_" + field_id + "__download_expiry"),
             sku_value_row = field_row.find("#table_row_" + field_id + "_sku_value"),
             stock_status_value_row = field_row.find("#table_row_" + field_id + "_product_stock_status"),
             sold_individually_value_row = field_row.find("#table_row_" + field_id + "_product_sold_individually"),
@@ -136,11 +132,6 @@ jQuery(document).ready(function ($) {
                         virtual.show();
                         downloadable_row.hide();
 
-                        download_name_row.hide();
-                        download_url_row.hide();
-                        download_limit_row.hide();
-                        download_expiry_row.hide();
-
                         regular_price_row.hide();
                         regular_price_amount_row.hide();
 
@@ -158,10 +149,7 @@ jQuery(document).ready(function ($) {
                     default:
                         virtual_row.hide();
                         downloadable_row.hide();
-                        download_name_row.hide();
-                        download_url_row.hide();
-                        download_limit_row.hide();
-                        download_expiry_row.hide();
+
                 }
                 virtual.attr('checked', false).change();
                 downloadable.prop('checked', false);
@@ -174,10 +162,7 @@ jQuery(document).ready(function ($) {
                 booking_has_person_row.removeAttr('style');
                 booking_has_resources_row.removeAttr('style');
                 downloadable_row.hide();
-                download_name_row.hide();
-                download_url_row.hide();
-                download_limit_row.hide();
-                download_expiry_row.hide();
+
             } else {
                 var product_type = $("#product-type").val();
                 switch (product_type) {
@@ -197,10 +182,7 @@ jQuery(document).ready(function ($) {
 
                         break;
                     case 'booking':
-                        download_name_row.hide();
-                        download_url_row.hide();
-                        download_limit_row.hide();
-                        download_expiry_row.hide();
+
                         booking_has_person_row.show();
                         booking_has_resources_row.show();
 
@@ -223,10 +205,7 @@ jQuery(document).ready(function ($) {
                         booking_has_resources_row.hide();
                         virtual_row.hide();
                         downloadable_row.hide();
-                        download_name_row.hide();
-                        download_url_row.hide();
-                        download_limit_row.hide();
-                        download_expiry_row.hide();
+
 
                 }
             }
@@ -289,26 +268,7 @@ jQuery(document).ready(function ($) {
                 $('#product_tax_class_default').removeClass('hidden');
             }
         });
-        $('input[name="buddyforms_options[form_fields][' + field_id + '][product_type_options][_downloadable][]"]').click(function () {
-            if (!$(this).is(':checked')) {
-                download_name_row.hide();
-                download_url_row.hide();
-                download_limit_row.hide();
-                download_expiry_row.hide();
-            } else {
 
-                download_name_row.show();
-                download_url_row.show();
-                download_limit_row.show();
-                download_expiry_row.show();
-
-                download_name.show();
-                download_url.show();
-                download_limit.show();
-                download_expiry.show();
-
-            }
-        });
 
         $('select[name="buddyforms_options[form_fields][' + field_id + '][product_sku]"]').change(function () {
             if ($(this).val() === 'hidden') {
