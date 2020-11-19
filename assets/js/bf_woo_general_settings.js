@@ -263,7 +263,7 @@ jQuery(document).ready(function ($) {
 
     if (general_settings_param.product_regular_price && general_settings_param.product_sales_price && general_settings_param.product_sales_price_dates !== undefined) {
 
-        var hide_general_proudct_type, hide_general_tax_field, hide_general_regular_price, hide_general_sales_price,
+        var hide_general_proudct_type,hide_general_proudct_option_downloadable, hide_general_tax_field, hide_general_regular_price, hide_general_sales_price,
             hide_general_price_date = false;
         var product_type_default = null;
         if (general_settings_param.wc_tax_option_disabled) {
@@ -342,28 +342,15 @@ jQuery(document).ready(function ($) {
                 var downloadable_val = (general_settings_param.product_type_options['_downloadable'] !== undefined);
 
                 if (virtual_val) {
-
-                    virtual.attr('checked', true).change();
                     virtual.prop('checked', true);
+                    virtual.attr('checked', true).change();
+
                 }
                 if (downloadable_val) {
-
-                    downloadable.attr('checked', true).change();
                     downloadable.prop('checked', true);
-                    var download_limit_value = general_settings_param.download_limit;
-                    var download_expiry_value = general_settings_param.download_expiry;
-                    $("#_download_limit").val(download_limit_value);
-                    $("#_download_expiry").val(download_expiry_value);
-                    $("a.button.insert").click();
-                    var download_name_value = general_settings_param.download_name;
-                    var download_url_value = general_settings_param.download_url;
-
-
-                    jQuery('input[name="_wc_file_names[]"]').val(download_name_value);
-                    jQuery('input[name="_wc_file_urls[]"]').val(download_url_value);
-
-                    $("#_download_name").val(download_limit_value);
-                    $("#_download_expiry").val(download_expiry_value);
+                    downloadable.attr('checked', true).change();
+                }else{
+                    hide_general_proudct_option_downloadable = true;
                 }
             }
         } else {
@@ -380,6 +367,7 @@ jQuery(document).ready(function ($) {
                 general_tab_hidden_fields.push(hide_general_regular_price);
                 general_tab_hidden_fields.push(hide_general_sales_price);
                 general_tab_hidden_fields.push(hide_general_price_date);
+                general_tab_hidden_fields.push(hide_general_proudct_option_downloadable);
                 break;
             case 'booking':
                 general_tab_hidden_fields.push(hide_general_proudct_type);
