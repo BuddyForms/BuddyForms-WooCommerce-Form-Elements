@@ -3,8 +3,8 @@
 Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
-Tested up to: 5.2
-Stable tag: 1.5.3
+Tested up to: 5.7
+Stable tag: 1.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,9 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+= 1.5.4 - 8 Mar 2021 =
+* Tested up with WordPress 5.7
+
 = 1.5.3 - 16 Jun 2020 =
 * Fixed to show all the available woocommerce product types.
 

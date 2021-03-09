@@ -3,7 +3,7 @@
  * Plugin Name: BuddyForms WooCommerce Form Elements
  * Plugin URI: http://buddyforms.com/downloads/buddyforms-woocommerce-form-elements/
  * Description: This Plugin adds a new section to the BuddyForms Form Builder with all WooCommerce fields to create Product creation forms for the frontend
- * Version: 1.5.3
+ * Version: 1.5.4
  * Author: ThemeKraft
  * Author URI: https://profiles.wordpress.org/svenl77
  * License: GPLv2 or later
@@ -14,7 +14,7 @@
  *
  ******************************************************************************
  * WC requires at least: 3.7.0
- * WC tested up to: 3.7.0
+ * WC tested up to: 5.0.0
  *****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
