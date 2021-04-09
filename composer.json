@@ -15,7 +15,6 @@
   "license": "Apache-2.0",
   "minimum-stability": "dev",
   "require-dev": {
-    "consolidation/robo": "^1.0.0",
-    "bamarni/composer-bin-plugin": "dev-master"
+    "consolidation/robo": "^1.0.0"
   }
 }
