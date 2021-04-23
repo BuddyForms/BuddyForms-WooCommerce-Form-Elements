@@ -65,6 +65,9 @@ if ( class_exists( 'Element_Select' ) ) {
 				)
 			);
 
+			$hidden                                  = isset( $buddyforms['form_fields'][ $field_id ]['hidden_field'] ) ? $buddyforms['form_fields'][ $field_id ]['hidden_field'] : false;
+			$form_fields['advanced']['hidden_field'] = new Element_Checkbox( '<b>' . __( 'Hidden?', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][hidden_field]", array( 'hidden_field' => '<b>' . __( 'Make this field Hidden', 'buddyforms' ) . '</b>' ), array( 'value' => $hidden ) );
+
 			return $form_fields;
 		}
 	}

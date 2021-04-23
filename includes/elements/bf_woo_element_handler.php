@@ -91,7 +91,12 @@ class bf_woo_element_handler {
 					$form->addElement( new bf_woo_elem_sale_price( $name, $slug, $element_attr, $customfield ) );
 					break;
                 case 'product-type':
-                    $form->addElement( new bf_woo_elem_prod_type( $name, $slug, $element_attr, $customfield ) );
+					if ( isset( $customfield['hidden_field'] ) ) {
+						$form->addElement( new Element_Hidden( $slug, $customfield['product_type_default'] ) );
+					} else {
+						$form->addElement( new bf_woo_elem_prod_type( $name, $slug, $element_attr, $customfield ) );
+					}
+
                     break;
 			}
 		}
