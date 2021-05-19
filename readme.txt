@@ -93,6 +93,10 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+= 1.5.5 - 18 May 2021 =
+* Remove unused Composer dependencies.
+* Add support for the option "Make this field Hidden" on the Product Type field.
+
 = 1.5.4 - 8 Mar 2021 =
 * Tested up with WordPress 5.7
 
