@@ -45,6 +45,13 @@ class bf_woo_elem_form_elements_save
             	if(!empty($buddyforms) && !empty($buddyforms[$form_slug])){
             		$post_status = !empty($buddyforms[$form_slug]['status'])? $buddyforms[$form_slug]['status'] : 'publish';
 	            }
+
+                /**
+                 * Add support for BF Moderation
+                 */
+                if ( isset( $post->post_status ) && ( $post->post_status === 'edit-draft' || $post->post_status === 'awaiting-review' || $post->post_status === 'approved' ) ) {
+                    $post_status = $post->post_status;
+                }
             }
 
             $update_post_type = array(
