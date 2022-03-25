@@ -45,7 +45,22 @@ class bf_woo_elem_requirements
     {
         self::load_plugins_dependency();
 
-        return is_plugin_active('buddyforms-premium/BuddyForms.php') || is_plugin_active('buddyforms/BuddyForms.php');
+        $active_plugins = get_option( 'active_plugins', array() );
+
+        if ( is_multisite() ) {
+            $network_active_plugins = get_site_option( 'active_sitewide_plugins', array() );
+            $active_plugins         = array_merge( $active_plugins, array_keys( $network_active_plugins ) );
+        }
+
+        foreach ( $active_plugins as $basename ) {
+            if ( 0 === strpos( strtolower( $basename ), 'buddyforms/' ) ||
+                0 === strpos( strtolower( $basename ), 'buddyforms-premium/' )
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function setup_init()
