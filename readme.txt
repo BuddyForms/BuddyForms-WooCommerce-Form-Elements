@@ -3,8 +3,8 @@
 Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
-Tested up to: 5.8
-Stable tag: 1.5.6
+Tested up to: 5.9
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,10 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+= 1.5.7 - 24 Mar 2022 =
+* Fixed issue with dependencies validation.
+* Tested up to WordPress 5.9
+
 = 1.5.6 - 27 Sep 2021 =
 * Fixed compatibility issue with BF Moderation.
 * Tested up with WordPress 5.8
