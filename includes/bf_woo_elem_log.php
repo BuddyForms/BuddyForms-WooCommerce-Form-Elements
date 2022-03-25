@@ -9,10 +9,6 @@
  */
 
 
-if (! defined('ABSPATH')) {
-    exit;
-}
-
 class bf_woo_elem_log
 {
     public function __construct()

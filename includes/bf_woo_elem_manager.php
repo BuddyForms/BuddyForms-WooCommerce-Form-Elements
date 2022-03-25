@@ -8,10 +8,6 @@
  * @license    GPLv2 or later
  */
 
-if (! defined('ABSPATH')) {
-    exit;
-}
-
 class bf_woo_elem_manager
 {
     protected static $version = '1.5.6';

@@ -8,10 +8,6 @@
  * @license    GPLv2 or later
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class bf_woo_elem_fs {
 	/**
 	 * Instance of this class.
