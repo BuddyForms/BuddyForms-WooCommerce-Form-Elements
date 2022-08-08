@@ -15,19 +15,19 @@ if ( class_exists( 'Element_Select' ) ) {
 				'product-type' => array(
 					'label'  => __( 'Product Type', 'buddyforms' ),
 					'unique' => 'unique',
-				)
+				),
 			);
 		}
 
 		public function render() {
 			global $buddyforms;
 
-			$this->_attributes["id"]    = 'product-type';
-			$this->_attributes["name"]  = 'product-type';
+			$this->_attributes['id']    = 'product-type';
+			$this->_attributes['name']  = 'product-type';
 			$form_slug                  = $this->options['data-form'];
 			$field_id                   = $this->options['field_id'];
 			$form_fields                = $buddyforms[ $form_slug ]['form_fields'];
-			$this->_attributes["value"] = isset( $form_fields[ $field_id ]['product_type_default'] ) ? $form_fields[ $field_id ]['product_type_default'] : 'simple';
+			$this->_attributes['value'] = isset( $form_fields[ $field_id ]['product_type_default'] ) ? $form_fields[ $field_id ]['product_type_default'] : 'simple';
 			$product_type_selector      = wc_get_product_types();
 			$this->options              = $product_type_selector;
 			parent::render();
@@ -36,15 +36,15 @@ if ( class_exists( 'Element_Select' ) ) {
 		function renderJS() {
 			$value = $this->_attributes['product_type_default'];
 			echo 'jQuery(function() {';
-			echo 'jQuery("#product-type").val("' . $value . '");';
+			echo 'jQuery("#product-type").val("' . esc_js( $value ) . '");';
 			echo '});';
 		}
 
 		public static function builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyforms ) {
 			unset( $form_fields['advanced']['slug'] );
 			unset( $form_fields['advanced']['metabox_enabled'] );
-			$form_fields['hidden']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'product-type' );
-			$form_fields['hidden']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
+			$form_fields['hidden']['slug'] = new Element_Hidden( 'buddyforms_options[form_fields][' . $field_id . '][slug]', 'product-type' );
+			$form_fields['hidden']['type'] = new Element_Hidden( 'buddyforms_options[form_fields][' . $field_id . '][type]', $field_type );
 			$product_type_default          = apply_filters( 'default_product_type', 'simple' );
 			if ( isset( $buddyforms['form_fields'][ $field_id ]['product_type_default'] ) ) {
 				$product_type_default = $buddyforms['form_fields'][ $field_id ]['product_type_default'];
@@ -66,7 +66,7 @@ if ( class_exists( 'Element_Select' ) ) {
 			);
 
 			$hidden                                  = isset( $buddyforms['form_fields'][ $field_id ]['hidden_field'] ) ? $buddyforms['form_fields'][ $field_id ]['hidden_field'] : false;
-			$form_fields['advanced']['hidden_field'] = new Element_Checkbox( '<b>' . __( 'Hidden?', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][hidden_field]", array( 'hidden_field' => '<b>' . __( 'Make this field Hidden', 'buddyforms' ) . '</b>' ), array( 'value' => $hidden ) );
+			$form_fields['advanced']['hidden_field'] = new Element_Checkbox( '<b>' . __( 'Hidden?', 'buddyforms' ) . '</b>', 'buddyforms_options[form_fields][' . $field_id . '][hidden_field]', array( 'hidden_field' => '<b>' . __( 'Make this field Hidden', 'buddyforms' ) . '</b>' ), array( 'value' => $hidden ) );
 
 			return $form_fields;
 		}
