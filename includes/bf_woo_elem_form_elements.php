@@ -601,9 +601,7 @@ class bf_woo_elem_form_element {
 		// Register admin styles
 		wp_register_style( 'woocommerce_admin_menu_styles', WC()->plugin_url() . '/assets/css/menu.css', array(), WC_VERSION );
 		wp_register_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), WC_VERSION );
-		wp_register_style( 'jquery-ui-style', '//code.jquery.com/ui/' . $jquery_version . '/themes/smoothness/jquery-ui.min.css', array(), $jquery_version );
-		// wp_register_style( 'woocommerce_admin_dashboard_styles', WC()->plugin_url() . '/assets/css/dashboard.css', array(), WC_VERSION );
-		// wp_register_style( 'woocommerce_admin_print_reports_styles', WC()->plugin_url() . '/assets/css/reports-print.css', array(), WC_VERSION, 'print' );
+		wp_register_style( 'jquery-ui-style', BF_WOO_ELEM_CSS_PATH . 'jquery-ui.css', array(), $jquery_version );
 
 		// Sitewide menu CSS
 		wp_enqueue_style( 'woocommerce_admin_menu_styles' );
@@ -611,12 +609,6 @@ class bf_woo_elem_form_element {
 		// Admin styles for WC pages only
 		wp_enqueue_style( 'woocommerce_admin_styles' );
 		wp_enqueue_style( 'jquery-ui-style' );
-		// wp_enqueue_style( 'wp-color-picker' );
-		// wp_enqueue_style( 'woocommerce_admin_dashboard_styles' );
-
-		if ( in_array( $screen_id, array( 'woocommerce_page_wc-reports', 'toplevel_page_wc-reports' ), true ) ) {
-			// wp_enqueue_style( 'woocommerce_admin_print_reports_styles' );
-		}
 
 		/**
 		 * @deprecated 2.3
