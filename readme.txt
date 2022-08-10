@@ -1,10 +1,10 @@
-=== BuddyForms WooCommerce Form Elements ===
+=== BuddyForms WC Form Elements ===
 
 Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
-Tested up to: 5.9.3
-Stable tag: 1.5.8
+Tested up to: 6.0.1
+Stable tag: 1.5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Let your WooCommerce Vendors Manage there Products from the Frontend
 
 == Description ==
 
-This is the BuddyForms WooCommerce Extension. Create powerful frontend management for your vendors. You need the BuddyForms plugin installed for the plugin to work. <a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
+This is the BuddyForms WC Extension. Create powerful frontend management for your vendors. You need the BuddyForms plugin installed for the plugin to work. <a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
 
 This plugin adds a new section to the BuddyForms Form Builder with all WooCommerce fields to create product forms to manage (create/edit) products from the frontend.
 
@@ -93,6 +93,12 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+= 1.5.9 - 09 Aug 2022 =
+* Fixed issue with remote CSS file call.
+* Fixed vulnerability issue.
+* Updated plugin name.
+* Tested up to WordPress 6.0.1
+
 = 1.5.8 - 17 May 2022 =
 * Updated readme.txt
 
