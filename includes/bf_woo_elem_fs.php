@@ -8,10 +8,6 @@
  * @license    GPLv2 or later
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class bf_woo_elem_fs {
 	/**
 	 * Instance of this class.
@@ -43,7 +39,7 @@ class bf_woo_elem_fs {
 
 		foreach ( $active_plugins_basenames as $plugin_basename ) {
 			if ( strpos( $plugin_basename, 'buddyforms/' ) === 0 ||
-			     strpos( $plugin_basename, 'buddyforms-premium/' ) === 0
+				 strpos( $plugin_basename, 'buddyforms-premium/' ) === 0
 			) {
 				return true;
 			}
@@ -98,29 +94,30 @@ class bf_woo_elem_fs {
 					require_once dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php';
 				}
 
-
-				$bf_woo_elem_fs = fs_dynamic_init( array(
-					'id'             => '415',
-					'slug'           => 'buddyforms-woocommerce-form-elements',
-					'type'           => 'plugin',
-					'public_key'     => 'pk_10dd57bd7180476f0221961d9d2c9',
-					'is_premium'     => false,
-					'has_paid_plans' => false,
-					'parent'         => array(
-						'id'         => '391',
-						'slug'       => 'buddyforms',
-						'public_key' => 'pk_dea3d8c1c831caf06cfea10c7114c',
-						'name'       => 'BuddyForms',
-					),
-					'menu'           => array(
-						'slug'       => 'edit.php?post_type=buddyforms-woocommerce-form-elements',
-						'first-path' => 'edit.php?post_type=buddyforms&page=buddyforms_welcome_screen',
-						'support'    => false,
-					),
-				) );
+				$bf_woo_elem_fs = fs_dynamic_init(
+					array(
+						'id'             => '415',
+						'slug'           => 'buddyforms-woocommerce-form-elements',
+						'type'           => 'plugin',
+						'public_key'     => 'pk_10dd57bd7180476f0221961d9d2c9',
+						'is_premium'     => false,
+						'has_paid_plans' => false,
+						'parent'         => array(
+							'id'         => '391',
+							'slug'       => 'buddyforms',
+							'public_key' => 'pk_dea3d8c1c831caf06cfea10c7114c',
+							'name'       => 'BuddyForms',
+						),
+						'menu'           => array(
+							'slug'       => 'edit.php?post_type=buddyforms-woocommerce-form-elements',
+							'first-path' => 'edit.php?post_type=buddyforms&page=buddyforms_welcome_screen',
+							'support'    => false,
+						),
+					)
+				);
 			}
 		} catch ( Exception $ex ) {
-			trigger_error( 'BF-WooEle::' . $ex->getMessage(), E_USER_NOTICE );
+			trigger_error( 'BF-WooEle::' . wp_kses_post( $ex->getMessage() ), E_USER_NOTICE );
 		}
 
 		return $bf_woo_elem_fs;

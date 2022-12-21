@@ -12,15 +12,14 @@
 class bf_woo_element_handler {
 
 	public function __construct() {
-		//Add to field list
+		// Add to field list
 		add_filter( 'buddyforms_add_form_element_select_option', array( $this, 'bf_woo_elem_price_form_builder_elements_select' ), 10 );
-		//Create field options inside after it is added to teh form
+		// Create field options inside after it is added to teh form
 		add_filter( 'buddyforms_form_element_add_field', array( $this, 'bf_woo_elem_price_create_new_form_builder_form_element' ), 999, 5 );
-		//Add element to the frontend
-		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'bf_woo_elem_price_create_new_form_builder', ), 1, 2 );
-		//Default value to show in the submission view from the backend
-//		add_filter( 'bf_submission_column_default', array( $this, 'bf_woo_elem_price_custom_column_default' ), 10, 4 );
-
+		// Add element to the frontend
+		add_filter( 'buddyforms_create_edit_form_display_element', array( $this, 'bf_woo_elem_price_create_new_form_builder' ), 1, 2 );
+		// Default value to show in the submission view from the backend
+		// add_filter( 'bf_submission_column_default', array( $this, 'bf_woo_elem_price_custom_column_default' ), 10, 4 );
 	}
 
 	/**
@@ -37,17 +36,16 @@ class bf_woo_element_handler {
 			return $elements_select_options;
 		}
 
-		$bf_version = floatval( BUDDYFORMS_VERSION);
-        if ($bf_version  < 2.5  ) {
-            return $elements_select_options;
-        }
-
+		$bf_version = floatval( BUDDYFORMS_VERSION );
+		if ( $bf_version < 2.5 ) {
+			return $elements_select_options;
+		}
 
 		if ( ! empty( $elements_select_options['woocommerce'] ) && ! empty( $elements_select_options['woocommerce']['fields'] ) ) {
 
 			$elements_select_options['woocommerce']['fields'] = array_merge( $elements_select_options['woocommerce']['fields'], bf_woo_elem_regular_price::definition() );
 			$elements_select_options['woocommerce']['fields'] = array_merge( $elements_select_options['woocommerce']['fields'], bf_woo_elem_sale_price::definition() );
-            $elements_select_options['woocommerce']['fields'] = array_merge( $elements_select_options['woocommerce']['fields'], bf_woo_elem_prod_type::definition() );
+			$elements_select_options['woocommerce']['fields'] = array_merge( $elements_select_options['woocommerce']['fields'], bf_woo_elem_prod_type::definition() );
 
 		}
 
@@ -57,15 +55,14 @@ class bf_woo_element_handler {
 	/**
 	 * Create the form element options to use in the backend builder
 	 *
-	 * @param Form $form
+	 * @param Form      $form
 	 * @param $form_args
 	 *
 	 * @return mixed
 	 * @var $name
-	 *
 	 */
 	public function bf_woo_elem_price_create_new_form_builder( $form, $form_args ) {
-	    global $post;
+		global $post;
 		$slug         = '';
 		$name         = '';
 		$customfield  = array();
@@ -80,8 +77,8 @@ class bf_woo_element_handler {
 			! empty( $element_attr )
 		) {
 
-            bf_woo_elem_form_element::add_scripts($post);
-            bf_woo_elem_form_element::add_styles();
+			bf_woo_elem_form_element::add_scripts( $post );
+			bf_woo_elem_form_element::add_styles();
 			/** @var string $field_type */
 			switch ( $field_type ) {
 				case '_regular_price':
@@ -90,9 +87,14 @@ class bf_woo_element_handler {
 				case '_sale_price':
 					$form->addElement( new bf_woo_elem_sale_price( $name, $slug, $element_attr, $customfield ) );
 					break;
-                case 'product-type':
-                    $form->addElement( new bf_woo_elem_prod_type( $name, $slug, $element_attr, $customfield ) );
-                    break;
+				case 'product-type':
+					if ( isset( $customfield['hidden_field'] ) ) {
+						$form->addElement( new Element_Hidden( $slug, $customfield['product_type_default'] ) );
+					} else {
+						$form->addElement( new bf_woo_elem_prod_type( $name, $slug, $element_attr, $customfield ) );
+					}
+
+					break;
 			}
 		}
 
@@ -111,11 +113,11 @@ class bf_woo_element_handler {
 	 */
 	public function bf_woo_elem_price_create_new_form_builder_form_element( $form_fields, $form_slug, $field_type, $field_id ) {
 		global $post, $buddyform;
-		
+
 		switch ( $field_type ) {
-            case 'product-type':
-                $form_fields = bf_woo_elem_prod_type::builder_element_options($form_fields, $form_slug, $field_type, $field_id, $buddyform );
-                break;
+			case 'product-type':
+				$form_fields = bf_woo_elem_prod_type::builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyform );
+				break;
 			case '_regular_price':
 				$form_fields = bf_woo_elem_regular_price::builder_element_options( $form_fields, $form_slug, $field_type, $field_id, $buddyform );
 				break;
@@ -128,7 +130,7 @@ class bf_woo_element_handler {
 		return $form_fields;
 	}
 
-	//TODO need implementation
+	// TODO need implementation
 	public function bf_woo_elem_price_custom_column_default( $bf_value, $item, $column_name, $field_slug ) {
 		global $buddyforms;
 		if ( $column_name === 'woocommerce' ) {

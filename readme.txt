@@ -1,10 +1,10 @@
-=== BuddyForms WooCommerce Form Elements ===
+=== BuddyForms Form Elements for WooCommerce ===
 
 Contributors: svenl77, konradS, buddyforms, themekraft, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
-Tested up to: 5.2
-Stable tag: 1.5.2
+Tested up to: 6.1.1
+Stable tag: 1.5.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Let your WooCommerce Vendors Manage there Products from the Frontend
 
 == Description ==
 
-This is the BuddyForms WooCommerce Extension. Create powerful frontend management for your vendors. You need the BuddyForms plugin installed for the plugin to work. <a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
+This is the BuddyForms Form Elements Extension for WooCommerce. Create powerful frontend management for your vendors. You need the BuddyForms plugin installed for the plugin to work. <a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
 
 This plugin adds a new section to the BuddyForms Form Builder with all WooCommerce fields to create product forms to manage (create/edit) products from the frontend.
 
@@ -93,6 +93,41 @@ The plugin should work with every theme. (Please let us know if you experience a
 
 
 == Changelog ==
+= 1.5.11 - 20 Dec 2022 =
+* Fixed some CSS glitches.
+* Added jquery to hide empty variations price popup.
+* Tested up to WordPress 6.1.1
+
+= 1.5.10 - 11 Aug 2022 =
+* Fixed trademark issue.
+
+= 1.5.9 - 09 Aug 2022 =
+* Fixed issue with remote CSS file call.
+* Fixed vulnerability issue.
+* Updated plugin name.
+* Tested up to WordPress 6.0.1
+
+= 1.5.8 - 17 May 2022 =
+* Updated readme.txt
+
+= 1.5.7 - 24 Mar 2022 =
+* Fixed issue with dependencies validation.
+* Tested up to WordPress 5.9
+
+= 1.5.6 - 27 Sep 2021 =
+* Fixed compatibility issue with BF Moderation.
+* Tested up with WordPress 5.8
+
+= 1.5.5 - 18 May 2021 =
+* Remove unused Composer dependencies.
+* Add support for the option "Make this field Hidden" on the Product Type field.
+
+= 1.5.4 - 8 Mar 2021 =
+* Tested up with WordPress 5.7
+
+= 1.5.3 - 16 Jun 2020 =
+* Fixed to show all the available woocommerce product types.
+
 = 1.5.2 - 16 Jun 2020 =
 * Fixed to the issue related to create product always with the status publish.
 * Fixed json parse error, clean html tags from the json string.
