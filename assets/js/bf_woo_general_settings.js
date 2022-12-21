@@ -689,4 +689,6 @@ jQuery(document).ready(function ($) {
     }
     main_container.find('.woo_general_loader').remove();
     determine_default_tab();
+
+    jQuery( ".wc-backbone-modal, .wc-backbone-modal-backdrop" ).remove();
 });
